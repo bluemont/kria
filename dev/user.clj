@@ -21,4 +21,6 @@
   [asc e a]
   (if-not e
     (reset! result a)
-    (.printStackTrace ^Throwable e)))
+    (if (instance? Throwable e)
+      (.printStackTrace ^Throwable e)
+      (println e))))
