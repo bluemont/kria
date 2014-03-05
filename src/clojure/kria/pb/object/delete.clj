@@ -1,4 +1,6 @@
 (ns kria.pb.object.delete
+  (:require
+    [kria.conversions :refer [byte-string<-utf8-string]])
   (:import
     [com.basho.riak.protobuf RiakKvPB$RpbDelReq]))
 
@@ -46,7 +48,7 @@
     (if-let [x (:n-val m)]
       (.setNVal b x))
     (if-let [x (:type m)]
-      (.setType b x))
+      (.setType b (byte-string<-utf8-string x)))
     (.build b)))
 
 (defn DeleteReq->bytes

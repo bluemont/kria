@@ -1,5 +1,6 @@
 (ns kria.pb.bucket.get
   (:require
+    [kria.conversions :refer [byte-string<-utf8-string]]
     [kria.pb.bucket.props :refer [pb->BucketProps]])
   (:import
     [com.basho.riak.protobuf
@@ -19,7 +20,7 @@
     (let [x (:bucket m)]
       (.setBucket b x))
     (if-let [x (:type m)]
-      (.setType b x))
+      (.setType b (byte-string<-utf8-string x)))
     (.build b)))
 
 (defn GetBucketReq->bytes

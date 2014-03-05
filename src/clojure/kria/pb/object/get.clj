@@ -1,5 +1,6 @@
 (ns kria.pb.object.get
   (:require
+    [kria.conversions :refer [byte-string<-utf8-string]]
     [kria.pb.content :refer [pb->Content Content->pb]])
   (:import
     [com.basho.riak.protobuf
@@ -50,7 +51,7 @@
     (if-let [x (:n-val m)]
       (.setNVal b x))
     (if-let [x (:type m)]
-      (.setType b x))
+      (.setType b (byte-string<-utf8-string x)))
     (.build b)))
 
 (defn GetReq->bytes
