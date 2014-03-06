@@ -11,6 +11,6 @@
 ; []
 
 ; To return the body, use:
-(object/store conn b k v {:return-body true} result-cb)
+(object/put conn b k v {:return-body true} result-cb)
 (:contents @result)
 ; [...]
