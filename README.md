@@ -53,6 +53,10 @@ as explained next.
 These steps only need to be run once, or each time the underlying [Riak
 Protocol Buffer][riak_pb] files are updated.
 
+First, you'll need the [Protocol Buffer compiler][1].
+
+[1]: https://code.google.com/p/protobuf/downloads/list
+
 Generate `resources/com/basho/riak/protobuf/*.java` files from the
 files in `resources/proto/*.proto` using these commands:
 
