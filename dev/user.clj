@@ -31,7 +31,6 @@
 
 (defn stream-cb
   [coll]
-  (println coll)
   (if coll
     (swap! streaming concat coll)
     (deliver stream-result @streaming)))
