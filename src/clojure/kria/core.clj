@@ -142,7 +142,7 @@
 
 (defn parse-fn
   "Returns a parse function, which itself can serve as a callback.
-  Will call the provided callback correctly."
+  Will call the provided callback if an error occurs."
   [f cb]
   {:pre [(fn? f) (fn? cb)]}
   (fn [asc e a]
@@ -153,7 +153,7 @@
 
 (defn error-parse-fn
   "Returns a parse function, which itself can serve as a callback.
-  Will call the provided callback correctly."
+  Will call the provided callback if an error occurs."
   [cb]
   (fn [asc e a]
     (try
@@ -163,10 +163,25 @@
       (catch InvalidProtocolBufferException e
         (cb asc e nil)))))
 
+(declare header-cb-fn)
+
+(defn stream-cb-fn
+  "Returns..."
+  [exp-key parser cb chunk-fn done-fn stream-cb]
+  (fn [asc e a]
+    (let [p (parser asc e a)]
+      (stream-cb (chunk-fn p))
+      (if (done-fn p)
+        (stream-cb nil)
+        (let [hcb (header-cb-fn
+                    exp-key true parser cb chunk-fn done-fn stream-cb)]
+          (read-header asc hcb))))))
+
 (defn header-cb-fn
-  "Returns a header callback function based on an expected message
+  "Returns a header callback function based on (1) if multiple
+  response are expected, an expected message
   key, a parser function, and a callback function."
-  [exp-key parser cb]
+  [exp-key multi-resp? parser cb & [chunk-fn done-fn stream-cb]]
   {:pre [(keyword? exp-key) (fn? parser) (fn? cb)]}
   (let [exp (exp-key message-codes)
         err (:error-resp message-codes)]
@@ -174,9 +189,17 @@
       (if e
         (cb asc e nil)
         (cond
-          (= c exp) (read-payload asc (dec l) parser)
-          (= c err) (read-payload asc (dec l) (error-parse-fn cb))
-          :else (cb asc {:code {:actual c :expected exp}} nil))))))
+          (= c exp)
+          (if multi-resp?
+            (let [scb (stream-cb-fn exp-key parser cb chunk-fn done-fn stream-cb)]
+              (read-payload asc (dec l) scb))
+            (read-payload asc (dec l) parser))
+
+          (= c err)
+          (read-payload asc (dec l) (error-parse-fn cb))
+
+          :else
+          (cb asc {:code {:actual c :expected exp}} nil))))))
 
 (defn call
   "A template function to call API via the protobuf interface.
@@ -188,15 +211,18 @@
   * response message key
   * function to convert a request map to a request byte array
   * function to convert a response byte array to a response map
-  * the request map (constructed from function arguments)"
+  * the request map (constructed from function arguments)
+  * are multiple responses expected"
   [^AsynchronousSocketChannel asc cb req-key resp-key
-   req-map->bytes bytes->resp-map req-map]
+   req-map->bytes bytes->resp-map req-map
+   & [multi-resp? chunk-fn done-fn stream-cb]]
   {:pre [(fn? cb) (keyword? req-key) (keyword? resp-key)
          (fn? req-map->bytes) (fn? bytes->resp-map)
          (map? req-map)]}
   (let [payload (req-map->bytes req-map)
         message (payload-message req-key payload)
         parser (parse-fn bytes->resp-map cb)
-        header-cb (header-cb-fn resp-key parser cb)
+        header-cb (header-cb-fn resp-key multi-resp? parser cb
+                                chunk-fn done-fn stream-cb)
         handler (handler asc header-cb)]
     (.write asc message nil handler)))

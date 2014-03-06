@@ -24,3 +24,14 @@
     (if (instance? Throwable e)
       (.printStackTrace ^Throwable e)
       (println e))))
+
+(def streaming (atom []))
+
+(def stream-result (promise))
+
+(defn stream-cb
+  [coll]
+  (println coll)
+  (if coll
+    (swap! streaming concat coll)
+    (deliver stream-result @streaming)))

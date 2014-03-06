@@ -1,10 +1,11 @@
 (ns kria.bucket
-  (:refer-clojure :exclude [get set])
+  (:refer-clojure :exclude [get set list])
   (:require
     [kria.conversions :refer [byte-string?]]
     [kria.core :refer [call]]
     [kria.pb.bucket.get :refer [GetBucketReq->bytes bytes->GetBucketResp]]
     [kria.pb.bucket.set :refer [SetBucketReq->bytes]]
+    [kria.pb.bucket.list-keys :refer [ListKeysReq->bytes bytes->ListKeysResp]]
     [kria.core :refer [handler header-cb-fn parse-fn payload-message]]))
 
 (set! *warn-on-reflection* true)
@@ -24,3 +25,13 @@
   (call asc cb :set-bucket-req :set-bucket-resp
         SetBucketReq->bytes (fn [_] true)
         (merge opts {:bucket b})))
+
+(defn list
+  "List keys in bucket. Results are passed to stream-cb as the keys
+  are streamed back."
+  [asc b opts cb stream-cb]
+  {:pre [(byte-string? b)]}
+  (call asc cb :list-keys-req :list-keys-resp
+        ListKeysReq->bytes bytes->ListKeysResp
+        (merge opts {:bucket b})
+        true #(:keys %) #(:done %) stream-cb))
