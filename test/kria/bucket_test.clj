@@ -1,8 +1,7 @@
 (ns kria.bucket-test
   (:require [clojure.test :refer :all]
             [kria.test-helpers :as h]
-            [kria.conversions :refer [utf8-string<-byte-string
-                                      byte-string<-utf8-string]]
+            [kria.conversions :refer [utf8-string<-byte-string]]
             [kria.client :as c]
             [kria.object :as o]
             [kria.bucket :as b]))
@@ -39,14 +38,13 @@
           ks [(put-object conn b)
               (put-object conn b)
               (put-object conn b)]
-          p (promise)
-          a (atom [])
-          f (fn [xs]
-              (if xs
-                (swap! a concat xs)
-                (deliver p true)))
+          result (promise)
+          stream (atom [])
+          stream-cb (fn [xs]
+                      (if xs
+                        (swap! stream concat xs)
+                        (deliver result @stream)))
           result-cb (fn [asc e a] (or a e))]
-      (b/list conn b {} result-cb f)
-      @p
+      (b/list conn b {} result-cb stream-cb)
       (is (= (set (map utf8-string<-byte-string ks))
-             (set (map utf8-string<-byte-string @a)))))))
+             (set (map utf8-string<-byte-string @result)))))))
