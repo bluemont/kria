@@ -32,12 +32,12 @@ Try a ping with:
 
 Get server info with:
 
-    (defn info-cb [asc e a] (prn (if e e a)))
+    (defn info-cb [asc e a] (prn (or e a)))
     (server/info conn info-cb)
 
 All of the above calls are asynchronous. The callback functions are for
-demonstration purposes only. In practice, write your callback functions for
-your application's needs.
+demonstration purposes only. (In practice, write your callback functions for
+your application's needs.)
 
 You can find more examples on how to use the API in `doc/examples`.
 
