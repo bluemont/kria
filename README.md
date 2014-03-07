@@ -143,9 +143,10 @@ reasons:
 ## Message Terminology
 
 This section is intended for developers who want to dig into the internals of
-Kria.
+Kria. (It may also be helpful in understanding how the Riak protocol buffer
+interface works.)
 
-I go into some detail about the message components because Basho's
+Here, I go into some detail about the message components because Basho's
 [terminology of a Riak Protocol Buffer message][Riak-PB] is somewhat unclear.
 That documentation uses the term 'message' for both the protobuf part and the
 entire data structure. This is confusing, especially when you need to be clear
