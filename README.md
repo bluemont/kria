@@ -186,3 +186,9 @@ Another related term is the *payload length*, which is (hopefully clear by now)
 one less than the body length.
 
 [Riak-PB]: http://docs.basho.com/riak/latest/dev/references/protocol-buffers/
+
+## License
+
+Copyright 2014 Bluemont Labs LLC
+
+Distributed under the Eclipse Public License, the same as Clojure.
