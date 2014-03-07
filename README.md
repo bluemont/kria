@@ -84,6 +84,39 @@ decide.
 
 [core.async]: https://github.com/clojure/core.async
 
+## History
+
+My goals were to:
+
+* write a simple asynchronous Clojure client that
+* stayed relatively close the Riak API
+* used Java 7 NIO.2 instead of Netty.
+
+Many projects use Netty, but as I learned more about it, I found that NIO.2
+provided all I wanted without the complexity of another dependency. The tradeoff
+is that Kria requires Java 7.
+
+[Netty]: http://netty.io/
+
+Other drivers I saw written in Clojure or Java added complexity that I didn't
+need. The goal was to have a simple layer to abstract away the low-level
+protocol buffer interface. Other drivers seem to have different objectives.
+
+To give some context, I started this project before the Java client for Riak 2
+was ready.
+
+I used the [lein-protobuf] plugin at first, but stopped using it for these
+reasons:
+
+  1. The protobuf files change rarely, so the plugin seemed less necessary.
+  2. The plugin added complexity that did not seem necessary.
+  3. I wanted to get clear on the output from the `protoc` command, including
+     how the Java classes were getting created and where they were being stored.
+  4. The plugin seemed to slow the REPL start-up time.
+
+[lein-protobuf]: https://github.com/flatland/lein-protobuf
+[riak_pb]: https://github.com/basho/riak_pb
+
 ## Before Running the REPL or Tests
 
 This section is intended for developers who want to run the included tests
@@ -127,39 +160,6 @@ files in `resources/proto/*.proto` using these commands:
     protoc --java_out=../../src/java riak_search.proto
     protoc --java_out=../../src/java riak_yokozuna.proto
     cd ../..
-
-## History
-
-My goals were to:
-
-* write a simple asynchronous Clojure client that
-* stayed relatively close the Riak API
-* used Java 7 NIO.2 instead of Netty.
-
-Many projects use Netty, but as I learned more about it, I found that NIO.2
-provided all I wanted without the complexity of another dependency. The tradeoff
-is that Kria requires Java 7.
-
-[Netty]: http://netty.io/
-
-Other drivers I saw written in Clojure or Java added complexity that I didn't
-need. The goal was to have a simple layer to abstract away the low-level
-protocol buffer interface. Other drivers seem to have different objectives.
-
-To give some context, I started this project before the Java client for Riak 2
-was ready.
-
-I used the [lein-protobuf] plugin at first, but stopped using it for these
-reasons:
-
-  1. The protobuf files change rarely, so the plugin seemed less necessary.
-  2. The plugin added complexity that did not seem necessary.
-  3. I wanted to get clear on the output from the `protoc` command, including
-     how the Java classes were getting created and where they were being stored.
-  4. The plugin seemed to slow the REPL start-up time.
-
-[lein-protobuf]: https://github.com/flatland/lein-protobuf
-[riak_pb]: https://github.com/basho/riak_pb
 
 ## Message Terminology
 
