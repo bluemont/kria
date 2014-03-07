@@ -7,27 +7,18 @@ Buffer interface][Riak-PB] using Java 7's NIO.2.
 
 ## Usage
 
-Please run the setup steps first (see below).
+Add this to your `project.clj`:
+
+    [kria "0.1.1"]
 
 To create a connection:
 
     (defn conn-cb [asc e a] (println (if e e "connected")))
     (def conn (client/connect nil "127.0.0.1" 8087 conn-cb))
 
-The first line sets up the callback with these arguments:
-
-  * `asc` : [`AsynchronousSocketChannel`][ASC], a Java 7 NIO.2 class that
-    Kria uses for asynchronous IO.
-  * `e` : exception; `nil` if no exception.
-  * `a` : attachment. Generally speaking, the attachment varies based on the
-    API call. In this case, it will be `true` on success or `nil` if not.
-
-Note that the `nil` argument to `client/connect` creates the connection with the
-system-wide default provider. If you want to pool connections, see
-[`AsynchronousChannelGroup`][ACG].
-
-[ASC]: http://docs.oracle.com/javase/7/docs/api/java/nio/channels/AsynchronousSocketChannel.html
-[ACG]: http://docs.oracle.com/javase/7/docs/api/java/nio/channels/AsynchronousChannelGroup.html
+The first line sets up the callback that runs after `connect` succeeds or
+fails. The second line connects to Riak at the specified host and port. You
+can ignore the `nil` parameter for now.
 
 Try a ping with:
 
@@ -40,54 +31,35 @@ Get server info with:
     (server/info conn info-cb)
 
 All of the above calls are asynchronous. The callback functions are for
-demonstration purposes only. In practice, write your callback functions for your
-application's needs.
+demonstration purposes only. In practice, write your callback functions for
+your application's needs.
 
-## Installation
+You can find more examples on how to use the API in `doc/examples`.
 
-You'll need to convert `*.proto` files to `*.java` files and then compile them,
-as explained next.
+## Connect Details
 
-### Protocol Buffer Setup
+The callback for `connect` takes these arguments:
 
-These steps only need to be run once, or each time the underlying [Riak
-Protocol Buffer][riak_pb] files are updated.
+  * `asc` : [`AsynchronousSocketChannel`][ASC], a Java 7 NIO.2 class that Kria
+    uses for asynchronous IO. Each Kria connection wraps exactly one
+    `AsynchronousSocketChannel`. The Javadoc is fairly readable, but if you
+    don't want to read it, perhaps the most important thing to know is that
+    each `AsynchronousSocketChannel` can only support one read or one write at
+    a time. So, if you need to make concurrent calls, you'll need more than
+    one of them.
+  * `e` : exception or `nil` if no exception.
+  * `a` : attachment, a term used in the NIO.2 documentation. Generally
+    speaking, the attachment is just a placeholder for an object to get passed
+    along if a callback succeed. In Kria, the attachment varies based on the
+    API call. In the case of `connect`, it will be `true` on success or `nil`
+    on failure.
 
-First, you'll need the [Protocol Buffer compiler][1].
+In case you are curious, using `nil` as the first argument to `client/connect`
+creates the connection with the system-wide default provider. If you want to
+pool connections instead, see [`AsynchronousChannelGroup`][ACG].
 
-[1]: https://code.google.com/p/protobuf/downloads/list
-
-Generate `resources/com/basho/riak/protobuf/*.java` files from the
-files in `resources/proto/*.proto` using these commands:
-
-    mkdir -p src/java
-    cd resources/proto/
-    protoc --java_out=../../src/java riak.proto
-    protoc --java_out=../../src/java riak_dt.proto
-    protoc --java_out=../../src/java riak_kv.proto
-    protoc --java_out=../../src/java riak_search.proto
-    protoc --java_out=../../src/java riak_yokozuna.proto
-    cd ../..
-
-### Compile Java Sources
-
-Before you can run `lein repl` for the first time, run this:
-
-    lein with-profile base javac
-
-This will compile the `src/java/**/*.java` files, making them available to the
-Clojure files.
-
-The above command only uses the `base` profile, not the `dev` profile. This
-prevents `dev/user.clj` from being loaded, which requires the Java compilation
-step as a prerequisite.
-
-If you don't do this, you will likely see this error:
-
-    Caused by: java.lang.ClassNotFoundException: com.basho.riak.protobuf.RiakPB$RpbGetServerInfoResp
-      at java.net.URLClassLoader$1.run(URLClassLoader.java:366)
-      at java.net.URLClassLoader$1.run(URLClassLoader.java:355)
-      at java.security.AccessController.doPrivileged(Native Method)
+[ASC]: http://docs.oracle.com/javase/7/docs/api/java/nio/channels/AsynchronousSocketChannel.html
+[ACG]: http://docs.oracle.com/javase/7/docs/api/java/nio/channels/AsynchronousChannelGroup.html
 
 ## Using in Applications
 
@@ -106,6 +78,50 @@ not handle siblings for you, that is something your domain-specific logic must
 decide.
 
 [core.async]: https://github.com/clojure/core.async
+
+## Before Running the REPL or Tests
+
+This section is intended for developers who want to run the included tests
+with `lein test` or start a REPL with `lein repl`. Before you can do either,
+you'll need to compile the `*.java` files by running:
+
+    lein with-profile base javac
+
+This will compile the `src/java/**/*.java` files, making them available to the
+Clojure files.
+
+The above command only uses the `base` profile, not the `dev` profile. This
+prevents `dev/user.clj` from being loaded, which requires the Java compilation
+step as a prerequisite.
+
+If you don't do this, you will likely see this error:
+
+    Caused by: java.lang.ClassNotFoundException: com.basho.riak.protobuf.RiakPB$RpbGetServerInfoResp
+      at java.net.URLClassLoader$1.run(URLClassLoader.java:366)
+      at java.net.URLClassLoader$1.run(URLClassLoader.java:355)
+      at java.security.AccessController.doPrivileged(Native Method)
+
+## Protocol Buffer Setup
+
+This section is intended for developers who want to modify Kria itself. They
+should not be necessary to *use* the library. Run the following steps if the
+underlying [Riak Protocol Buffer][riak_pb] files are updated.
+
+First, you'll need the [Protocol Buffer compiler][1].
+
+[1]: https://code.google.com/p/protobuf/downloads/list
+
+Generate `resources/com/basho/riak/protobuf/*.java` files from the
+files in `resources/proto/*.proto` using these commands:
+
+    mkdir -p src/java
+    cd resources/proto/
+    protoc --java_out=../../src/java riak.proto
+    protoc --java_out=../../src/java riak_dt.proto
+    protoc --java_out=../../src/java riak_kv.proto
+    protoc --java_out=../../src/java riak_search.proto
+    protoc --java_out=../../src/java riak_yokozuna.proto
+    cd ../..
 
 ## History
 
