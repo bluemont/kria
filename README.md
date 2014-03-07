@@ -11,6 +11,11 @@ Add this to your `project.clj`:
 
     [kria "0.1.1"]
 
+For the following examples, I recommend using these namespace aliases:
+
+    [kria.client :as client]
+    [kria.server :as server]
+
 To create a connection:
 
     (defn conn-cb [asc e a] (println (if e e "connected")))
