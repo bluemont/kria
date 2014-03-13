@@ -6,6 +6,7 @@
     [clojure.test :as test]
     [clojure.tools.namespace.repl :refer (refresh)]
     [kria.bucket :as bucket]
+    [kria.index :as index]
     [kria.client :as client]
     [kria.conversions :as conv]
     [kria.core :as core]
