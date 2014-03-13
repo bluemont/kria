@@ -128,16 +128,16 @@ you'll need to compile the `*.java` files by running:
 This will compile the `src/java/**/*.java` files, making them available to the
 Clojure files.
 
-The above command only uses the `base` profile, not the `dev` profile. This
-prevents `dev/user.clj` from being loaded, which requires the Java compilation
-step as a prerequisite.
-
 If you don't do this, you will likely see this error:
 
     Caused by: java.lang.ClassNotFoundException: com.basho.riak.protobuf.RiakPB$RpbGetServerInfoResp
       at java.net.URLClassLoader$1.run(URLClassLoader.java:366)
       at java.net.URLClassLoader$1.run(URLClassLoader.java:355)
       at java.security.AccessController.doPrivileged(Native Method)
+
+The above command only uses the `base` profile, not the `dev` profile. This
+prevents `dev/user.clj` from being loaded, which requires the Java compilation
+step as a prerequisite.
 
 ## Protocol Buffer Setup
 
