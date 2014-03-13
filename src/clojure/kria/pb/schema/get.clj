@@ -1,7 +1,7 @@
 (ns kria.pb.schema.get
   (:require
     [kria.conversions :refer [utf8-string<-byte-string
-                              byte-string<-utf8-string]])
+                              byte-string<-utf8-string]]
     [kria.pb.schema.schema :refer [pb->Schema]])
   (:import
     [com.basho.riak.protobuf
@@ -16,7 +16,7 @@
 
 (defn ^RiakYokozunaPB$RpbYokozunaSchemaGetReq SchemaGetReq->pb
   [m]
-  (let [b (RiakYokozunaPB$RpbYokozunaSchema/newBuilder)]
+  (let [b (RiakYokozunaPB$RpbYokozunaSchemaGetReq/newBuilder)]
     (let [x (:name m)]
       (.setName b (byte-string<-utf8-string x)))
     (.build b)))

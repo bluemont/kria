@@ -1,6 +1,6 @@
 (ns kria.pb.schema.put
   (:require
-    [kria.schema.schema :refer [Schema->pb]])
+    [kria.pb.schema.schema :refer [Schema->pb]])
   (:import
     [com.basho.riak.protobuf
      RiakYokozunaPB$RpbYokozunaSchemaPutReq]))
