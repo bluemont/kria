@@ -17,3 +17,7 @@
     (let [x (:schema m)]
       (.setSchema b (Schema->pb x)))
     (.build b)))
+
+(defn SchemaPutReq->bytes
+  [m]
+  (.toByteArray (SchemaPutReq->pb m)))

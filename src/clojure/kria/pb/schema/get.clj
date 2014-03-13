@@ -21,6 +21,10 @@
       (.setName b (byte-string<-utf8-string x)))
     (.build b)))
 
+(defn SchemaGetReq->bytes
+  [m]
+  (.toByteArray (SchemaGetReq->pb m)))
+
 (defrecord SchemaGetResp
   [schema ; required RpbYokozunaSchema
    ])
@@ -29,3 +33,8 @@
   [^RiakYokozunaPB$RpbYokozunaSchemaGetResp pb]
   (->SchemaGetResp
     (pb->Schema (.getSchema pb))))
+
+(defn bytes->SchemaGetResp
+  [^bytes x]
+  (pb->SchemaGetResp
+    (RiakYokozunaPB$RpbYokozunaSchemaGetResp/parseFrom x)))
