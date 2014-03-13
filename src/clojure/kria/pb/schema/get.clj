@@ -25,7 +25,7 @@
   [schema ; required RpbYokozunaSchema
    ])
 
-(defn pb->SchemaGetReq
+(defn pb->SchemaGetResp
   [^RiakYokozunaPB$RpbYokozunaSchemaGetResp pb]
   (->SchemaGetResp
     (pb->Schema (.getSchema pb))))
