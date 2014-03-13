@@ -17,7 +17,7 @@
    filter  ; optional bytes
    df      ; optional bytes
    op      ; optional bytes
-   fl      ; optional bytes
+   fl      ; repeated bytes
    presort ; optional bytes
    ])
 
@@ -41,7 +41,7 @@
     (if-let [x (:op m)]
       (.setOp b x))
     (if-let [x (:fl m)]
-      (.setFl b x))
+      (.addAllFl b (map byte-string<-utf8-string x)))
     (if-let [x (:presort m)]
       (.setPresort b x))
     (.build b)))
