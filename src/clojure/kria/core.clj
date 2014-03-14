@@ -130,7 +130,7 @@
         (cb asc {:length {:actual n :expected len}} nil)))
     (failed
       [e buf]
-      (cb e nil))))
+      (cb asc e nil))))
 
 (defn read-payload
   "Reads a protobuf payload of length `len`. Note that this length

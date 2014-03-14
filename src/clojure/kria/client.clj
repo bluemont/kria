@@ -16,7 +16,7 @@
   [asc cb]
   (proxy [CompletionHandler] []
     (completed [_ a] (cb asc nil true))
-    (failed [e a] (cb e asc nil))))
+    (failed [e a] (cb asc e nil))))
 
 (defn connect
   "Connects to Riak via the Protocol Buffer interface. Returns a
