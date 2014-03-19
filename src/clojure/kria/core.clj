@@ -146,10 +146,13 @@
   [f cb]
   {:pre [(fn? f) (fn? cb)]}
   (fn [asc e a]
-    (try
-      (cb asc nil (f a))
-      (catch InvalidProtocolBufferException e
-        (cb asc e nil)))))
+    (cond
+      e (cb asc e nil)
+      a (try
+          (cb asc nil (f a))
+          (catch InvalidProtocolBufferException ipbe
+            (cb asc ipbe nil)))
+      :else (cb asc {:attachment nil} nil))))
 
 (defn error-parse-fn
   "Returns a parse function, which itself can serve as a callback.
