@@ -19,7 +19,7 @@
       (let [[asc e a] @p]
         (is (nil? e))
         (is (= "riak@127.0.0.1" (:node a)))
-        (is (= "2.0.0pre11" (:server-version a)))))))
+        (is (= "2.0.0pre20" (:server-version a)))))))
 
 (deftest ping-test
   (testing "ping-info"
