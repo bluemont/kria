@@ -2,6 +2,7 @@
   (:require [clojure.test :refer :all]
             [kria.test-helpers :as h]
             [kria.client :as c]
+            [kria.bucket :as b]
             [kria.object :as o]))
 
 (deftest put-1-get-1-test
@@ -34,17 +35,20 @@
           v1 (h/rand-value)
           v2 (h/rand-value)
           p1 (promise)
-          p2 (promise)]
-      (o/put conn b k v1 {} (h/cb-fn p1))
-      (o/put conn2 b k v2 {} (h/cb-fn p2))
-      [@p1 @p2]
+          p2 (promise)
+          p3 (promise)
+          p4 (promise)]
+      (b/set conn b {:props {:allow-mult true}} (h/cb-fn p1))
+      @p1
+      (o/put conn b k v1 {} (h/cb-fn p2))
+      (o/put conn2 b k v2 {} (h/cb-fn p3))
+      [@p2 @p3]
       (c/disconnect conn2)
-      (let [p (promise)]
-        (o/get conn b k {} (h/cb-fn p))
-        (let [[asc e a] @p]
-          (is (= (set (map :value [v1 v2]))
-                 (set (map :value (:content a)))))
-          (is (nil? e))))
+      (o/get conn b k {} (h/cb-fn p4))
+      (let [[asc e a] @p4]
+        (is (= (set (map :value [v1 v2]))
+               (set (map :value (:content a)))))
+        (is (nil? e)))
       (c/disconnect conn))))
 
 (deftest put-2-get-1-test
