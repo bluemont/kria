@@ -97,7 +97,7 @@
   (vector (.getInt buf) (.get buf)))
 
 (defn read-header-handler
-  "Returns a CompletionHandler..."
+  "Returns a CompletionHandler."
   [asc cb]
   {:pre [(fn? cb)]}
   (proxy [CompletionHandler] []
@@ -111,7 +111,7 @@
     (.read asc buf buf (read-header-handler asc cb))))
 
 (defn handler
-  "Returns a CompletionHandler..."
+  "Returns a CompletionHandler."
   [asc cb]
   {:pre [(fn? cb)]}
   (proxy [CompletionHandler] []
@@ -119,7 +119,7 @@
     (failed [e a] (cb asc e nil))))
 
 (defn read-payload-handler
-  "Returns a CompletionHandler..."
+  "Returns a CompletionHandler."
   [asc len cb]
   {:pre [(integer? len) (fn? cb)]}
   (proxy [CompletionHandler] []
@@ -169,7 +169,7 @@
 (declare header-cb-fn)
 
 (defn stream-cb-fn
-  "Returns..."
+  "Returns a stream callback function."
   [exp-key parser cb chunk-fn done-fn stream-cb]
   (fn [asc e a]
     (let [p (parser asc e a)]
@@ -181,9 +181,16 @@
           (read-header asc hcb))))))
 
 (defn header-cb-fn
-  "Returns a header callback function based on (1) if multiple
-  response are expected, an expected message
-  key, a parser function, and a callback function."
+  "Returns a header callback function based on:
+  * exp-key : an expected message key
+  * multi-resp : are multiple responses expected (e.g. streaming)?
+  * parser : a parser function
+  * cb : a callback function
+
+  Optional parameters include:
+  * chunk-fn : a chunking function
+  * done-fn : a predicate testing completion
+  * stream-cb : a streaming callback function"
   [exp-key multi-resp? parser cb & [chunk-fn done-fn stream-cb]]
   {:pre [(keyword? exp-key) (fn? parser) (fn? cb)]}
   (let [exp (exp-key message-codes)
@@ -208,14 +215,17 @@
   "A template function to call API via the protobuf interface.
 
   Parameters:
-  * AsynchronousSocketChannel
-  * callback function
-  * request message key
-  * response message key
-  * function to convert a request map to a request byte array
-  * function to convert a response byte array to a response map
-  * the request map (constructed from function arguments)
-  * are multiple responses expected"
+  * asc : AsynchronousSocketChannel
+  * cb : callback function
+  * req-key : request message key
+  * resp-key : response message key
+  * req-map->bytes : fn to convert a request map to a request byte array
+  * bytes->resp-map : fn to convert a response byte array to a response map
+  * req-map : request map (constructed from function arguments)
+  * multi-resp? : are multiple responses expected?
+  * chunk-fn : a chunking function
+  * done-fn : a predicate function that tests completion
+  * stream-cb : a streaming callback function"
   [^AsynchronousSocketChannel asc cb req-key resp-key
    req-map->bytes bytes->resp-map req-map
    & [multi-resp? chunk-fn done-fn stream-cb]]
