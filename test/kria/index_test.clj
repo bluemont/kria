@@ -18,5 +18,5 @@
         (is (true? a)))
       (i/get conn idx (h/cb-fn p2))
       @p2
-      (is (i/get-poll conn idx 5 500)))))
+      (is (i/get-poll conn idx 250 40))
       (c/disconnect conn))))
