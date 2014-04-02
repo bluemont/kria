@@ -16,7 +16,7 @@
       (let [[asc e a] @p
             props (:props a)]
         (is (= (:n-val props) 3))
-        (is (= (:allow-mult props) true))
+        (is (= (:allow-mult props) false))
         (is (= (:last-write-wins props) false))
         (is (= (:pr props) 0))
         (is (= (:r props) -3))
