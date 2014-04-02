@@ -1,6 +1,7 @@
 (ns kria.object-test
   (:require [clojure.test :refer :all]
             [kria.test-helpers :as h]
+            [kria.client :as c]
             [kria.object :as o]))
 
 (deftest put-1-get-1-test
@@ -21,11 +22,12 @@
         (let [[asc e a] @p]
           (is (= (set (map :value [v]))
                  (set (map :value (:content a)))))
-          (is (nil? e)))))))
+          (is (nil? e))))
+      (c/disconnect conn))))
 
 (deftest put-2-siblings-get-1-test
   (testing "put 2, get 1 (siblings)"
-    (let [conn1 (h/connect)
+    (let [conn (h/connect)
           conn2 (h/connect)
           b (h/rand-bucket)
           k (h/rand-key)
@@ -33,15 +35,17 @@
           v2 (h/rand-value)
           p1 (promise)
           p2 (promise)]
-      (o/put conn1 b k v1 {} (h/cb-fn p1))
+      (o/put conn b k v1 {} (h/cb-fn p1))
       (o/put conn2 b k v2 {} (h/cb-fn p2))
       [@p1 @p2]
+      (c/disconnect conn2)
       (let [p (promise)]
-        (o/get conn1 b k {} (h/cb-fn p))
+        (o/get conn b k {} (h/cb-fn p))
         (let [[asc e a] @p]
           (is (= (set (map :value [v1 v2]))
                  (set (map :value (:content a)))))
-          (is (nil? e)))))))
+          (is (nil? e))))
+      (c/disconnect conn))))
 
 (deftest put-2-get-1-test
   (testing "put 2, get 1 (no siblings)"
@@ -65,7 +69,8 @@
         (let [[asc e a] @p4]
           (is (= (set (map :value [v2]))
                  (set (map :value (:content a)))))
-          (is (nil? e)))))))
+          (is (nil? e))))
+      (c/disconnect conn))))
 
 (deftest put-1-delete-1-get-1-test
   (testing "put 1, delete 1, get 1"
@@ -89,4 +94,5 @@
       (o/get conn b k {} (h/cb-fn p3))
       (let [[asc e a] @p3]
         (is (nil? e))
-        (is (empty? (:content a)))))))
+        (is (empty? (:content a))))
+      (c/disconnect conn))))

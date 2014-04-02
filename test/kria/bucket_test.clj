@@ -47,4 +47,5 @@
           result-cb (fn [asc e a] (or a e))]
       (b/list conn b {} result-cb stream-cb)
       (is (= (set (map utf8-string<-byte-string ks))
-             (set (map utf8-string<-byte-string @result)))))))
+             (set (map utf8-string<-byte-string @result))))
+      (c/disconnect conn))))

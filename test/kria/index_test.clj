@@ -3,6 +3,7 @@
     [clojure.test :refer :all]
     [kria.test-helpers :as h]
     [kria.conversions :refer :all]
+    [kria.client :as c]
     [kria.index :as i]))
 
 (deftest put-1-get-1-test
@@ -18,3 +19,4 @@
       (i/get conn idx (h/cb-fn p2))
       @p2
       (is (i/get-poll conn idx 5 500)))))
+      (c/disconnect conn))))

@@ -10,7 +10,8 @@
     (let [p (promise)
           conn (c/connect nil "127.0.0.1" 8087 (h/cb-fn p))]
       (is (= (class conn) UnixAsynchronousSocketChannelImpl))
-      (is (= @p [conn nil true])))))
+      (is (= @p [conn nil true]))
+      (c/disconnect conn))))
 
 (deftest disconnect-test
   (testing "disconnect"

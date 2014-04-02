@@ -19,11 +19,13 @@
       (let [[asc e a] @p]
         (is (nil? e))
         (is (= "riak@127.0.0.1" (:node a)))
-        (is (= "2.0.0pre20" (:server-version a)))))))
+        (is (= "2.0.0pre20" (:server-version a))))
+      (c/disconnect conn))))
 
 (deftest ping-test
   (testing "ping-info"
     (let [conn (connect)
           p (promise)]
       (s/ping conn (h/cb-fn p))
-      (is (= @p [conn nil true])))))
+      (is (= @p [conn nil true]))
+      (c/disconnect conn))))
