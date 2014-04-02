@@ -7,6 +7,28 @@
             [kria.bucket :as b]
             [kria.index :as i]))
 
+(deftest get-defaults-test
+  (testing "allow_mult=false by default"
+    (let [conn (h/connect)
+          b (h/rand-bucket)
+          p (promise)]
+      (b/get conn b (h/cb-fn p))
+      (let [[asc e a] @p
+            props (:props a)]
+        (prn (-> a :props))
+        (is (= (:n-val props) 3))
+        (is (= (:allow-mult props) true))
+        (is (= (:last-write-wins props) false))
+        (is (= (:pr props) 0))
+        (is (= (:r props) -3))
+        (is (= (:w props) -3))
+        (is (= (:pw props) 0))
+        (is (= (:dw props) -3))
+        (is (= (:rw props) -3))
+        (is (= (:basic-quorum props) false))
+        (is (= (:not-found-ok props) true))
+        (is (= (:search props) false))))))
+
 (deftest set-get-test
   (testing "set, get"
     (let [conn (h/connect)
