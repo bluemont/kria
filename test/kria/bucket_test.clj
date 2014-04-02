@@ -4,7 +4,8 @@
             [kria.conversions :refer [utf8-string<-byte-string]]
             [kria.client :as c]
             [kria.object :as o]
-            [kria.bucket :as b]))
+            [kria.bucket :as b]
+            [kria.index :as i]))
 
 (deftest set-get-test
   (testing "set, get"
@@ -12,15 +13,22 @@
           b (h/rand-bucket)
           idx (h/rand-index)
           p1 (promise)
-          p2 (promise)]
-      (b/set conn b {:props {:search-index idx}} (h/cb-fn p1))
+          p2 (promise)
+          p3 (promise)]
+      (i/put conn idx {} (h/cb-fn p1))
       (let [[asc e a] @p1]
         (is (nil? e))
         (is (true? a)))
-      (b/get conn b (h/cb-fn p2))
+      (is (i/get-poll conn idx 250 40))
+      (b/set conn b {:props {:search-index idx}} (h/cb-fn p2))
       (let [[asc e a] @p2]
         (is (nil? e))
-        (is (= idx (-> a :props :search-index)))))))
+        (is (true? a)))
+      (b/get conn b (h/cb-fn p3))
+      (let [[asc e a] @p3]
+        (is (nil? e))
+        (is (= idx (-> a :props :search-index))))
+      (c/disconnect conn))))
 
 (defn put-object
   [conn b]
