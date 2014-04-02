@@ -6250,6 +6250,24 @@ public final class RiakPB {
      * </pre>
      */
     com.google.protobuf.ByteString getDatatype();
+
+    // optional bool consistent = 27;
+    /**
+     * <code>optional bool consistent = 27;</code>
+     *
+     * <pre>
+     * KV strong consistency
+     * </pre>
+     */
+    boolean hasConsistent();
+    /**
+     * <code>optional bool consistent = 27;</code>
+     *
+     * <pre>
+     * KV strong consistency
+     * </pre>
+     */
+    boolean getConsistent();
   }
   /**
    * Protobuf type {@code RpbBucketProps}
@@ -6462,6 +6480,11 @@ public final class RiakPB {
             case 210: {
               bitField0_ |= 0x00800000;
               datatype_ = input.readBytes();
+              break;
+            }
+            case 216: {
+              bitField0_ |= 0x01000000;
+              consistent_ = input.readBool();
               break;
             }
           }
@@ -7134,6 +7157,30 @@ public final class RiakPB {
       return datatype_;
     }
 
+    // optional bool consistent = 27;
+    public static final int CONSISTENT_FIELD_NUMBER = 27;
+    private boolean consistent_;
+    /**
+     * <code>optional bool consistent = 27;</code>
+     *
+     * <pre>
+     * KV strong consistency
+     * </pre>
+     */
+    public boolean hasConsistent() {
+      return ((bitField0_ & 0x01000000) == 0x01000000);
+    }
+    /**
+     * <code>optional bool consistent = 27;</code>
+     *
+     * <pre>
+     * KV strong consistency
+     * </pre>
+     */
+    public boolean getConsistent() {
+      return consistent_;
+    }
+
     private void initFields() {
       nVal_ = 0;
       allowMult_ = false;
@@ -7161,6 +7208,7 @@ public final class RiakPB {
       repl_ = com.basho.riak.protobuf.RiakPB.RpbBucketProps.RpbReplMode.FALSE;
       searchIndex_ = com.google.protobuf.ByteString.EMPTY;
       datatype_ = com.google.protobuf.ByteString.EMPTY;
+      consistent_ = false;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -7276,6 +7324,9 @@ public final class RiakPB {
       if (((bitField0_ & 0x00800000) == 0x00800000)) {
         output.writeBytes(26, datatype_);
       }
+      if (((bitField0_ & 0x01000000) == 0x01000000)) {
+        output.writeBool(27, consistent_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -7388,6 +7439,10 @@ public final class RiakPB {
       if (((bitField0_ & 0x00800000) == 0x00800000)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(26, datatype_);
+      }
+      if (((bitField0_ & 0x01000000) == 0x01000000)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(27, consistent_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -7581,6 +7636,8 @@ public final class RiakPB {
         bitField0_ = (bitField0_ & ~0x01000000);
         datatype_ = com.google.protobuf.ByteString.EMPTY;
         bitField0_ = (bitField0_ & ~0x02000000);
+        consistent_ = false;
+        bitField0_ = (bitField0_ & ~0x04000000);
         return this;
       }
 
@@ -7731,6 +7788,10 @@ public final class RiakPB {
           to_bitField0_ |= 0x00800000;
         }
         result.datatype_ = datatype_;
+        if (((from_bitField0_ & 0x04000000) == 0x04000000)) {
+          to_bitField0_ |= 0x01000000;
+        }
+        result.consistent_ = consistent_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -7870,6 +7931,9 @@ public final class RiakPB {
         }
         if (other.hasDatatype()) {
           setDatatype(other.getDatatype());
+        }
+        if (other.hasConsistent()) {
+          setConsistent(other.getConsistent());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -9490,6 +9554,55 @@ public final class RiakPB {
         return this;
       }
 
+      // optional bool consistent = 27;
+      private boolean consistent_ ;
+      /**
+       * <code>optional bool consistent = 27;</code>
+       *
+       * <pre>
+       * KV strong consistency
+       * </pre>
+       */
+      public boolean hasConsistent() {
+        return ((bitField0_ & 0x04000000) == 0x04000000);
+      }
+      /**
+       * <code>optional bool consistent = 27;</code>
+       *
+       * <pre>
+       * KV strong consistency
+       * </pre>
+       */
+      public boolean getConsistent() {
+        return consistent_;
+      }
+      /**
+       * <code>optional bool consistent = 27;</code>
+       *
+       * <pre>
+       * KV strong consistency
+       * </pre>
+       */
+      public Builder setConsistent(boolean value) {
+        bitField0_ |= 0x04000000;
+        consistent_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool consistent = 27;</code>
+       *
+       * <pre>
+       * KV strong consistency
+       * </pre>
+       */
+      public Builder clearConsistent() {
+        bitField0_ = (bitField0_ & ~0x04000000);
+        consistent_ = false;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:RpbBucketProps)
     }
 
@@ -10097,7 +10210,7 @@ public final class RiakPB {
       " \002(\0132\017.RpbBucketProps\"-\n\tRpbModFun\022\016\n\006mo" +
       "dule\030\001 \002(\014\022\020\n\010function\030\002 \002(\014\"9\n\rRpbCommi" +
       "tHook\022\032\n\006modfun\030\001 \001(\0132\n.RpbModFun\022\014\n\004nam" +
-      "e\030\002 \001(\014\"\210\005\n\016RpbBucketProps\022\r\n\005n_val\030\001 \001(" +
+      "e\030\002 \001(\014\"\234\005\n\016RpbBucketProps\022\r\n\005n_val\030\001 \001(" +
       "\r\022\022\n\nallow_mult\030\002 \001(\010\022\027\n\017last_write_wins" +
       "\030\003 \001(\010\022!\n\tprecommit\030\004 \003(\0132\016.RpbCommitHoo" +
       "k\022\034\n\rhas_precommit\030\005 \001(\010:\005false\022\"\n\npostc" +
@@ -10111,11 +10224,11 @@ public final class RiakPB {
       "asic_quorum\030\024 \001(\010\022\023\n\013notfound_ok\030\025 \001(\010\022\017" +
       "\n\007backend\030\026 \001(\014\022\016\n\006search\030\027 \001(\010\022)\n\004repl\030" +
       "\030 \001(\0162\033.RpbBucketProps.RpbReplMode\022\024\n\014se" +
-      "arch_index\030\031 \001(\014\022\020\n\010datatype\030\032 \001(\014\">\n\013Rp",
-      "bReplMode\022\t\n\005FALSE\020\000\022\014\n\010REALTIME\020\001\022\014\n\010FU" +
-      "LLSYNC\020\002\022\010\n\004TRUE\020\003\",\n\nRpbAuthReq\022\014\n\004user" +
-      "\030\001 \002(\014\022\020\n\010password\030\002 \002(\014B!\n\027com.basho.ri" +
-      "ak.protobufB\006RiakPB"
+      "arch_index\030\031 \001(\014\022\020\n\010datatype\030\032 \001(\014\022\022\n\nco",
+      "nsistent\030\033 \001(\010\">\n\013RpbReplMode\022\t\n\005FALSE\020\000" +
+      "\022\014\n\010REALTIME\020\001\022\014\n\010FULLSYNC\020\002\022\010\n\004TRUE\020\003\"," +
+      "\n\nRpbAuthReq\022\014\n\004user\030\001 \002(\014\022\020\n\010password\030\002" +
+      " \002(\014B!\n\027com.basho.riak.protobufB\006RiakPB"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -10193,7 +10306,7 @@ public final class RiakPB {
           internal_static_RpbBucketProps_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_RpbBucketProps_descriptor,
-              new java.lang.String[] { "NVal", "AllowMult", "LastWriteWins", "Precommit", "HasPrecommit", "Postcommit", "HasPostcommit", "ChashKeyfun", "Linkfun", "OldVclock", "YoungVclock", "BigVclock", "SmallVclock", "Pr", "R", "W", "Pw", "Dw", "Rw", "BasicQuorum", "NotfoundOk", "Backend", "Search", "Repl", "SearchIndex", "Datatype", });
+              new java.lang.String[] { "NVal", "AllowMult", "LastWriteWins", "Precommit", "HasPrecommit", "Postcommit", "HasPostcommit", "ChashKeyfun", "Linkfun", "OldVclock", "YoungVclock", "BigVclock", "SmallVclock", "Pr", "R", "W", "Pw", "Dw", "Rw", "BasicQuorum", "NotfoundOk", "Backend", "Search", "Repl", "SearchIndex", "Datatype", "Consistent", });
           internal_static_RpbAuthReq_descriptor =
             getDescriptor().getMessageTypes().get(12);
           internal_static_RpbAuthReq_fieldAccessorTable = new
