@@ -14,4 +14,8 @@
 
 (deftest disconnect-test
   (testing "disconnect"
-    ))
+    (let [p (promise)
+          conn (c/connect nil "127.0.0.1" 8087 (h/cb-fn p))]
+      @p
+      (c/disconnect conn)
+      (is (not (.isOpen conn))))))
