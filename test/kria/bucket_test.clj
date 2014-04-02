@@ -15,7 +15,6 @@
       (b/get conn b (h/cb-fn p))
       (let [[asc e a] @p
             props (:props a)]
-        (prn (-> a :props))
         (is (= (:n-val props) 3))
         (is (= (:allow-mult props) true))
         (is (= (:last-write-wins props) false))
