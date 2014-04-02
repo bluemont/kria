@@ -2,7 +2,6 @@
   (:require
     [clojure.test :refer :all]
     [kria.test-helpers :as h]
-    [kria.conversions :refer :all]
     [kria.client :as c]
     [kria.index :as i]))
 

@@ -1,6 +1,5 @@
 (ns kria.core
   (:require
-    [kria.conversions :refer :all]
     [kria.pb.error :refer [bytes->ErrorResp]])
   (:import
     [java.nio ByteBuffer]
