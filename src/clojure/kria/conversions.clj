@@ -14,14 +14,18 @@
   [v]
   (instance? byte-array-class v))
 
+(defn byte-buffer?
+  [v]
+  (instance? ByteBuffer v))
+
 (defn byte-string?
   [v]
   (instance? ByteString v))
 
 (defn ^bytes byte-array<-byte-buffer
   [^ByteBuffer v]
-  {:pre [(instance? ByteBuffer v)]}
-  (if v (ByteString/copyFrom v)))
+  {:pre [(byte-buffer? v)]}
+  (.array v))
 
 (defn ^bytes byte-array<-byte-string
   [^ByteString v]
@@ -38,10 +42,20 @@
   {:pre [(byte-array? v)]}
   (ByteBuffer/wrap v))
 
+(defn ^ByteBuffer byte-buffer<-byte-string
+  [^ByteString v]
+  {:pre [(byte-string? v)]}
+  (byte-buffer<-byte-array (byte-array<-byte-string v)))
+
 (defn ^ByteString byte-string<-byte-array
   [^bytes v]
   {:pre [(byte-array? v)]}
   (if v (ByteString/copyFrom v)))
+
+(defn ^ByteString byte-string<-byte-buffer
+  [^ByteBuffer v]
+  {:pre [(byte-buffer? v)]}
+  (byte-string<-byte-array (byte-array<-byte-buffer v)))
 
 (defn ^ByteString byte-string<-utf8-string
   [^String v]
