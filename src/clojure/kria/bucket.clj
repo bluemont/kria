@@ -5,8 +5,7 @@
     [kria.core :refer [call]]
     [kria.pb.bucket.get :refer [GetBucketReq->bytes bytes->GetBucketResp]]
     [kria.pb.bucket.set :refer [SetBucketReq->bytes]]
-    [kria.pb.bucket.list-keys :refer [ListKeysReq->bytes bytes->ListKeysResp]]
-    [kria.core :refer [handler header-cb-fn parse-fn payload-message]]))
+    [kria.pb.bucket.list-keys :refer [ListKeysReq->bytes bytes->ListKeysResp]]))
 
 (set! *warn-on-reflection* true)
 
