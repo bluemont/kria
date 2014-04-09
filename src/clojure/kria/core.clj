@@ -109,26 +109,20 @@
   (let [buf (ByteBuffer/allocate 5)]
     (.read asc buf buf (read-header-handler asc cb))))
 
-(defn handler
-  "Returns a CompletionHandler."
-  [asc cb]
-  {:pre [(fn? cb)]}
-  (proxy [CompletionHandler] []
-    (completed [r a] (read-header asc cb))
-    (failed [e a] (cb asc e nil))))
+(declare read-payload-handler)
 
 (defn read-payload-handler
   "Returns a CompletionHandler."
-  [asc len cb]
+  [^AsynchronousSocketChannel asc ^ByteBuffer buf len cb]
   {:pre [(integer? len) (fn? cb)]}
   (proxy [CompletionHandler] []
     (completed
-      [n ^ByteBuffer buf]
-      (if (= n len)
-        (cb asc nil (.array buf))
-        (cb asc {:length {:actual n :expected len}} nil)))
+      [n a]
+      (if (.hasRemaining buf)
+        (.read asc buf nil (read-payload-handler asc buf len cb))
+        (cb asc nil (.array buf))))
     (failed
-      [e buf]
+      [e a]
       (cb asc e nil))))
 
 (defn read-payload
@@ -136,8 +130,9 @@
   is one less than the message length field."
   [^AsynchronousSocketChannel asc len cb]
   {:pre [(integer? len) (fn? cb)]}
-  (let [buf (ByteBuffer/allocate len)]
-    (.read asc buf buf (read-payload-handler asc len cb))))
+  (let [buf (ByteBuffer/allocate len)
+        handler (read-payload-handler asc buf len cb)]
+    (.read asc buf nil handler)))
 
 (defn parse-fn
   "Returns a parse function, which itself can serve as a callback.
@@ -210,6 +205,23 @@
           :else
           (cb asc {:code {:actual c :expected exp}} nil))))))
 
+(declare write-all-handler)
+
+(defn write-all-handler
+  "Returns a CompletionHandler that calls `read-header` on success
+  or `cb` on failure."
+  [^AsynchronousSocketChannel asc ^ByteBuffer message cb]
+  {:pre [(fn? cb)]}
+  (proxy [CompletionHandler] []
+    (completed
+      [n a]
+      (if (.hasRemaining message)
+        (.write asc message nil (write-all-handler asc message cb))
+        (read-header asc cb)))
+    (failed
+      [e a]
+      (cb asc e nil))))
+
 (defn call
   "A template function to call API via the protobuf interface.
 
@@ -236,5 +248,5 @@
         parser (parse-fn bytes->resp-map cb)
         header-cb (header-cb-fn resp-key multi-resp? parser cb
                                 chunk-fn done-fn stream-cb)
-        handler (handler asc header-cb)]
+        handler (write-all-handler asc message header-cb)]
     (.write asc message nil handler)))

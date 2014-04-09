@@ -31,7 +31,7 @@
     (let [conn (h/connect)
           b (h/rand-bucket)
           k (h/rand-key)
-          v (h/rand-string-value 1048576) ; 65536
+          v (h/rand-string-value 1048576)
           p (promise)]
       (o/put conn b k v {} (h/cb-fn p))
       (let [[asc e a] @p]
