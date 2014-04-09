@@ -21,6 +21,13 @@
                (format "V-%04d")
                (byte-string<-utf8-string))})
 
+(defn rand-string-value
+  [n]
+  (let [s "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ"]
+    {:value (-> (repeatedly n #(str (rand-nth s)))
+                (clojure.string/join)
+                (byte-string<-utf8-string))}))
+
 (defn rand-index
   []
   (->> (rand-int 100000000)
