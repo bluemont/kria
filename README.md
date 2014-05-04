@@ -76,7 +76,7 @@ We have found that [core.async] works great as a layer on top. Just create a
 core.async channel in advance and have the callback put the desired return value
 in the core.async channel.
 
-In my applications, we tend to create on namespace that wrap all calls to Kria
+In our applications, we tend to create on namespace that wrap all calls to Kria
 in a domain-specific way. That namespace provides an API that the rest of your
 application relies on. Since Kria is a thin wrapper over the Riak API, it does
 not handle siblings for you, that is something your domain-specific logic must
@@ -86,7 +86,7 @@ decide.
 
 ## History
 
-My goals were to:
+When I started, my goals were to:
 
 * write a simple asynchronous Clojure client that
 * stayed relatively close the Riak API
