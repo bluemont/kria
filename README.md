@@ -9,7 +9,7 @@ Buffer interface][Riak-PB] using Java 7's NIO.2.
 
 Add this to your `project.clj`:
 
-    [kria "0.1.6"]
+    [kria "0.1.7"]
 
 For the following examples, I recommend using these namespace aliases:
 
