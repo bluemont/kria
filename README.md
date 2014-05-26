@@ -22,8 +22,11 @@ To create a connection:
     (def conn (client/connect nil "127.0.0.1" 8087 conn-cb))
 
 The first line sets up the callback that runs after `connect` succeeds or
-fails. The second line connects to Riak at the specified host and port. You
-can ignore the `nil` parameter for now.
+fails. On failure, it returns the exception `e`. On success, it prints
+"connected".
+
+The second line connects to Riak with the specified host, port, and callback.
+(You can ignore the `nil` parameter for now.)
 
 Try a ping with:
 
@@ -36,8 +39,8 @@ Get server info with:
     (server/info conn info-cb)
 
 All of the above calls are asynchronous. The callback functions are for
-demonstration purposes only. (In practice, write your callback functions for
-your application's needs.)
+demonstration purposes only. In practice, write your callback functions for
+your application's needs.
 
 You can find more examples on how to use the API in `doc/examples`.
 
@@ -55,7 +58,7 @@ The callback for `connect` takes these arguments:
   * `e` : exception or `nil` if no exception.
   * `a` : attachment, a term used in the NIO.2 documentation. Generally
     speaking, the attachment is just a placeholder for an object to get passed
-    along if a callback succeed. In Kria, the attachment varies based on the
+    along if a callback succeeds. In Kria, the attachment varies based on the
     API call. In the case of `connect`, it will be `true` on success or `nil`
     on failure.
 
@@ -69,34 +72,36 @@ pool connections instead, see [`AsynchronousChannelGroup`][ACG].
 ## Using in Applications
 
 Even though Kria is asynchronous with callbacks, it is easy to wrap it as you
-like. You might try callback functions, Clojure atoms, and promises and see what
-works best.
+like. You might try callback functions, Clojure atoms, and promises and see
+what works best.
 
 We have found that [core.async] works great as a layer on top. Just create a
-core.async channel in advance and have the callback put the desired return value
-in the core.async channel.
+core.async channel in advance and have the callback put the desired return
+value in the core.async channel.
 
-In our applications, we tend to create on namespace that wrap all calls to Kria
-in a domain-specific way. That namespace provides an API that the rest of your
-application relies on. Since Kria is a thin wrapper over the Riak API, it does
-not handle siblings for you, that is something your domain-specific logic must
-decide.
+When [we] write applications, we tend to create on namespace that wrap all
+calls to Kria in a domain-specific way. That namespace provides an API that the
+rest of your application relies on. Kria is a thin wrapper over the Riak API,
+so it does not handle siblings for you; that is something your domain-specific
+logic must decide.
 
 [core.async]: https://github.com/clojure/core.async
+[we]: http://bluemontlabs.com
 
 ## History
 
 When I started, my goals were to:
 
-* write a simple asynchronous Clojure client that
+* write a simple asynchronous Clojure client
 * stayed relatively close the Riak API
-* used Java 7 NIO.2 instead of Netty.
+* used Java 7 [NIO.2] instead of Netty
 
 Many projects use Netty, but as I learned more about it, I found that NIO.2
-provided all I wanted without the complexity of another dependency. The tradeoff
-is that Kria requires Java 7.
+provided all I wanted without the complexity of another dependency. The
+tradeoff is that Kria requires Java 7.
 
 [Netty]: http://netty.io/
+[NIO.2]: http://en.wikipedia.org/wiki/NIO.2#JDK_7_and_NIO.2
 
 Other drivers I saw written in Clojure or Java added complexity that I didn't
 need. The goal was to have a simple layer to abstract away the low-level
@@ -110,8 +115,8 @@ reasons:
 
   1. The protobuf files change rarely, so the plugin seemed less necessary.
   2. The plugin added complexity that did not seem necessary.
-  3. I wanted to get clear on the output from the `protoc` command, including
-     how the Java classes were getting created and where they were being stored.
+  3. I wanted to understand the `protoc` command, including how the Java
+     classes were getting created and where they were being stored.
   4. The plugin seemed to slow the REPL start-up time.
 
 [lein-protobuf]: https://github.com/flatland/lein-protobuf
@@ -177,8 +182,8 @@ protobuf component.
 So, let me introduce some definitions. The entire data structure is called the
 *message*. A message consists of three pieces:
 
-  * *body length* : Bytes 0 to 3. Encodes the length of the body (e.g. the rest
-    of the message).
+  * *body length* : Bytes 0 to 3. Encodes the length of the body (e.g. the
+    rest of the message).
   * *message code* : Byte 4. See `kria.core/message-codes`.
   * *payload* : Optional; Bytes 5+. Encoded using Protocol Buffers.
 
