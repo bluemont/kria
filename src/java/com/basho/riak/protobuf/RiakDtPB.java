@@ -7588,112 +7588,87 @@ public final class RiakDtPB {
   public interface MapOpOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // repeated .MapField adds = 1;
+    // repeated .MapField removes = 1;
     /**
-     * <code>repeated .MapField adds = 1;</code>
+     * <code>repeated .MapField removes = 1;</code>
      *
      * <pre>
      *
-     * ADD creates a new, "empty" value under a field. REMOVE removes
-     * a field and value from the Map. UPDATE applies type-specific
+     *  REMOVE removes a field and value from the Map.
+     * UPDATE applies type-specific
      * operations to the values stored in the Map.
      * </pre>
-     */
-    java.util.List<com.basho.riak.protobuf.RiakDtPB.MapField> 
-        getAddsList();
-    /**
-     * <code>repeated .MapField adds = 1;</code>
-     *
-     * <pre>
-     *
-     * ADD creates a new, "empty" value under a field. REMOVE removes
-     * a field and value from the Map. UPDATE applies type-specific
-     * operations to the values stored in the Map.
-     * </pre>
-     */
-    com.basho.riak.protobuf.RiakDtPB.MapField getAdds(int index);
-    /**
-     * <code>repeated .MapField adds = 1;</code>
-     *
-     * <pre>
-     *
-     * ADD creates a new, "empty" value under a field. REMOVE removes
-     * a field and value from the Map. UPDATE applies type-specific
-     * operations to the values stored in the Map.
-     * </pre>
-     */
-    int getAddsCount();
-    /**
-     * <code>repeated .MapField adds = 1;</code>
-     *
-     * <pre>
-     *
-     * ADD creates a new, "empty" value under a field. REMOVE removes
-     * a field and value from the Map. UPDATE applies type-specific
-     * operations to the values stored in the Map.
-     * </pre>
-     */
-    java.util.List<? extends com.basho.riak.protobuf.RiakDtPB.MapFieldOrBuilder> 
-        getAddsOrBuilderList();
-    /**
-     * <code>repeated .MapField adds = 1;</code>
-     *
-     * <pre>
-     *
-     * ADD creates a new, "empty" value under a field. REMOVE removes
-     * a field and value from the Map. UPDATE applies type-specific
-     * operations to the values stored in the Map.
-     * </pre>
-     */
-    com.basho.riak.protobuf.RiakDtPB.MapFieldOrBuilder getAddsOrBuilder(
-        int index);
-
-    // repeated .MapField removes = 2;
-    /**
-     * <code>repeated .MapField removes = 2;</code>
      */
     java.util.List<com.basho.riak.protobuf.RiakDtPB.MapField> 
         getRemovesList();
     /**
-     * <code>repeated .MapField removes = 2;</code>
+     * <code>repeated .MapField removes = 1;</code>
+     *
+     * <pre>
+     *
+     *  REMOVE removes a field and value from the Map.
+     * UPDATE applies type-specific
+     * operations to the values stored in the Map.
+     * </pre>
      */
     com.basho.riak.protobuf.RiakDtPB.MapField getRemoves(int index);
     /**
-     * <code>repeated .MapField removes = 2;</code>
+     * <code>repeated .MapField removes = 1;</code>
+     *
+     * <pre>
+     *
+     *  REMOVE removes a field and value from the Map.
+     * UPDATE applies type-specific
+     * operations to the values stored in the Map.
+     * </pre>
      */
     int getRemovesCount();
     /**
-     * <code>repeated .MapField removes = 2;</code>
+     * <code>repeated .MapField removes = 1;</code>
+     *
+     * <pre>
+     *
+     *  REMOVE removes a field and value from the Map.
+     * UPDATE applies type-specific
+     * operations to the values stored in the Map.
+     * </pre>
      */
     java.util.List<? extends com.basho.riak.protobuf.RiakDtPB.MapFieldOrBuilder> 
         getRemovesOrBuilderList();
     /**
-     * <code>repeated .MapField removes = 2;</code>
+     * <code>repeated .MapField removes = 1;</code>
+     *
+     * <pre>
+     *
+     *  REMOVE removes a field and value from the Map.
+     * UPDATE applies type-specific
+     * operations to the values stored in the Map.
+     * </pre>
      */
     com.basho.riak.protobuf.RiakDtPB.MapFieldOrBuilder getRemovesOrBuilder(
         int index);
 
-    // repeated .MapUpdate updates = 3;
+    // repeated .MapUpdate updates = 2;
     /**
-     * <code>repeated .MapUpdate updates = 3;</code>
+     * <code>repeated .MapUpdate updates = 2;</code>
      */
     java.util.List<com.basho.riak.protobuf.RiakDtPB.MapUpdate> 
         getUpdatesList();
     /**
-     * <code>repeated .MapUpdate updates = 3;</code>
+     * <code>repeated .MapUpdate updates = 2;</code>
      */
     com.basho.riak.protobuf.RiakDtPB.MapUpdate getUpdates(int index);
     /**
-     * <code>repeated .MapUpdate updates = 3;</code>
+     * <code>repeated .MapUpdate updates = 2;</code>
      */
     int getUpdatesCount();
     /**
-     * <code>repeated .MapUpdate updates = 3;</code>
+     * <code>repeated .MapUpdate updates = 2;</code>
      */
     java.util.List<? extends com.basho.riak.protobuf.RiakDtPB.MapUpdateOrBuilder> 
         getUpdatesOrBuilderList();
     /**
-     * <code>repeated .MapUpdate updates = 3;</code>
+     * <code>repeated .MapUpdate updates = 2;</code>
      */
     com.basho.riak.protobuf.RiakDtPB.MapUpdateOrBuilder getUpdatesOrBuilder(
         int index);
@@ -7757,24 +7732,16 @@ public final class RiakDtPB {
             }
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-                adds_ = new java.util.ArrayList<com.basho.riak.protobuf.RiakDtPB.MapField>();
-                mutable_bitField0_ |= 0x00000001;
-              }
-              adds_.add(input.readMessage(com.basho.riak.protobuf.RiakDtPB.MapField.PARSER, extensionRegistry));
-              break;
-            }
-            case 18: {
-              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
                 removes_ = new java.util.ArrayList<com.basho.riak.protobuf.RiakDtPB.MapField>();
-                mutable_bitField0_ |= 0x00000002;
+                mutable_bitField0_ |= 0x00000001;
               }
               removes_.add(input.readMessage(com.basho.riak.protobuf.RiakDtPB.MapField.PARSER, extensionRegistry));
               break;
             }
-            case 26: {
-              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
                 updates_ = new java.util.ArrayList<com.basho.riak.protobuf.RiakDtPB.MapUpdate>();
-                mutable_bitField0_ |= 0x00000004;
+                mutable_bitField0_ |= 0x00000002;
               }
               updates_.add(input.readMessage(com.basho.riak.protobuf.RiakDtPB.MapUpdate.PARSER, extensionRegistry));
               break;
@@ -7788,12 +7755,9 @@ public final class RiakDtPB {
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
         if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
-          adds_ = java.util.Collections.unmodifiableList(adds_);
-        }
-        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
           removes_ = java.util.Collections.unmodifiableList(removes_);
         }
-        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
           updates_ = java.util.Collections.unmodifiableList(updates_);
         }
         this.unknownFields = unknownFields.build();
@@ -7827,143 +7791,107 @@ public final class RiakDtPB {
       return PARSER;
     }
 
-    // repeated .MapField adds = 1;
-    public static final int ADDS_FIELD_NUMBER = 1;
-    private java.util.List<com.basho.riak.protobuf.RiakDtPB.MapField> adds_;
-    /**
-     * <code>repeated .MapField adds = 1;</code>
-     *
-     * <pre>
-     *
-     * ADD creates a new, "empty" value under a field. REMOVE removes
-     * a field and value from the Map. UPDATE applies type-specific
-     * operations to the values stored in the Map.
-     * </pre>
-     */
-    public java.util.List<com.basho.riak.protobuf.RiakDtPB.MapField> getAddsList() {
-      return adds_;
-    }
-    /**
-     * <code>repeated .MapField adds = 1;</code>
-     *
-     * <pre>
-     *
-     * ADD creates a new, "empty" value under a field. REMOVE removes
-     * a field and value from the Map. UPDATE applies type-specific
-     * operations to the values stored in the Map.
-     * </pre>
-     */
-    public java.util.List<? extends com.basho.riak.protobuf.RiakDtPB.MapFieldOrBuilder> 
-        getAddsOrBuilderList() {
-      return adds_;
-    }
-    /**
-     * <code>repeated .MapField adds = 1;</code>
-     *
-     * <pre>
-     *
-     * ADD creates a new, "empty" value under a field. REMOVE removes
-     * a field and value from the Map. UPDATE applies type-specific
-     * operations to the values stored in the Map.
-     * </pre>
-     */
-    public int getAddsCount() {
-      return adds_.size();
-    }
-    /**
-     * <code>repeated .MapField adds = 1;</code>
-     *
-     * <pre>
-     *
-     * ADD creates a new, "empty" value under a field. REMOVE removes
-     * a field and value from the Map. UPDATE applies type-specific
-     * operations to the values stored in the Map.
-     * </pre>
-     */
-    public com.basho.riak.protobuf.RiakDtPB.MapField getAdds(int index) {
-      return adds_.get(index);
-    }
-    /**
-     * <code>repeated .MapField adds = 1;</code>
-     *
-     * <pre>
-     *
-     * ADD creates a new, "empty" value under a field. REMOVE removes
-     * a field and value from the Map. UPDATE applies type-specific
-     * operations to the values stored in the Map.
-     * </pre>
-     */
-    public com.basho.riak.protobuf.RiakDtPB.MapFieldOrBuilder getAddsOrBuilder(
-        int index) {
-      return adds_.get(index);
-    }
-
-    // repeated .MapField removes = 2;
-    public static final int REMOVES_FIELD_NUMBER = 2;
+    // repeated .MapField removes = 1;
+    public static final int REMOVES_FIELD_NUMBER = 1;
     private java.util.List<com.basho.riak.protobuf.RiakDtPB.MapField> removes_;
     /**
-     * <code>repeated .MapField removes = 2;</code>
+     * <code>repeated .MapField removes = 1;</code>
+     *
+     * <pre>
+     *
+     *  REMOVE removes a field and value from the Map.
+     * UPDATE applies type-specific
+     * operations to the values stored in the Map.
+     * </pre>
      */
     public java.util.List<com.basho.riak.protobuf.RiakDtPB.MapField> getRemovesList() {
       return removes_;
     }
     /**
-     * <code>repeated .MapField removes = 2;</code>
+     * <code>repeated .MapField removes = 1;</code>
+     *
+     * <pre>
+     *
+     *  REMOVE removes a field and value from the Map.
+     * UPDATE applies type-specific
+     * operations to the values stored in the Map.
+     * </pre>
      */
     public java.util.List<? extends com.basho.riak.protobuf.RiakDtPB.MapFieldOrBuilder> 
         getRemovesOrBuilderList() {
       return removes_;
     }
     /**
-     * <code>repeated .MapField removes = 2;</code>
+     * <code>repeated .MapField removes = 1;</code>
+     *
+     * <pre>
+     *
+     *  REMOVE removes a field and value from the Map.
+     * UPDATE applies type-specific
+     * operations to the values stored in the Map.
+     * </pre>
      */
     public int getRemovesCount() {
       return removes_.size();
     }
     /**
-     * <code>repeated .MapField removes = 2;</code>
+     * <code>repeated .MapField removes = 1;</code>
+     *
+     * <pre>
+     *
+     *  REMOVE removes a field and value from the Map.
+     * UPDATE applies type-specific
+     * operations to the values stored in the Map.
+     * </pre>
      */
     public com.basho.riak.protobuf.RiakDtPB.MapField getRemoves(int index) {
       return removes_.get(index);
     }
     /**
-     * <code>repeated .MapField removes = 2;</code>
+     * <code>repeated .MapField removes = 1;</code>
+     *
+     * <pre>
+     *
+     *  REMOVE removes a field and value from the Map.
+     * UPDATE applies type-specific
+     * operations to the values stored in the Map.
+     * </pre>
      */
     public com.basho.riak.protobuf.RiakDtPB.MapFieldOrBuilder getRemovesOrBuilder(
         int index) {
       return removes_.get(index);
     }
 
-    // repeated .MapUpdate updates = 3;
-    public static final int UPDATES_FIELD_NUMBER = 3;
+    // repeated .MapUpdate updates = 2;
+    public static final int UPDATES_FIELD_NUMBER = 2;
     private java.util.List<com.basho.riak.protobuf.RiakDtPB.MapUpdate> updates_;
     /**
-     * <code>repeated .MapUpdate updates = 3;</code>
+     * <code>repeated .MapUpdate updates = 2;</code>
      */
     public java.util.List<com.basho.riak.protobuf.RiakDtPB.MapUpdate> getUpdatesList() {
       return updates_;
     }
     /**
-     * <code>repeated .MapUpdate updates = 3;</code>
+     * <code>repeated .MapUpdate updates = 2;</code>
      */
     public java.util.List<? extends com.basho.riak.protobuf.RiakDtPB.MapUpdateOrBuilder> 
         getUpdatesOrBuilderList() {
       return updates_;
     }
     /**
-     * <code>repeated .MapUpdate updates = 3;</code>
+     * <code>repeated .MapUpdate updates = 2;</code>
      */
     public int getUpdatesCount() {
       return updates_.size();
     }
     /**
-     * <code>repeated .MapUpdate updates = 3;</code>
+     * <code>repeated .MapUpdate updates = 2;</code>
      */
     public com.basho.riak.protobuf.RiakDtPB.MapUpdate getUpdates(int index) {
       return updates_.get(index);
     }
     /**
-     * <code>repeated .MapUpdate updates = 3;</code>
+     * <code>repeated .MapUpdate updates = 2;</code>
      */
     public com.basho.riak.protobuf.RiakDtPB.MapUpdateOrBuilder getUpdatesOrBuilder(
         int index) {
@@ -7971,7 +7899,6 @@ public final class RiakDtPB {
     }
 
     private void initFields() {
-      adds_ = java.util.Collections.emptyList();
       removes_ = java.util.Collections.emptyList();
       updates_ = java.util.Collections.emptyList();
     }
@@ -7980,12 +7907,6 @@ public final class RiakDtPB {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
 
-      for (int i = 0; i < getAddsCount(); i++) {
-        if (!getAdds(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       for (int i = 0; i < getRemovesCount(); i++) {
         if (!getRemoves(i).isInitialized()) {
           memoizedIsInitialized = 0;
@@ -8005,14 +7926,11 @@ public final class RiakDtPB {
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       getSerializedSize();
-      for (int i = 0; i < adds_.size(); i++) {
-        output.writeMessage(1, adds_.get(i));
-      }
       for (int i = 0; i < removes_.size(); i++) {
-        output.writeMessage(2, removes_.get(i));
+        output.writeMessage(1, removes_.get(i));
       }
       for (int i = 0; i < updates_.size(); i++) {
-        output.writeMessage(3, updates_.get(i));
+        output.writeMessage(2, updates_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -8023,17 +7941,13 @@ public final class RiakDtPB {
       if (size != -1) return size;
 
       size = 0;
-      for (int i = 0; i < adds_.size(); i++) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, adds_.get(i));
-      }
       for (int i = 0; i < removes_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, removes_.get(i));
+          .computeMessageSize(1, removes_.get(i));
       }
       for (int i = 0; i < updates_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(3, updates_.get(i));
+          .computeMessageSize(2, updates_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -8149,7 +8063,6 @@ public final class RiakDtPB {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getAddsFieldBuilder();
           getRemovesFieldBuilder();
           getUpdatesFieldBuilder();
         }
@@ -8160,21 +8073,15 @@ public final class RiakDtPB {
 
       public Builder clear() {
         super.clear();
-        if (addsBuilder_ == null) {
-          adds_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-        } else {
-          addsBuilder_.clear();
-        }
         if (removesBuilder_ == null) {
           removes_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000001);
         } else {
           removesBuilder_.clear();
         }
         if (updatesBuilder_ == null) {
           updates_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
+          bitField0_ = (bitField0_ & ~0x00000002);
         } else {
           updatesBuilder_.clear();
         }
@@ -8205,28 +8112,19 @@ public final class RiakDtPB {
       public com.basho.riak.protobuf.RiakDtPB.MapOp buildPartial() {
         com.basho.riak.protobuf.RiakDtPB.MapOp result = new com.basho.riak.protobuf.RiakDtPB.MapOp(this);
         int from_bitField0_ = bitField0_;
-        if (addsBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001)) {
-            adds_ = java.util.Collections.unmodifiableList(adds_);
-            bitField0_ = (bitField0_ & ~0x00000001);
-          }
-          result.adds_ = adds_;
-        } else {
-          result.adds_ = addsBuilder_.build();
-        }
         if (removesBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
             removes_ = java.util.Collections.unmodifiableList(removes_);
-            bitField0_ = (bitField0_ & ~0x00000002);
+            bitField0_ = (bitField0_ & ~0x00000001);
           }
           result.removes_ = removes_;
         } else {
           result.removes_ = removesBuilder_.build();
         }
         if (updatesBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
             updates_ = java.util.Collections.unmodifiableList(updates_);
-            bitField0_ = (bitField0_ & ~0x00000004);
+            bitField0_ = (bitField0_ & ~0x00000002);
           }
           result.updates_ = updates_;
         } else {
@@ -8247,37 +8145,11 @@ public final class RiakDtPB {
 
       public Builder mergeFrom(com.basho.riak.protobuf.RiakDtPB.MapOp other) {
         if (other == com.basho.riak.protobuf.RiakDtPB.MapOp.getDefaultInstance()) return this;
-        if (addsBuilder_ == null) {
-          if (!other.adds_.isEmpty()) {
-            if (adds_.isEmpty()) {
-              adds_ = other.adds_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-            } else {
-              ensureAddsIsMutable();
-              adds_.addAll(other.adds_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.adds_.isEmpty()) {
-            if (addsBuilder_.isEmpty()) {
-              addsBuilder_.dispose();
-              addsBuilder_ = null;
-              adds_ = other.adds_;
-              bitField0_ = (bitField0_ & ~0x00000001);
-              addsBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getAddsFieldBuilder() : null;
-            } else {
-              addsBuilder_.addAllMessages(other.adds_);
-            }
-          }
-        }
         if (removesBuilder_ == null) {
           if (!other.removes_.isEmpty()) {
             if (removes_.isEmpty()) {
               removes_ = other.removes_;
-              bitField0_ = (bitField0_ & ~0x00000002);
+              bitField0_ = (bitField0_ & ~0x00000001);
             } else {
               ensureRemovesIsMutable();
               removes_.addAll(other.removes_);
@@ -8290,7 +8162,7 @@ public final class RiakDtPB {
               removesBuilder_.dispose();
               removesBuilder_ = null;
               removes_ = other.removes_;
-              bitField0_ = (bitField0_ & ~0x00000002);
+              bitField0_ = (bitField0_ & ~0x00000001);
               removesBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getRemovesFieldBuilder() : null;
@@ -8303,7 +8175,7 @@ public final class RiakDtPB {
           if (!other.updates_.isEmpty()) {
             if (updates_.isEmpty()) {
               updates_ = other.updates_;
-              bitField0_ = (bitField0_ & ~0x00000004);
+              bitField0_ = (bitField0_ & ~0x00000002);
             } else {
               ensureUpdatesIsMutable();
               updates_.addAll(other.updates_);
@@ -8316,7 +8188,7 @@ public final class RiakDtPB {
               updatesBuilder_.dispose();
               updatesBuilder_ = null;
               updates_ = other.updates_;
-              bitField0_ = (bitField0_ & ~0x00000004);
+              bitField0_ = (bitField0_ & ~0x00000002);
               updatesBuilder_ = 
                 com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
                    getUpdatesFieldBuilder() : null;
@@ -8330,12 +8202,6 @@ public final class RiakDtPB {
       }
 
       public final boolean isInitialized() {
-        for (int i = 0; i < getAddsCount(); i++) {
-          if (!getAdds(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         for (int i = 0; i < getRemovesCount(); i++) {
           if (!getRemoves(i).isInitialized()) {
             
@@ -8370,379 +8236,13 @@ public final class RiakDtPB {
       }
       private int bitField0_;
 
-      // repeated .MapField adds = 1;
-      private java.util.List<com.basho.riak.protobuf.RiakDtPB.MapField> adds_ =
-        java.util.Collections.emptyList();
-      private void ensureAddsIsMutable() {
-        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
-          adds_ = new java.util.ArrayList<com.basho.riak.protobuf.RiakDtPB.MapField>(adds_);
-          bitField0_ |= 0x00000001;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilder<
-          com.basho.riak.protobuf.RiakDtPB.MapField, com.basho.riak.protobuf.RiakDtPB.MapField.Builder, com.basho.riak.protobuf.RiakDtPB.MapFieldOrBuilder> addsBuilder_;
-
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public java.util.List<com.basho.riak.protobuf.RiakDtPB.MapField> getAddsList() {
-        if (addsBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(adds_);
-        } else {
-          return addsBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public int getAddsCount() {
-        if (addsBuilder_ == null) {
-          return adds_.size();
-        } else {
-          return addsBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public com.basho.riak.protobuf.RiakDtPB.MapField getAdds(int index) {
-        if (addsBuilder_ == null) {
-          return adds_.get(index);
-        } else {
-          return addsBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public Builder setAdds(
-          int index, com.basho.riak.protobuf.RiakDtPB.MapField value) {
-        if (addsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAddsIsMutable();
-          adds_.set(index, value);
-          onChanged();
-        } else {
-          addsBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public Builder setAdds(
-          int index, com.basho.riak.protobuf.RiakDtPB.MapField.Builder builderForValue) {
-        if (addsBuilder_ == null) {
-          ensureAddsIsMutable();
-          adds_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          addsBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public Builder addAdds(com.basho.riak.protobuf.RiakDtPB.MapField value) {
-        if (addsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAddsIsMutable();
-          adds_.add(value);
-          onChanged();
-        } else {
-          addsBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public Builder addAdds(
-          int index, com.basho.riak.protobuf.RiakDtPB.MapField value) {
-        if (addsBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAddsIsMutable();
-          adds_.add(index, value);
-          onChanged();
-        } else {
-          addsBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public Builder addAdds(
-          com.basho.riak.protobuf.RiakDtPB.MapField.Builder builderForValue) {
-        if (addsBuilder_ == null) {
-          ensureAddsIsMutable();
-          adds_.add(builderForValue.build());
-          onChanged();
-        } else {
-          addsBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public Builder addAdds(
-          int index, com.basho.riak.protobuf.RiakDtPB.MapField.Builder builderForValue) {
-        if (addsBuilder_ == null) {
-          ensureAddsIsMutable();
-          adds_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          addsBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public Builder addAllAdds(
-          java.lang.Iterable<? extends com.basho.riak.protobuf.RiakDtPB.MapField> values) {
-        if (addsBuilder_ == null) {
-          ensureAddsIsMutable();
-          super.addAll(values, adds_);
-          onChanged();
-        } else {
-          addsBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public Builder clearAdds() {
-        if (addsBuilder_ == null) {
-          adds_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000001);
-          onChanged();
-        } else {
-          addsBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public Builder removeAdds(int index) {
-        if (addsBuilder_ == null) {
-          ensureAddsIsMutable();
-          adds_.remove(index);
-          onChanged();
-        } else {
-          addsBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public com.basho.riak.protobuf.RiakDtPB.MapField.Builder getAddsBuilder(
-          int index) {
-        return getAddsFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public com.basho.riak.protobuf.RiakDtPB.MapFieldOrBuilder getAddsOrBuilder(
-          int index) {
-        if (addsBuilder_ == null) {
-          return adds_.get(index);  } else {
-          return addsBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public java.util.List<? extends com.basho.riak.protobuf.RiakDtPB.MapFieldOrBuilder> 
-           getAddsOrBuilderList() {
-        if (addsBuilder_ != null) {
-          return addsBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(adds_);
-        }
-      }
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public com.basho.riak.protobuf.RiakDtPB.MapField.Builder addAddsBuilder() {
-        return getAddsFieldBuilder().addBuilder(
-            com.basho.riak.protobuf.RiakDtPB.MapField.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public com.basho.riak.protobuf.RiakDtPB.MapField.Builder addAddsBuilder(
-          int index) {
-        return getAddsFieldBuilder().addBuilder(
-            index, com.basho.riak.protobuf.RiakDtPB.MapField.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .MapField adds = 1;</code>
-       *
-       * <pre>
-       *
-       * ADD creates a new, "empty" value under a field. REMOVE removes
-       * a field and value from the Map. UPDATE applies type-specific
-       * operations to the values stored in the Map.
-       * </pre>
-       */
-      public java.util.List<com.basho.riak.protobuf.RiakDtPB.MapField.Builder> 
-           getAddsBuilderList() {
-        return getAddsFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilder<
-          com.basho.riak.protobuf.RiakDtPB.MapField, com.basho.riak.protobuf.RiakDtPB.MapField.Builder, com.basho.riak.protobuf.RiakDtPB.MapFieldOrBuilder> 
-          getAddsFieldBuilder() {
-        if (addsBuilder_ == null) {
-          addsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              com.basho.riak.protobuf.RiakDtPB.MapField, com.basho.riak.protobuf.RiakDtPB.MapField.Builder, com.basho.riak.protobuf.RiakDtPB.MapFieldOrBuilder>(
-                  adds_,
-                  ((bitField0_ & 0x00000001) == 0x00000001),
-                  getParentForChildren(),
-                  isClean());
-          adds_ = null;
-        }
-        return addsBuilder_;
-      }
-
-      // repeated .MapField removes = 2;
+      // repeated .MapField removes = 1;
       private java.util.List<com.basho.riak.protobuf.RiakDtPB.MapField> removes_ =
         java.util.Collections.emptyList();
       private void ensureRemovesIsMutable() {
-        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
           removes_ = new java.util.ArrayList<com.basho.riak.protobuf.RiakDtPB.MapField>(removes_);
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000001;
          }
       }
 
@@ -8750,7 +8250,14 @@ public final class RiakDtPB {
           com.basho.riak.protobuf.RiakDtPB.MapField, com.basho.riak.protobuf.RiakDtPB.MapField.Builder, com.basho.riak.protobuf.RiakDtPB.MapFieldOrBuilder> removesBuilder_;
 
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public java.util.List<com.basho.riak.protobuf.RiakDtPB.MapField> getRemovesList() {
         if (removesBuilder_ == null) {
@@ -8760,7 +8267,14 @@ public final class RiakDtPB {
         }
       }
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public int getRemovesCount() {
         if (removesBuilder_ == null) {
@@ -8770,7 +8284,14 @@ public final class RiakDtPB {
         }
       }
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public com.basho.riak.protobuf.RiakDtPB.MapField getRemoves(int index) {
         if (removesBuilder_ == null) {
@@ -8780,7 +8301,14 @@ public final class RiakDtPB {
         }
       }
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public Builder setRemoves(
           int index, com.basho.riak.protobuf.RiakDtPB.MapField value) {
@@ -8797,7 +8325,14 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public Builder setRemoves(
           int index, com.basho.riak.protobuf.RiakDtPB.MapField.Builder builderForValue) {
@@ -8811,7 +8346,14 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public Builder addRemoves(com.basho.riak.protobuf.RiakDtPB.MapField value) {
         if (removesBuilder_ == null) {
@@ -8827,7 +8369,14 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public Builder addRemoves(
           int index, com.basho.riak.protobuf.RiakDtPB.MapField value) {
@@ -8844,7 +8393,14 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public Builder addRemoves(
           com.basho.riak.protobuf.RiakDtPB.MapField.Builder builderForValue) {
@@ -8858,7 +8414,14 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public Builder addRemoves(
           int index, com.basho.riak.protobuf.RiakDtPB.MapField.Builder builderForValue) {
@@ -8872,7 +8435,14 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public Builder addAllRemoves(
           java.lang.Iterable<? extends com.basho.riak.protobuf.RiakDtPB.MapField> values) {
@@ -8886,12 +8456,19 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public Builder clearRemoves() {
         if (removesBuilder_ == null) {
           removes_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000002);
+          bitField0_ = (bitField0_ & ~0x00000001);
           onChanged();
         } else {
           removesBuilder_.clear();
@@ -8899,7 +8476,14 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public Builder removeRemoves(int index) {
         if (removesBuilder_ == null) {
@@ -8912,14 +8496,28 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public com.basho.riak.protobuf.RiakDtPB.MapField.Builder getRemovesBuilder(
           int index) {
         return getRemovesFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public com.basho.riak.protobuf.RiakDtPB.MapFieldOrBuilder getRemovesOrBuilder(
           int index) {
@@ -8929,7 +8527,14 @@ public final class RiakDtPB {
         }
       }
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public java.util.List<? extends com.basho.riak.protobuf.RiakDtPB.MapFieldOrBuilder> 
            getRemovesOrBuilderList() {
@@ -8940,14 +8545,28 @@ public final class RiakDtPB {
         }
       }
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public com.basho.riak.protobuf.RiakDtPB.MapField.Builder addRemovesBuilder() {
         return getRemovesFieldBuilder().addBuilder(
             com.basho.riak.protobuf.RiakDtPB.MapField.getDefaultInstance());
       }
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public com.basho.riak.protobuf.RiakDtPB.MapField.Builder addRemovesBuilder(
           int index) {
@@ -8955,7 +8574,14 @@ public final class RiakDtPB {
             index, com.basho.riak.protobuf.RiakDtPB.MapField.getDefaultInstance());
       }
       /**
-       * <code>repeated .MapField removes = 2;</code>
+       * <code>repeated .MapField removes = 1;</code>
+       *
+       * <pre>
+       *
+       *  REMOVE removes a field and value from the Map.
+       * UPDATE applies type-specific
+       * operations to the values stored in the Map.
+       * </pre>
        */
       public java.util.List<com.basho.riak.protobuf.RiakDtPB.MapField.Builder> 
            getRemovesBuilderList() {
@@ -8968,7 +8594,7 @@ public final class RiakDtPB {
           removesBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               com.basho.riak.protobuf.RiakDtPB.MapField, com.basho.riak.protobuf.RiakDtPB.MapField.Builder, com.basho.riak.protobuf.RiakDtPB.MapFieldOrBuilder>(
                   removes_,
-                  ((bitField0_ & 0x00000002) == 0x00000002),
+                  ((bitField0_ & 0x00000001) == 0x00000001),
                   getParentForChildren(),
                   isClean());
           removes_ = null;
@@ -8976,13 +8602,13 @@ public final class RiakDtPB {
         return removesBuilder_;
       }
 
-      // repeated .MapUpdate updates = 3;
+      // repeated .MapUpdate updates = 2;
       private java.util.List<com.basho.riak.protobuf.RiakDtPB.MapUpdate> updates_ =
         java.util.Collections.emptyList();
       private void ensureUpdatesIsMutable() {
-        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
           updates_ = new java.util.ArrayList<com.basho.riak.protobuf.RiakDtPB.MapUpdate>(updates_);
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000002;
          }
       }
 
@@ -8990,7 +8616,7 @@ public final class RiakDtPB {
           com.basho.riak.protobuf.RiakDtPB.MapUpdate, com.basho.riak.protobuf.RiakDtPB.MapUpdate.Builder, com.basho.riak.protobuf.RiakDtPB.MapUpdateOrBuilder> updatesBuilder_;
 
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public java.util.List<com.basho.riak.protobuf.RiakDtPB.MapUpdate> getUpdatesList() {
         if (updatesBuilder_ == null) {
@@ -9000,7 +8626,7 @@ public final class RiakDtPB {
         }
       }
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public int getUpdatesCount() {
         if (updatesBuilder_ == null) {
@@ -9010,7 +8636,7 @@ public final class RiakDtPB {
         }
       }
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public com.basho.riak.protobuf.RiakDtPB.MapUpdate getUpdates(int index) {
         if (updatesBuilder_ == null) {
@@ -9020,7 +8646,7 @@ public final class RiakDtPB {
         }
       }
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public Builder setUpdates(
           int index, com.basho.riak.protobuf.RiakDtPB.MapUpdate value) {
@@ -9037,7 +8663,7 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public Builder setUpdates(
           int index, com.basho.riak.protobuf.RiakDtPB.MapUpdate.Builder builderForValue) {
@@ -9051,7 +8677,7 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public Builder addUpdates(com.basho.riak.protobuf.RiakDtPB.MapUpdate value) {
         if (updatesBuilder_ == null) {
@@ -9067,7 +8693,7 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public Builder addUpdates(
           int index, com.basho.riak.protobuf.RiakDtPB.MapUpdate value) {
@@ -9084,7 +8710,7 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public Builder addUpdates(
           com.basho.riak.protobuf.RiakDtPB.MapUpdate.Builder builderForValue) {
@@ -9098,7 +8724,7 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public Builder addUpdates(
           int index, com.basho.riak.protobuf.RiakDtPB.MapUpdate.Builder builderForValue) {
@@ -9112,7 +8738,7 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public Builder addAllUpdates(
           java.lang.Iterable<? extends com.basho.riak.protobuf.RiakDtPB.MapUpdate> values) {
@@ -9126,12 +8752,12 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public Builder clearUpdates() {
         if (updatesBuilder_ == null) {
           updates_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000004);
+          bitField0_ = (bitField0_ & ~0x00000002);
           onChanged();
         } else {
           updatesBuilder_.clear();
@@ -9139,7 +8765,7 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public Builder removeUpdates(int index) {
         if (updatesBuilder_ == null) {
@@ -9152,14 +8778,14 @@ public final class RiakDtPB {
         return this;
       }
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public com.basho.riak.protobuf.RiakDtPB.MapUpdate.Builder getUpdatesBuilder(
           int index) {
         return getUpdatesFieldBuilder().getBuilder(index);
       }
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public com.basho.riak.protobuf.RiakDtPB.MapUpdateOrBuilder getUpdatesOrBuilder(
           int index) {
@@ -9169,7 +8795,7 @@ public final class RiakDtPB {
         }
       }
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public java.util.List<? extends com.basho.riak.protobuf.RiakDtPB.MapUpdateOrBuilder> 
            getUpdatesOrBuilderList() {
@@ -9180,14 +8806,14 @@ public final class RiakDtPB {
         }
       }
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public com.basho.riak.protobuf.RiakDtPB.MapUpdate.Builder addUpdatesBuilder() {
         return getUpdatesFieldBuilder().addBuilder(
             com.basho.riak.protobuf.RiakDtPB.MapUpdate.getDefaultInstance());
       }
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public com.basho.riak.protobuf.RiakDtPB.MapUpdate.Builder addUpdatesBuilder(
           int index) {
@@ -9195,7 +8821,7 @@ public final class RiakDtPB {
             index, com.basho.riak.protobuf.RiakDtPB.MapUpdate.getDefaultInstance());
       }
       /**
-       * <code>repeated .MapUpdate updates = 3;</code>
+       * <code>repeated .MapUpdate updates = 2;</code>
        */
       public java.util.List<com.basho.riak.protobuf.RiakDtPB.MapUpdate.Builder> 
            getUpdatesBuilderList() {
@@ -9208,7 +8834,7 @@ public final class RiakDtPB {
           updatesBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
               com.basho.riak.protobuf.RiakDtPB.MapUpdate, com.basho.riak.protobuf.RiakDtPB.MapUpdate.Builder, com.basho.riak.protobuf.RiakDtPB.MapUpdateOrBuilder>(
                   updates_,
-                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  ((bitField0_ & 0x00000002) == 0x00000002),
                   getParentForChildren(),
                   isClean());
           updates_ = null;
@@ -13257,21 +12883,21 @@ public final class RiakDtPB {
       "p\022\026\n\006set_op\030\003 \001(\0132\006.SetOp\022\023\n\013register_op" +
       "\030\004 \001(\014\022\"\n\007flag_op\030\005 \001(\0162\021.MapUpdate.Flag" +
       "Op\022\026\n\006map_op\030\006 \001(\0132\006.MapOp\"!\n\006FlagOp\022\n\n\006" +
-      "ENABLE\020\001\022\013\n\007DISABLE\020\002\"Y\n\005MapOp\022\027\n\004adds\030\001" +
-      " \003(\0132\t.MapField\022\032\n\007removes\030\002 \003(\0132\t.MapFi" +
-      "eld\022\033\n\007updates\030\003 \003(\0132\n.MapUpdate\"V\n\004DtOp" +
-      "\022\036\n\ncounter_op\030\001 \001(\0132\n.CounterOp\022\026\n\006set_" +
-      "op\030\002 \001(\0132\006.SetOp\022\026\n\006map_op\030\003 \001(\0132\006.MapOp",
-      "\"\361\001\n\013DtUpdateReq\022\016\n\006bucket\030\001 \002(\014\022\013\n\003key\030" +
-      "\002 \001(\014\022\014\n\004type\030\003 \002(\014\022\017\n\007context\030\004 \001(\014\022\021\n\002" +
-      "op\030\005 \002(\0132\005.DtOp\022\t\n\001w\030\006 \001(\r\022\n\n\002dw\030\007 \001(\r\022\n" +
-      "\n\002pw\030\010 \001(\r\022\032\n\013return_body\030\t \001(\010:\005false\022\017" +
-      "\n\007timeout\030\n \001(\r\022\025\n\rsloppy_quorum\030\013 \001(\010\022\r" +
-      "\n\005n_val\030\014 \001(\r\022\035\n\017include_context\030\r \001(\010:\004" +
-      "true\"t\n\014DtUpdateResp\022\013\n\003key\030\001 \001(\014\022\017\n\007con" +
-      "text\030\002 \001(\014\022\025\n\rcounter_value\030\003 \001(\022\022\021\n\tset" +
-      "_value\030\004 \003(\014\022\034\n\tmap_value\030\005 \003(\0132\t.MapEnt" +
-      "ryB#\n\027com.basho.riak.protobufB\010RiakDtPB"
+      "ENABLE\020\001\022\013\n\007DISABLE\020\002\"@\n\005MapOp\022\032\n\007remove" +
+      "s\030\001 \003(\0132\t.MapField\022\033\n\007updates\030\002 \003(\0132\n.Ma" +
+      "pUpdate\"V\n\004DtOp\022\036\n\ncounter_op\030\001 \001(\0132\n.Co" +
+      "unterOp\022\026\n\006set_op\030\002 \001(\0132\006.SetOp\022\026\n\006map_o" +
+      "p\030\003 \001(\0132\006.MapOp\"\361\001\n\013DtUpdateReq\022\016\n\006bucke",
+      "t\030\001 \002(\014\022\013\n\003key\030\002 \001(\014\022\014\n\004type\030\003 \002(\014\022\017\n\007co" +
+      "ntext\030\004 \001(\014\022\021\n\002op\030\005 \002(\0132\005.DtOp\022\t\n\001w\030\006 \001(" +
+      "\r\022\n\n\002dw\030\007 \001(\r\022\n\n\002pw\030\010 \001(\r\022\032\n\013return_body" +
+      "\030\t \001(\010:\005false\022\017\n\007timeout\030\n \001(\r\022\025\n\rsloppy" +
+      "_quorum\030\013 \001(\010\022\r\n\005n_val\030\014 \001(\r\022\035\n\017include_" +
+      "context\030\r \001(\010:\004true\"t\n\014DtUpdateResp\022\013\n\003k" +
+      "ey\030\001 \001(\014\022\017\n\007context\030\002 \001(\014\022\025\n\rcounter_val" +
+      "ue\030\003 \001(\022\022\021\n\tset_value\030\004 \003(\014\022\034\n\tmap_value" +
+      "\030\005 \003(\0132\t.MapEntryB#\n\027com.basho.riak.prot" +
+      "obufB\010RiakDtPB"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -13331,7 +12957,7 @@ public final class RiakDtPB {
           internal_static_MapOp_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_MapOp_descriptor,
-              new java.lang.String[] { "Adds", "Removes", "Updates", });
+              new java.lang.String[] { "Removes", "Updates", });
           internal_static_DtOp_descriptor =
             getDescriptor().getMessageTypes().get(9);
           internal_static_DtOp_fieldAccessorTable = new
