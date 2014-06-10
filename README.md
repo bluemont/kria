@@ -3,13 +3,13 @@
 An asynchronous Clojure client for Riak 2.0 built on top of the [Riak Protocol
 Buffer interface][Riak-PB] using Java 7's NIO.2.
 
-[Riak-PB]: http://docs.basho.com/riak/2.0.0pre11/dev/references/protocol-buffers/
+[Riak-PB]: http://docs.basho.com/riak/2.0.0beta1/dev/references/protocol-buffers/
 
 ## Usage
 
 Add this to your `project.clj`:
 
-    [kria "0.1.7"]
+    [kria "0.1.8"]
 
 For the following examples, I recommend using these namespace aliases:
 
@@ -165,6 +165,14 @@ files in `resources/proto/*.proto` using these commands:
     protoc --java_out=../../src/java riak_search.proto
     protoc --java_out=../../src/java riak_yokozuna.proto
     cd ../..
+
+## Developer Notes
+
+As a matter of context, Kria was started when Riak 2 was in prerelease.
+Sometimes new releases require changes to the protocol buffer specification.
+Changes from [riak_pb]'s protocol buffer files need to be brought into Kria.
+
+[riak_pb]: https://github.com/basho/riak_pb
 
 ## Message Terminology
 
