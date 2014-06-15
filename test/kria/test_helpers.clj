@@ -33,6 +33,11 @@
   (->> (rand-int 100000000)
        (format "I-%08d")))
 
+(defn rand-schema
+  []
+  (->> (rand-int 100000000)
+       (format "S-%08d")))
+
 (defn cb-fn
   [p]
   (fn [asc e a] (deliver p [asc e a])))
