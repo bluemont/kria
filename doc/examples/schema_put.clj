@@ -1,5 +1,5 @@
 (defn conn-cb [asc e a] (println (if e e "connected")))
 (def conn (client/connect nil "127.0.0.1" 8087 conn-cb))
 (def content (slurp "doc/examples/schema_custom.xml"))
-(schema/put conn "S-600" content)
+(schema/put conn "S-600" content result-cb)
 (pprint @result)
