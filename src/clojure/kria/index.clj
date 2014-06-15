@@ -34,10 +34,11 @@
         (assoc-in opts [:index :name] name)))
 
 (defn get-poll
-  "Polls `get` up to `k` times every `delay` milliseconds. If not
-  found, returns false. If found, returns the time delay."
+  "Polls `get` up to `k` times. Starts by waiting `delay` milli-
+  seconds and increases the delay by 20% on each iteration. If not
+  found, returns false. If found, returns the total time used."
   [asc name delay k]
-  (loop [i 0]
+  (loop [i 0 d delay t 0]
     (if (>= i k)
       false
       (let [p (promise)
@@ -45,7 +46,8 @@
         (get asc name cb)
         (let [[asc e a] @p]
           (if (= name (-> a :index first :name))
-            (* i delay)
+            t
             (do
-              (Thread/sleep delay)
-              (recur (inc i)))))))))
+              (Thread/sleep d)
+              (let [d' (long (* d 1.2))]
+                (recur (inc i) d' (+ t d'))))))))))

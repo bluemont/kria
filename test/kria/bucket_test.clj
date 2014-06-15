@@ -40,7 +40,7 @@
       (let [[asc e a] @p1]
         (is (nil? e))
         (is (true? a)))
-      (is (i/get-poll conn idx 250 40))
+      (is (i/get-poll conn idx 250 20))
       (b/set conn b {:props {:search-index idx}} (h/cb-fn p2))
       (let [[asc e a] @p2]
         (is (nil? e))
