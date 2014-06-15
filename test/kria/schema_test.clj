@@ -1,6 +1,5 @@
 (ns kria.schema-test
   (:require
-    [clojure.pprint :refer (pprint)]
     [clojure.test :refer :all]
     [kria.test-helpers :as h]
     [kria.client :as c]

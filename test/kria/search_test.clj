@@ -1,6 +1,5 @@
 (ns kria.search-test
   (:require
-    [clojure.pprint :refer (pprint)]
     [clojure.test :refer :all]
     [kria.bucket :as b]
     [kria.conversions :refer [byte-string?
