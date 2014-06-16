@@ -34,11 +34,12 @@
         (assoc-in opts [:index :name] name)))
 
 (defn get-poll
-  "Polls `get` up to `k` times. Starts by waiting `delay` milli-
-  seconds and increases the delay by 20% on each iteration. If not
-  found, returns false. If found, returns the total time used."
-  [asc name delay k]
-  (loop [i 0 d delay t 0]
+  "Polls `get` up to `k` times. Starts by waiting `delay-start`
+  milliseconds and multiplies by `delay-growth` on each iteration,
+  up to a maximum of `delay-max`. If `get` returns nothing (i.e.
+  nothing found), returns false. If found, returns time used."
+  [asc name k delay-init delay-growth delay-max]
+  (loop [i 0 d delay-init t 0]
     (if (>= i k)
       false
       (let [p (promise)
@@ -49,5 +50,15 @@
             t
             (do
               (Thread/sleep d)
-              (let [d' (long (* d 1.2))]
-                (recur (inc i) d' (+ t d'))))))))))
+              (let [d' (min (* d delay-growth) delay-max)]
+                (recur (inc i) d' (long (+ t d)))))))))))
+
+(defn max-wait
+  "Returns the maximum wait for the same arguments as used in the
+  `get-poll` function."
+  [k delay-init delay-growth delay-max]
+  (loop [i 0 d delay-init t 0]
+    (if (>= i k)
+      (+ t d)
+      (let [d' (min (* d delay-growth) delay-max)]
+        (recur (inc i) d' (long (+ t d)))))))

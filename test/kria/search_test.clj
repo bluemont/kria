@@ -49,7 +49,7 @@
           b (h/rand-bucket)
           idx (h/rand-index)
           _ (setup-index conn idx)
-          _ (i/get-poll conn idx 250 20)
+          _ (i/get-poll conn idx 100 20 1.5 500) ; TODO: test return value
           _ (setup-bucket conn b idx)
           words ["zone" "ozone" "anger" "danger"]
           ks (put-objects conn b "word" words)]
