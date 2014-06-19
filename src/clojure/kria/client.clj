@@ -29,11 +29,13 @@
   `group` parameter is `nil` then the resulting channel is created
   by the system-wide default provider, and bound to the default
   group."
-  [^AsynchronousChannelGroup group host port cb]
-  (let [sa (socket-address host port)
-        asc (AsynchronousSocketChannel/open group)]
-    (.connect asc sa nil (connect-handler asc cb))
-    asc))
+  ([host port cb]
+   (connect host port nil cb))
+  ([host port ^AsynchronousChannelGroup group cb]
+   (let [sa (socket-address host port)
+         asc (AsynchronousSocketChannel/open group)]
+     (.connect asc sa nil (connect-handler asc cb))
+     asc)))
 
 (defn disconnect
   "Disconnect client."

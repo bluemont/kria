@@ -45,6 +45,6 @@
 (defn connect
   []
   (let [p (promise)
-        conn (client/connect nil "127.0.0.1" 8087 (cb-fn p))]
+        conn (client/connect "127.0.0.1" 8087 (cb-fn p))]
     @p
     conn))

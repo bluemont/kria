@@ -19,7 +19,7 @@ For the following examples, I recommend using these namespace aliases:
 To create a connection:
 
     (defn conn-cb [asc e a] (println (if e e "connected")))
-    (def conn (client/connect nil "127.0.0.1" 8087 conn-cb))
+    (def conn (client/connect "127.0.0.1" 8087 conn-cb))
 
 The first line sets up the callback that runs after `connect` succeeds or
 fails. On failure, it returns the exception `e`. On success, it prints

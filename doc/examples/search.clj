@@ -1,6 +1,6 @@
 (defn cb-fn [p] (fn [asc e a] (deliver p [asc e a])))
 (defn conn-cb [asc e a] (println (if e e "connected")))
-(def conn (client/connect nil "127.0.0.1" 8087 conn-cb))
+(def conn (client/connect "127.0.0.1" 8087 conn-cb))
 (def b (conv/byte-string<-utf8-string "B-504"))
 (def idx "I-504")
 
