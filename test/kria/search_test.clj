@@ -73,14 +73,3 @@
             _ (s/search conn idx q {} (h/cb-fn p))
             [asc e a] @p]
         (is (= 2 (:num-found a)))))))
-
-(comment
-  {:docs
-   [{:fields
-     [{:key "score", :value "2.32175600000000015299e+00"}
-      {:key "_yz_rb", :value "B-70536600"}
-      {:key "_yz_rt", :value "default"}
-      {:key "_yz_rk", :value "K-30798154"}
-      {:key "_yz_id", :value "default_B-70536600_K-30798154_30"}]}],
-   :max-score 2.321756,
-   :num-found 1})
