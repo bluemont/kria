@@ -9,7 +9,7 @@
 (defn search
   "Searches index `idx` with query `q`."
   [asc idx q opts cb]
-  {:pre [(byte-string? q) (string? idx)]}
+  {:pre [(string? idx) (byte-string? q)]}
   (call asc cb :search-query-req :search-query-resp
         SearchReq->bytes bytes->SearchResp
         (merge opts {:q q :index idx})))
