@@ -56,7 +56,7 @@
       (Thread/sleep 2000)
       (let [q (byte-string<-utf8-string "word:zone")
             p (promise)
-            _ (s/search conn q idx {} (h/cb-fn p))
+            _ (s/search conn idx q {} (h/cb-fn p))
             [asc e a] @p
             docs (:docs a)
             doc (first docs)
@@ -70,7 +70,7 @@
                (get m "_yz_rk"))))
       (let [q (byte-string<-utf8-string "word:*zone")
             p (promise)
-            _ (s/search conn q idx {} (h/cb-fn p))
+            _ (s/search conn idx q {} (h/cb-fn p))
             [asc e a] @p]
         (is (= 2 (:num-found a)))))))
 

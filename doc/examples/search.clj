@@ -33,6 +33,6 @@
 
 (def q (conv/byte-string<-utf8-string "word_ss:*"))
 (def p (promise))
-(search/search conn q idx {} (cb-fn p))
+(search/search conn idx q {} (cb-fn p))
 (println @p)
 

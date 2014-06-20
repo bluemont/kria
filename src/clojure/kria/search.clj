@@ -7,8 +7,8 @@
 (set! *warn-on-reflection* true)
 
 (defn search
-  "Searches index with a query."
-  [asc q idx opts cb]
+  "Searches index `idx` with query `q`."
+  [asc idx q opts cb]
   {:pre [(byte-string? q) (string? idx)]}
   (call asc cb :search-query-req :search-query-resp
         SearchReq->bytes bytes->SearchResp
