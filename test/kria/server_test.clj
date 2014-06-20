@@ -11,6 +11,14 @@
     @p
     conn))
 
+(deftest ping-test
+  (testing "ping-info"
+    (let [conn (connect)
+          p (promise)]
+      (s/ping conn (h/cb-fn p))
+      (is (= @p [conn nil true]))
+      (c/disconnect conn))))
+
 (deftest info-test
   (testing "info"
     (let [conn (connect)
@@ -20,12 +28,4 @@
         (is (nil? e))
         (is (= "riak@127.0.0.1" (:node a)))
         (is (= "2.0.0beta1" (:server-version a))))
-      (c/disconnect conn))))
-
-(deftest ping-test
-  (testing "ping-info"
-    (let [conn (connect)
-          p (promise)]
-      (s/ping conn (h/cb-fn p))
-      (is (= @p [conn nil true]))
       (c/disconnect conn))))
