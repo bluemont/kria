@@ -15,7 +15,7 @@
 (defn connect-handler
   [asc cb]
   (proxy [CompletionHandler] []
-    (completed [_ a] (cb asc nil true))
+    (completed [_ a] (cb asc nil asc))
     (failed [e a] (cb asc e nil))))
 
 (defn connect
