@@ -51,10 +51,14 @@
           _ (setup-index conn idx)
           _ (i/get-poll conn idx 100 20 1.5 500) ; TODO: test return value
           _ (setup-bucket conn b idx)
-          words ["zone" "ozone" "anger" "danger"]
-          ks (put-objects conn b "word" words)]
+          phrases ["zone of danger"
+                   "ozone layer"
+                   "acid rain"
+                   "danger zone"
+                   "preparation"]
+          ks (put-objects conn b "phrase" phrases)]
       (Thread/sleep 2000)
-      (let [q (byte-string<-utf8-string "word:zone")
+      (let [q (byte-string<-utf8-string "phrase:\"danger zone\"")
             p (promise)
             _ (s/search conn idx q {} (h/cb-fn p))
             [asc e a] @p
@@ -66,10 +70,10 @@
         (is (= 1 (:num-found a)))
         (is (= (utf8-string<-byte-string b)
                (get m "_yz_rb")))
-        (is (= (utf8-string<-byte-string (first ks))
+        (is (= (utf8-string<-byte-string (nth ks 3))
                (get m "_yz_rk"))))
-      (let [q (byte-string<-utf8-string "word:*zone")
+      (let [q (byte-string<-utf8-string "phrase:*zone")
             p (promise)
             _ (s/search conn idx q {} (h/cb-fn p))
             [asc e a] @p]
-        (is (= 2 (:num-found a)))))))
+        (is (= 3 (:num-found a)))))))
