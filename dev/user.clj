@@ -3,7 +3,7 @@
     [clojure.pprint :refer (pprint)]
     [clojure.repl :refer :all]
     [clojure.string :as str]
-    [clojure.test :as test]
+    [clojure.test :refer [run-tests run-all-tests]]
     [clojure.tools.namespace.repl :refer (refresh)]
     [kria.bucket :as bucket]
     [kria.client :as client]

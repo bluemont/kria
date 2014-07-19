@@ -222,6 +222,16 @@ one less than the body length.
 
 [Riak-PB]: http://docs.basho.com/riak/latest/dev/references/protocol-buffers/
 
+## Running Tests in the REPL
+
+It may not be widely known that it is easy to run tests in the REPL.
+
+For example:
+
+```clj
+(refresh) (run-tests 'kria.search-test)
+```
+
 ## License
 
 Copyright 2014 Bluemont Labs LLC
