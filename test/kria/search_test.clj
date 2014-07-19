@@ -43,8 +43,8 @@
   [conn v jk jvs]
   (doall (map #(put-object conn v jk %) jvs)))
 
-(deftest store-4-search-test
-  (testing "store 3, search"
+(deftest store-5-search-test
+  (testing "store 5, search"
     (let [conn (h/connect)
           b (h/rand-bucket)
           idx (h/rand-index)
