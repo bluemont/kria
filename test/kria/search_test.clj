@@ -43,8 +43,8 @@
   [conn v jk jvs]
   (doall (map #(put-object conn v jk %) jvs)))
 
-(deftest store-5-search-test
-  (testing "store 5, search"
+(deftest store-6-search-test
+  (testing "store 6, search"
     (let [conn (h/connect)
           b (h/rand-bucket)
           idx (h/rand-index)
@@ -55,6 +55,7 @@
                    "ozone layer"
                    "acid rain"
                    "danger zone"
+                   "ocean acidification"
                    "preparation"]
           ks (put-objects conn b "phrase" phrases)]
       (Thread/sleep 2000)
@@ -72,6 +73,29 @@
                (get m "_yz_rb")))
         (is (= (utf8-string<-byte-string (nth ks 3))
                (get m "_yz_rk"))))
+
+      (comment "A plain * acts as wildcard.")
+      (let [q (byte-string<-utf8-string "phrase:*")
+            p (promise)
+            _ (s/search conn idx q {} (h/cb-fn p))
+            [asc e a] @p]
+        (is (= 6 (:num-found a))))
+
+      (comment "Quoting * only finds literal matches.")
+      (let [q (byte-string<-utf8-string "phrase:\"*\"")
+            p (promise)
+            _ (s/search conn idx q {} (h/cb-fn p))
+            [asc e a] @p]
+        (is (= 0 (:num-found a))))
+
+      (comment "Demonstrate prefix matching.")
+      (let [q (byte-string<-utf8-string "phrase:acid*")
+            p (promise)
+            _ (s/search conn idx q {} (h/cb-fn p))
+            [asc e a] @p]
+        (is (= 2 (:num-found a))))
+
+      (comment "Demonstrate suffix matching.")
       (let [q (byte-string<-utf8-string "phrase:*zone")
             p (promise)
             _ (s/search conn idx q {} (h/cb-fn p))
