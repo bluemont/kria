@@ -115,7 +115,7 @@ message RpbDelReq {
 
 // Delete response - not defined, will return a RpbDelResp on success or RpbErrorResp on failure
 
-// List buckets request 
+// List buckets request
 message RpbListBucketsReq {
     optional uint32 timeout = 1;
     optional bool stream = 2;
