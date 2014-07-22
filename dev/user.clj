@@ -10,6 +10,7 @@
     [kria.conversions :as conv]
     [kria.core :as core]
     [kria.index :as index]
+    [kria.polling :as p]
     [kria.object :as object]
     [kria.schema :as schema]
     [kria.search :as search]
