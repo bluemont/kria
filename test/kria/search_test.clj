@@ -5,23 +5,12 @@
     [kria.conversions :refer [byte-string?
                               byte-string<-utf8-string
                               utf8-string<-byte-string]]
-    [kria.test-helpers :as h]
     [kria.index :as i]
     [kria.object :as o]
-    [kria.search :as s]))
-
-(defn setup-index
-  [conn idx]
-  (let [p (promise)]
-    (i/put conn idx {} (h/cb-fn p))
-    @p))
-
-(defn setup-bucket
-  [conn b idx]
-  (let [p (promise)
-        opts {:props {:search true :search-index idx}}]
-    (b/set conn b opts (h/cb-fn p))
-    @p))
+    [kria.polling :as p]
+    [kria.schema :as schema]
+    [kria.search :as s]
+    [kria.test-helpers :as h]))
 
 (defn json
   [jk jv]
@@ -44,60 +33,84 @@
   (doall (map #(put-object conn v jk %) jvs)))
 
 (deftest store-6-search-test
-  (testing "store 6, search"
-    (let [conn (h/connect)
-          b (h/rand-bucket)
-          idx (h/rand-index)
-          _ (setup-index conn idx)
-          _ (i/get-poll conn idx 100 20 1.5 500) ; TODO: test return value
-          _ (setup-bucket conn b idx)
-          phrases ["zone of danger"
+  (let [conn (h/connect)
+        b (h/rand-bucket)
+        idx (h/rand-index)
+        schema-name (h/rand-schema)
+        schema-content (h/slurp-schema)]
+    (h/setup-schema conn schema-name)
+    (is (h/schema-ready? conn schema-name schema-content))
+    (h/setup-index conn idx schema-name)
+    (is (h/index-ready? conn idx))
+    (h/setup-bucket conn b idx)
+    (is (h/bucket-ready? conn b idx))
+    (let [phrases ["zone of danger"
                    "ozone layer"
                    "acid rain"
                    "danger zone"
                    "ocean acidification"
                    "preparation"]
-          ks (put-objects conn b "phrase" phrases)]
-      (Thread/sleep 2000)
-      (let [q (byte-string<-utf8-string "phrase:\"danger zone\"")
-            p (promise)
-            _ (s/search conn idx q {} (h/cb-fn p))
-            [asc e a] @p
-            docs (:docs a)
-            doc (first docs)
-            fields (:fields doc)
-            ms (map #(hash-map (:key %) (:value %)) fields)
-            m (apply merge ms)]
-        (is (= 1 (:num-found a)))
-        (is (= (utf8-string<-byte-string b)
-               (get m "_yz_rb")))
-        (is (= (utf8-string<-byte-string (nth ks 3))
-               (get m "_yz_rk"))))
+          bs_ks (put-objects conn b "phrase" phrases)
+          ks (mapv utf8-string<-byte-string bs_ks)]
 
-      (comment "A plain * acts as wildcard.")
-      (let [q (byte-string<-utf8-string "phrase:*")
-            p (promise)
-            _ (s/search conn idx q {} (h/cb-fn p))
-            [asc e a] @p]
-        (is (= 6 (:num-found a))))
+      (testing "*:* (find 6)"
+        (let [q (byte-string<-utf8-string "*:*")
+              search (fn []
+                       (let [p (promise)]
+                         (s/search conn idx q {} (h/cb-fn p))
+                         (let [[asc e a] @p]
+                           a)))]
+          (is (p/poll 6 #(:num-found (search)) h/max-i h/i-delay))
+          (let [docs (:docs (search))
+                ms (for [fields (map :fields docs)]
+                     (->> fields
+                          (map (fn [x] {(:key x) (:value x)}))
+                          (apply merge)))
+                yz_rb (set (map #(get % "_yz_rb") ms))
+                yz_rk (set (map #(get % "_yz_rk") ms))]
+            (is (= #{(utf8-string<-byte-string b)} yz_rb))
+            (is (= (set ks) yz_rk)))))
 
-      (comment "Quoting * only finds literal matches.")
-      (let [q (byte-string<-utf8-string "phrase:\"*\"")
-            p (promise)
-            _ (s/search conn idx q {} (h/cb-fn p))
-            [asc e a] @p]
-        (is (= 0 (:num-found a))))
+      (testing "phrase:zone (find 2)"
+        (let [q (byte-string<-utf8-string "phrase:zone")
+              p (promise)
+              _ (s/search conn idx q {} (h/cb-fn p))
+              [asc e a] @p]
+          (is (= 2 (:num-found a)))
+          (let [docs (:docs a)
+                ms (for [fields (map :fields docs)]
+                     (->> fields
+                          (map (fn [x] {(:key x) (:value x)}))
+                          (apply merge)))
+                yz_rb (set (map #(get % "_yz_rb") ms))
+                yz_rk (set (map #(get % "_yz_rk") ms))]
+            (is (= #{(utf8-string<-byte-string b)} yz_rb))
+            (is (= (set (map ks [0 3])) yz_rk)))))
 
-      (comment "Demonstrate prefix matching.")
-      (let [q (byte-string<-utf8-string "phrase:acid*")
-            p (promise)
-            _ (s/search conn idx q {} (h/cb-fn p))
-            [asc e a] @p]
-        (is (= 2 (:num-found a))))
+      (testing "phrase:* (find 6)"
+        (let [q (byte-string<-utf8-string "phrase:*")
+              p (promise)
+              _ (s/search conn idx q {} (h/cb-fn p))
+              [asc e a] @p]
+          (is (= 6 (:num-found a)))))
 
-      (comment "Demonstrate suffix matching.")
-      (let [q (byte-string<-utf8-string "phrase:*zone")
-            p (promise)
-            _ (s/search conn idx q {} (h/cb-fn p))
-            [asc e a] @p]
-        (is (= 3 (:num-found a)))))))
+      (testing "phrase:\"*\" (find 0)"
+        (let [q (byte-string<-utf8-string "phrase:\"*\"")
+              p (promise)
+              _ (s/search conn idx q {} (h/cb-fn p))
+              [asc e a] @p]
+          (is (= 0 (:num-found a)))))
+
+      (testing "prefix matching"
+        (let [q (byte-string<-utf8-string "phrase:acid*")
+              p (promise)
+              _ (s/search conn idx q {} (h/cb-fn p))
+              [asc e a] @p]
+          (is (= 2 (:num-found a)))))
+
+      (testing "suffix matching"
+        (let [q (byte-string<-utf8-string "phrase:*zone")
+              p (promise)
+              _ (s/search conn idx q {} (h/cb-fn p))
+              [asc e a] @p]
+          (is (= 3 (:num-found a))))))))

@@ -4,6 +4,7 @@
             [kria.conversions :refer [utf8-string<-byte-string]]
             [kria.client :as c]
             [kria.object :as o]
+            [kria.polling :as p]
             [kria.bucket :as b]
             [kria.index :as i]))
 
@@ -28,25 +29,32 @@
         (is (= (:not-found-ok props) true))
         (is (= (:search props) false))))))
 
+; Note: As of 2014-07-22, I think this is the best style test I have written.
+; It uses a let block for each promise, which improves clarity and keeps
+; lexical scope small.
 (deftest set-get-test
   (testing "set, get"
     (let [conn (h/connect)
           b (h/rand-bucket)
-          idx (h/rand-index)
-          p1 (promise)
-          p2 (promise)
-          p3 (promise)]
-      (i/put conn idx {} (h/cb-fn p1))
-      (let [[asc e a] @p1]
+          idx (h/rand-index)]
+      (let [p (promise)
+            _ (i/put conn idx {} (h/cb-fn p))
+            [asc e a] @p]
         (is (nil? e))
         (is (true? a)))
-      (is (i/get-poll conn idx 100 20 1.5 500))
-      (b/set conn b {:props {:search-index idx}} (h/cb-fn p2))
-      (let [[asc e a] @p2]
+      (let [f #(->> (h/get-index conn idx)
+                    :index
+                    (map :name)
+                    set)]
+        (is (p/poll #{idx} f 20 500)))
+      (let [p (promise)
+            _ (b/set conn b {:props {:search-index idx}} (h/cb-fn p))
+            [asc e a] @p]
         (is (nil? e))
         (is (true? a)))
-      (b/get conn b (h/cb-fn p3))
-      (let [[asc e a] @p3]
+      (let [p (promise)
+            _ (b/get conn b (h/cb-fn p))
+            [asc e a] @p]
         (is (nil? e))
         (is (= idx (-> a :props :search-index))))
       (c/disconnect conn))))
