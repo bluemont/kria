@@ -42,11 +42,7 @@
             [asc e a] @p]
         (is (nil? e))
         (is (true? a)))
-      (let [f #(->> (h/get-index conn idx)
-                    :index
-                    (map :name)
-                    set)]
-        (is (p/poll #{idx} f 20 500)))
+      (h/index-ready? conn idx)
       (let [p (promise)
             _ (b/set conn b {:props {:search-index idx}} (h/cb-fn p))
             [asc e a] @p]
