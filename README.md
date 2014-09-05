@@ -3,7 +3,27 @@
 An asynchronous Clojure client for Riak 2.0 built on top of the [Riak Protocol
 Buffer interface][Riak-PB] using Java 7's NIO.2.
 
-[Riak-PB]: http://docs.basho.com/riak/2.0.0beta1/dev/references/protocol-buffers/
+Kria only only has four dependencies:
+
+* Java 7 (for NIO.2)
+* Clojure 1.6
+* Protocol Buffers
+* [Basho's Riak Protocol Buffer Files][riak-pb-maven]
+
+[riak-pb-maven]: https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22riak-pb%22
+
+I intentionally avoided Netty to reduce complexity. At present, Kria has about
+2K lines of Clojure: 1,414 for implementation and 584 for tests. As a very
+rough point of comparison, Basho's [official Riak 2 Java client][rjc] has
+about 28K lines of code: 17K for code, 11K for tests. It is more complete, of
+course, so this isn't an apples-to-apples comparison. Still, I spent
+considerable effort reducing duplication in Kria, and I believe this makes
+Kria code easier to read and reason about. I hope this translates to better
+reliability, too. If and when my team and/or the community wants additional
+features, I'm confident they can be added with dozens or hundreds of LOC, not
+thousands.
+
+[rjc]: https://github.com/basho/riak-java-client
 
 ## Usage
 
