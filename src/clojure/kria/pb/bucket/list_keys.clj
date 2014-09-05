@@ -12,8 +12,7 @@
 (defrecord ListKeysReq
   [bucket  ; required bytes
    timeout ; optional uint32
-   type    ; optional bytes
-   ])
+   type])  ; optional bytes
 
 (defn ^RiakKvPB$RpbListKeysReq ListKeysReq->pb
   [m]
@@ -31,9 +30,8 @@
   (.toByteArray (ListKeysReq->pb m)))
 
 (defrecord ListKeysResp
-  [keys ; repeated bytes
-   done ; optional bool
-   ])
+  [keys   ; repeated bytes
+   done]) ; optional bool
 
 (defn pb->ListKeysResp
   [^RiakKvPB$RpbListKeysResp pb]

@@ -11,8 +11,7 @@
 
 (defrecord GetBucketReq
   [bucket ; required bytes
-   type   ; optional bytes
-   ])
+   type]) ; optional bytes
 
 (defn ^RiakPB$RpbGetBucketReq GetBucketReq->pb
   [m]
@@ -28,8 +27,7 @@
   (.toByteArray (GetBucketReq->pb m)))
 
 (defrecord GetBucketResp
-  [props ; required RpbBucketProps
-   ])
+  [props]) ; required RpbBucketProps
 
 (defn pb->GetBucketResp
   [^RiakPB$RpbGetBucketResp pb]
