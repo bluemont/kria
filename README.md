@@ -26,7 +26,6 @@ fails. On failure, it returns the exception `e`. On success, it prints
 "connected".
 
 The second line connects to Riak with the specified host, port, and callback.
-(You can ignore the `nil` parameter for now.)
 
 Try a ping with:
 
@@ -62,9 +61,9 @@ The callback for `connect` takes these arguments:
     API call. In the case of `connect`, it will be `true` on success or `nil`
     on failure.
 
-In case you are curious, using `nil` as the first argument to `client/connect`
-creates the connection with the system-wide default provider. If you want to
-pool connections instead, see [`AsynchronousChannelGroup`][ACG].
+If you want to pool connections, use the 4 argument version of `connect` that
+takes these inputs: `[host port ^AsynchronousChannelGroup group cb]`. To learn
+how, read about the [AsynchronousChannelGroup][ACG] class.
 
 [ASC]: http://docs.oracle.com/javase/7/docs/api/java/nio/channels/AsynchronousSocketChannel.html
 [ACG]: http://docs.oracle.com/javase/7/docs/api/java/nio/channels/AsynchronousChannelGroup.html
