@@ -146,37 +146,15 @@ reasons:
 [lein-protobuf]: https://github.com/flatland/lein-protobuf
 [riak_pb]: https://github.com/basho/riak_pb
 
-## Before Running the REPL or Tests
+As of September 2014, thanks to a [recommendation from Basho][ml-1], Kria uses
+the Riak protobuf files via Maven, instead of keeping its own copy (which was
+prone to get stale).
+
+## Before Running the Tests
 
 This section is intended for developers who want to run the included tests
-with `lein test` or start a REPL with `lein repl`. You'll need to do two
-things: compile the Java sources and enable Riak Search.
-
-### Compile Java
-
-Before you can run `lein test` or `lein repl`, you'll need to compile the
-`*.java` files by running:
-
-    lein with-profile base javac
-
-This will compile the `src/java/**/*.java` files, making them available to the
-Clojure files.
-
-If you don't do this, you will likely see this error:
-
-    Caused by: java.lang.ClassNotFoundException: com.basho.riak.protobuf.RiakPB$RpbGetServerInfoResp
-      at java.net.URLClassLoader$1.run(URLClassLoader.java:366)
-      at java.net.URLClassLoader$1.run(URLClassLoader.java:355)
-      at java.security.AccessController.doPrivileged(Native Method)
-
-The above command only uses the `base` profile, not the `dev` profile. This
-prevents `dev/user.clj` from being loaded, which requires the Java compilation
-step as a prerequisite.
-
-### Enable Riak Search
-
-The kria tests use Riak Search, so you will need to ensure that search is
-enabled. Check that your `riak.conf` file has `search = on`.
+with `lein test`. Since the tests use Riak Search, please ensure that search
+is enabled. Check that your `riak.conf` file has `search = on`.
 
 ## Message Terminology
 
