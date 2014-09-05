@@ -27,5 +27,5 @@
       (let [[asc e a] @p]
         (is (nil? e))
         (is (= "riak@127.0.0.1" (:node a)))
-        (is (= "2.0.0rc1" (:server-version a))))
+        (is (= "2.0.0" (:server-version a))))
       (c/disconnect conn))))
