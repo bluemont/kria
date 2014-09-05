@@ -106,8 +106,13 @@ Other drivers I saw written in Clojure or Java added complexity that I didn't
 need. The goal was to have a simple layer to abstract away the low-level
 protocol buffer interface. Other drivers seem to have different objectives.
 
-To give some context, I started this project before the Java client for Riak 2
-was ready.
+I started this project before the Java client for Riak 2 was ready. Sean from
+Basho [mentioned on the Riak mailing list][ml-1] that "the new official Java
+client is designed so that it would be easier to write wrapper libraries in
+other JVM languages, and to give the user the option of async or sync at the
+API level." I'd be interested to see what people think of the newer client.
+
+[ml-1]: http://lists.basho.com/pipermail/riak-users_lists.basho.com/2014-July/015578.html
 
 I used the [lein-protobuf] plugin at first, but stopped using it for these
 reasons:
