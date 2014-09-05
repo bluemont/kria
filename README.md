@@ -158,38 +158,6 @@ step as a prerequisite.
 The kria tests use Riak Search, so you will need to ensure that search is
 enabled. Check that your `riak.conf` file has `search = on`.
 
-## Protocol Buffer Setup
-
-Note: this section is intended for developers who want to modify Kria itself.
-The following steps are not necessary to *use* the library.
-
-Run the following steps if the underlying [Riak Protocol Buffer][riak_pb]
-files are updated.
-
-First, you'll need the [Protocol Buffer compiler][1].
-
-[1]: https://code.google.com/p/protobuf/downloads/list
-
-Generate `resources/com/basho/riak/protobuf/*.java` files from the
-files in `resources/proto/*.proto` using these commands:
-
-    mkdir -p src/java
-    cd resources/proto/
-    protoc --java_out=../../src/java riak.proto
-    protoc --java_out=../../src/java riak_dt.proto
-    protoc --java_out=../../src/java riak_kv.proto
-    protoc --java_out=../../src/java riak_search.proto
-    protoc --java_out=../../src/java riak_yokozuna.proto
-    cd ../..
-
-## Developer Notes
-
-As a matter of context, Kria was started when Riak 2 was in prerelease.
-Sometimes new releases require changes to the protocol buffer specification.
-Changes from [riak_pb]'s protocol buffer files need to be brought into Kria.
-
-[riak_pb]: https://github.com/basho/riak_pb
-
 ## Message Terminology
 
 This section is intended for developers who want to dig into the internals of
