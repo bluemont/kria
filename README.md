@@ -92,8 +92,8 @@ logic must decide.
 When I started, my goals were to:
 
 * write a simple asynchronous Clojure client
-* stayed relatively close the Riak API
-* used Java 7 [NIO.2] instead of Netty
+* stay relatively close the Riak API
+* use Java 7 [NIO.2] instead of Netty
 
 Many projects use Netty, but as I learned more about it, I found that NIO.2
 provided all I wanted without the complexity of another dependency. The
