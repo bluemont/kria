@@ -124,8 +124,13 @@ reasons:
 ## Before Running the REPL or Tests
 
 This section is intended for developers who want to run the included tests
-with `lein test` or start a REPL with `lein repl`. Before you can do either,
-you'll need to compile the `*.java` files by running:
+with `lein test` or start a REPL with `lein repl`. You'll need to do two
+things: compile the Java sources and enable Riak Search.
+
+### Compile Java
+
+Before you can run `lein test` or `lein repl`, you'll need to compile the
+`*.java` files by running:
 
     lein with-profile base javac
 
@@ -143,11 +148,18 @@ The above command only uses the `base` profile, not the `dev` profile. This
 prevents `dev/user.clj` from being loaded, which requires the Java compilation
 step as a prerequisite.
 
+### Enable Riak Search
+
+The kria tests use Riak Search, so you will need to ensure that search is
+enabled. Check that your `riak.conf` file has `search = on`.
+
 ## Protocol Buffer Setup
 
-This section is intended for developers who want to modify Kria itself. They
-should not be necessary to *use* the library. Run the following steps if the
-underlying [Riak Protocol Buffer][riak_pb] files are updated.
+Note: this section is intended for developers who want to modify Kria itself.
+The following stepsare not necessary to *use* the library.
+
+Run the following steps if the underlying [Riak Protocol Buffer][riak_pb]
+files are updated.
 
 First, you'll need the [Protocol Buffer compiler][1].
 
