@@ -156,7 +156,7 @@ enabled. Check that your `riak.conf` file has `search = on`.
 ## Protocol Buffer Setup
 
 Note: this section is intended for developers who want to modify Kria itself.
-The following stepsare not necessary to *use* the library.
+The following steps are not necessary to *use* the library.
 
 Run the following steps if the underlying [Riak Protocol Buffer][riak_pb]
 files are updated.
