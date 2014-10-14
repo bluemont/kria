@@ -33,4 +33,4 @@
   (call asc cb :list-keys-req :list-keys-resp
         ListKeysReq->bytes bytes->ListKeysResp
         (merge opts {:bucket b})
-        true #(:keys %) #(:done %) stream-cb))
+        true :keys :done stream-cb))
