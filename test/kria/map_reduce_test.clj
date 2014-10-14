@@ -8,7 +8,7 @@
                                       utf8-string<-byte-string]]
             [clojure.data.json :as json]))
 
-(deftest mr-test
+(deftest map-reduce-test
   (testing "simple bucket summing MapReduce job"
     (let [conn (h/connect)
           b (h/rand-bucket)
@@ -39,7 +39,7 @@
                  (fn [_ _ a] (deliver p a)))
           @p))
 
-      (mr/mapreduce conn (byte-string<-utf8-string job)
+      (mr/map-reduce conn (byte-string<-utf8-string job)
                     result-cb stream-cb)
       (is (= (-> @result
                  first

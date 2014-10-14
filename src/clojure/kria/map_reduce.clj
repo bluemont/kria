@@ -7,7 +7,7 @@
 
 (set! *warn-on-reflection* true)
 
-(defn mapreduce
+(defn map-reduce
   "Launch a map/reduce job (json request/response)."
   [asc request cb stream-cb]
   {:pre [(byte-string? request)]}
