@@ -13,20 +13,19 @@
     (let [conn (h/connect)
           b (h/rand-bucket)
           job (json/write-str
-               {:inputs (utf8-string<-byte-string b)
-                :query [{:map {:arg nil
-                               :name "Riak.mapValuesJson"
-                               :language "javascript"
-                               :keep false}}
-                        {:reduce {:arg nil
-                                  :name "Riak.reduceSum"
-                                  :language "javascript"
-                                  :keep true}}]})
+                {:inputs (utf8-string<-byte-string b)
+                 :query [{:map {:arg nil
+                                :name "Riak.mapValuesJson"
+                                :language "javascript"
+                                :keep false}}
+                         {:reduce {:arg nil
+                                   :name "Riak.reduceSum"
+                                   :language "javascript"
+                                   :keep true}}]})
           result (promise)
           stream (atom [])
           stream-cb (fn [xs]
-                      (if (and xs
-                               (not (zero? (.size xs))))
+                      (if (and xs (not (zero? (.size xs))))
                         (swap! stream conj xs)
                         (deliver result @stream)))
           result-cb (fn [asc e a] (or a e))]
@@ -39,8 +38,7 @@
                  (fn [_ _ a] (deliver p a)))
           @p))
 
-      (mr/map-reduce conn (byte-string<-utf8-string job)
-                    result-cb stream-cb)
+      (mr/map-reduce conn (byte-string<-utf8-string job) result-cb stream-cb)
       (is (= (-> @result
                  first
                  utf8-string<-byte-string
