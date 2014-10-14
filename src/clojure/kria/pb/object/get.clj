@@ -37,13 +37,13 @@
     (if-let [x (:basic-quorum m)]
       (.setBasicQuorum b x))
     (if-let [x (:not-found-ok m)]
-      (.setNotFoundOk b x))
+      (.setNotfoundOk b x))
     (if-let [x (:if-modified m)]
       (.setIfModified b x))
     (if-let [x (:head m)]
       (.setHead b x))
     (if-let [x (:deleted-vclock m)]
-      (.setDeletedVclock b x))
+      (.setDeletedvclock b x))
     (if-let [x (:timeout m)]
       (.setTimeout b x))
     (if-let [x (:sloppy-quorum m)]

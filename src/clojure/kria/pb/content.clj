@@ -33,7 +33,7 @@
     (if-let [x (:content-type r)]
       (.setContentType b (byte-string<-utf8-string x)))
     (if-let [x (:charset r)]
-      (.setCharSet (byte-string<-utf8-string x)))
+      (.setCharset b (byte-string<-utf8-string x)))
     (if-let [x (:content-encoding r)]
       (.setContentEncoding b (byte-string<-utf8-string x)))
     (if-let [x (:vtag r)]
