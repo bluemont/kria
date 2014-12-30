@@ -22,17 +22,17 @@
   [v]
   (instance? ByteString v))
 
-(defn ^bytes byte-array<-byte-buffer
+(defn ^{:tag 'bytes} byte-array<-byte-buffer
   [^ByteBuffer v]
   {:pre [(byte-buffer? v)]}
   (.array v))
 
-(defn ^bytes byte-array<-byte-string
+(defn ^{:tag 'bytes} byte-array<-byte-string
   [^ByteString v]
   {:pre [(byte-string? v)]}
   (if v (.toByteArray v)))
 
-(defn ^bytes byte-array<-utf8-string
+(defn ^{:tag 'bytes} byte-array<-utf8-string
   [^String v]
   {:pre [(instance? String v)]}
   (if v (.getBytes v utf-8)))
