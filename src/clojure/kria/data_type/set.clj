@@ -19,14 +19,12 @@
   "Update a set in a bucket."
   [asc b t k adds removes opts cb]
   (dt/set asc b t k
-          (->DtSetOp {:adds adds
-                      :removes removes})
+          (->DtSetOp {:adds adds :removes removes})
           opts cb))
 
 (defn get
   "Get a set from a bucket."
   [asc b t k opts cb]
-
   (dt/get asc b t k opts
           (fn [asc e a]
             (if e
