@@ -4,7 +4,7 @@
    [kria.pb.dt.op :refer [DtOp->pb]]
    [kria.pb.dt.set :refer [SetOp->pb]]
    [kria.data-type :as dt])
-  (import
+  (:import
    [com.basho.riak.protobuf
     RiakDtPB$DtValue]))
 
