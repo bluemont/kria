@@ -98,7 +98,7 @@ We have found that [core.async] works great as a layer on top. Just create a
 core.async channel in advance and have the callback put the desired return
 value in the core.async channel.
 
-When [we] write applications, we tend to create on namespace that wrap all
+When [we] write applications, we tend to create a namespace that wraps all
 calls to Kria in a domain-specific way. That namespace provides an API that the
 rest of your application relies on. Kria is a thin wrapper over the Riak API,
 so it does not handle siblings for you; that is something your domain-specific
