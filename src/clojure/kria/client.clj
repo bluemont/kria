@@ -18,7 +18,7 @@
     (completed [_ a] (cb asc nil asc))
     (failed [e a] (cb asc e nil))))
 
-(defn connect
+(defn ^AsynchronousSocketChannel connect
   "Connects to Riak via the Protocol Buffer interface. Returns a
   AsynchronousSocketChannelImpl or a subclass, such as
   UnixAsynchronousSocketChannelImpl.

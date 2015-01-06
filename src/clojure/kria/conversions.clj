@@ -7,7 +7,7 @@
 (def ^:private ^:const byte-array-class
   (class (byte-array 0)))
 
-(def ^:private utf-8
+(def ^:private ^Charset utf-8
   (Charset/forName "UTF-8"))
 
 (defn byte-array?
