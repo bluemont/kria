@@ -41,6 +41,8 @@
    :search-query-resp 28
    :reset-bucket-req 29
    :reset-bucket-resp 30
+   :get-bucket-type-req 31
+   :set-bucket-type-req 32
    :counter-update-req 50
    :counter-update-resp 51
    :counter-get-req 52
