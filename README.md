@@ -153,8 +153,13 @@ prone to get stale).
 ## Before Running the Tests
 
 This section is intended for developers who want to run the included tests
-with `lein test`. Since the tests use Riak Search, please ensure that search
-is enabled. Check that your `riak.conf` file has `search = on`.
+with `lein test`.
+
+1. Since the tests use Riak Search, please ensure that search
+   is enabled. Check that your `riak.conf` file has `search = on`.
+
+2. Also, run `test/riak-setup.sh` as root *once*, to create and activate the
+   necessary bucket types.
 
 ## Message Terminology
 
