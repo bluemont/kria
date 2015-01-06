@@ -1,4 +1,5 @@
 (ns kria.object-test
+  (:import [com.google.protobuf ByteString])
   (:require [clojure.test :refer :all]
             [kria.test-helpers :as h]
             [kria.client :as c]
@@ -16,8 +17,8 @@
       (let [[asc e a] @p]
         (is (nil? e))
         (is (zero? (count (:content a))))
-        (is (zero? (.size (:vclock a))))
-        (is (zero? (.size (:key a)))))
+        (is (zero? (.size ^ByteString (:vclock a))))
+        (is (zero? (.size ^ByteString (:key a)))))
       (let [p (promise)]
         (o/get conn b k {} (h/cb-fn p))
         (let [[asc e a] @p]
@@ -37,8 +38,8 @@
       (let [[asc e a] @p]
         (is (nil? e))
         (is (zero? (count (:content a))))
-        (is (zero? (.size (:vclock a))))
-        (is (zero? (.size (:key a)))))
+        (is (zero? (.size ^ByteString (:vclock a))))
+        (is (zero? (.size ^ByteString (:key a)))))
       (let [p (promise)]
         (o/get conn b k {} (h/cb-fn p))
         (let [[asc e a] @p]
@@ -110,8 +111,8 @@
       (let [[asc e a] @p1]
         (is (nil? e))
         (is (zero? (count (:content a))))
-        (is (zero? (.size (:vclock a))))
-        (is (zero? (.size (:key a)))))
+        (is (zero? (.size ^ByteString (:vclock a))))
+        (is (zero? (.size ^ByteString (:key a)))))
       (o/delete conn b k {} (h/cb-fn p2))
       (let [[asc e a] @p2]
         (is (nil? e))

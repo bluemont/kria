@@ -1,4 +1,5 @@
 (ns kria.map-reduce-test
+  (:import [com.google.protobuf ByteString])
   (:require [clojure.test :refer :all]
             [kria.test-helpers :as h]
             [kria.client :as c]
@@ -25,7 +26,7 @@
           result (promise)
           stream (atom [])
           stream-cb (fn [xs]
-                      (if (and xs (not (zero? (.size xs))))
+                      (if (and xs (not (zero? (.size ^ByteString xs))))
                         (swap! stream conj xs)
                         (deliver result @stream)))
           result-cb (fn [asc e a] (or a e))]
@@ -37,7 +38,6 @@
                  {}
                  (fn [_ _ a] (deliver p a)))
           @p))
-
       (mr/map-reduce conn (byte-string<-utf8-string job) result-cb stream-cb)
       (is (= (-> @result
                  first
