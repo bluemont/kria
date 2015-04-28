@@ -197,7 +197,8 @@
         (cond
           (= c exp)
           (if multi-resp?
-            (let [scb (stream-cb-fn exp-key parser cb chunk-fn done-fn stream-cb)]
+            (let [scb (stream-cb-fn
+                       exp-key parser cb chunk-fn done-fn stream-cb)]
               (read-payload asc (dec l) scb))
             (read-payload asc (dec l) parser))
 
