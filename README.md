@@ -5,7 +5,7 @@ Buffer interface][Riak-PB] using Java 7's NIO.2.
 
 Kria only only has four dependencies:
 
-* Java 7 (for NIO.2)
+* Java 7 or later (for NIO.2)
 * Clojure 1.6
 * Protocol Buffers
 * [Basho's Riak Protocol Buffer Files][riak-pb-maven]
@@ -113,11 +113,11 @@ When I started, my goals were to:
 
 * write a simple asynchronous Clojure client
 * stay relatively close the Riak API
-* use Java 7 [NIO.2] instead of Netty
+* use NIO.2, available in Java 7 and later, instead of Netty
 
 Many projects use Netty, but as I learned more about it, I found that NIO.2
 provided all I wanted without the complexity of another dependency. The
-tradeoff is that Kria requires Java 7.
+tradeoff is that Kria requires Java 7 or later.
 
 [Netty]: http://netty.io/
 [NIO.2]: http://en.wikipedia.org/wiki/NIO.2#JDK_7_and_NIO.2
