@@ -7,18 +7,18 @@
 (set! *warn-on-reflection* true)
 
 (defrecord DtFetchReq
-    [bucket          ; required bytes
-     key             ; required bytes
-     type            ; required bytes
-     r               ; optional uint32
-     pr              ; optional uint32
-     basic-quorum    ; optional bool
-     notfound-ok     ; optional bool
-     timeout         ; optional uint32
-     sloppy-quorum   ; optional bool
-     n-val           ; optional uint32
-     include-context ; optional bool
-     ])
+           [bucket          ; required bytes
+            key             ; required bytes
+            type            ; required bytes
+            r               ; optional uint32
+            pr              ; optional uint32
+            basic-quorum    ; optional bool
+            notfound-ok     ; optional bool
+            timeout         ; optional uint32
+            sloppy-quorum   ; optional bool
+            n-val           ; optional uint32
+            include-context ; optional bool
+            ])
 
 (defn ^RiakDtPB$DtFetchReq DtFetchReq->pb
   [m]
@@ -52,10 +52,10 @@
   (.toByteArray (DtFetchReq->pb m)))
 
 (defrecord DtFetchResp
-    [context ; optional bytes
-     type    ; required DataType
-     value   ; optional DtValue
-     ])
+           [context ; optional bytes
+            type    ; required DataType
+            value   ; optional DtValue
+            ])
 
 (defn pb->DtFetchResp
   [^RiakDtPB$DtFetchResp pb]

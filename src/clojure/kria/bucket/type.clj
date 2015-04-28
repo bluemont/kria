@@ -1,11 +1,11 @@
 (ns kria.bucket.type
   (:refer-clojure :exclude [get set])
   (:require
-    [kria.conversions :refer [byte-string?]]
-    [kria.core :refer [call]]
-    [kria.pb.bucket.type.get :refer [GetBucketTypeReq->bytes
-                                     bytes->GetBucketTypeResp]]
-    [kria.pb.bucket.type.set :refer [SetBucketTypeReq->bytes]]))
+   [kria.conversions :refer [byte-string?]]
+   [kria.core :refer [call]]
+   [kria.pb.bucket.type.get :refer [GetBucketTypeReq->bytes
+                                    bytes->GetBucketTypeResp]]
+   [kria.pb.bucket.type.set :refer [SetBucketTypeReq->bytes]]))
 
 (set! *warn-on-reflection* true)
 

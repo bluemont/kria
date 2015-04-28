@@ -1,8 +1,8 @@
 (ns kria.search
   (:require
-    [kria.conversions :refer [byte-string?]]
-    [kria.core :refer [call]]
-    [kria.pb.search.search :refer [SearchReq->bytes bytes->SearchResp]]))
+   [kria.conversions :refer [byte-string?]]
+   [kria.core :refer [call]]
+   [kria.pb.search.search :refer [SearchReq->bytes bytes->SearchResp]]))
 
 (set! *warn-on-reflection* true)
 

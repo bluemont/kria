@@ -1,15 +1,15 @@
 (ns kria.pb.index.put
   (:require
-    [kria.pb.index.index :refer [Index->pb]])
+   [kria.pb.index.index :refer [Index->pb]])
   (:import
-    [com.basho.riak.protobuf
-     RiakYokozunaPB$RpbYokozunaIndexPutReq]))
+   [com.basho.riak.protobuf
+    RiakYokozunaPB$RpbYokozunaIndexPutReq]))
 
 (set! *warn-on-reflection* true)
 
 (defrecord IndexPutReq
-  [index ; required RpbYokozunaIndex
-   ])
+           [index ; required RpbYokozunaIndex
+            ])
 
 (defn ^RiakYokozunaPB$RpbYokozunaIndexPutReq IndexPutReq->pb
   [m]

@@ -1,27 +1,27 @@
 (ns kria.pb.dt.update
   (:import
-    [com.basho.riak.protobuf
-     RiakDtPB$DtUpdateReq
-     RiakDtPB$DtUpdateResp
-     RiakDtPB$DtOp]))
+   [com.basho.riak.protobuf
+    RiakDtPB$DtUpdateReq
+    RiakDtPB$DtUpdateResp
+    RiakDtPB$DtOp]))
 
 (set! *warn-on-reflection* true)
 
 (defrecord DtUpdateReq
-    [bucket          ; required bytes
-     key             ; optional bytes
-     type            ; required bytes
-     context         ; optional bytes
-     op              ; required DtOp
-     w               ; optional uint32
-     dw              ; optional uint32
-     pw              ; optional uint32
-     return-body     ; optional bool
-     timeout         ; optional uint32
-     sloppy-quorum   ; optional bool
-     n-val           ; optional uint32
-     include-context ; optional bool
-     ])
+           [bucket          ; required bytes
+            key             ; optional bytes
+            type            ; required bytes
+            context         ; optional bytes
+            op              ; required DtOp
+            w               ; optional uint32
+            dw              ; optional uint32
+            pw              ; optional uint32
+            return-body     ; optional bool
+            timeout         ; optional uint32
+            sloppy-quorum   ; optional bool
+            n-val           ; optional uint32
+            include-context ; optional bool
+            ])
 
 (defn ^RiakDtPB$DtUpdateReq DtUpdateReq->pb
   [m]
@@ -59,12 +59,12 @@
   (.toByteArray (DtUpdateReq->pb m)))
 
 (defrecord DtUpdateResp
-  [key           ; optional bytes
-   context       ; optional bytes
-   counter_value ; optional sint64
-   set_value     ; repeated bytes
-   map_value     ; repeated MapEntry
-   ])
+           [key           ; optional bytes
+            context       ; optional bytes
+            counter_value ; optional sint64
+            set_value     ; repeated bytes
+            map_value     ; repeated MapEntry
+            ])
 
 (defn pb->DtUpdateResp
   [^RiakDtPB$DtUpdateResp pb]

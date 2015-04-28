@@ -1,9 +1,9 @@
 (ns kria.schema-test
   (:require
-    [clojure.test :refer :all]
-    [kria.test-helpers :as h]
-    [kria.client :as c]
-    [kria.schema :as schema]))
+   [clojure.test :refer :all]
+   [kria.test-helpers :as h]
+   [kria.client :as c]
+   [kria.schema :as schema]))
 
 (defn test-put-get
   [schema-filename]

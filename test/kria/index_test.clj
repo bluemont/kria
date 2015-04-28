@@ -1,9 +1,9 @@
 (ns kria.index-test
   (:require
-    [clojure.test :refer :all]
-    [kria.test-helpers :as h]
-    [kria.client :as c]
-    [kria.index :as i]))
+   [clojure.test :refer :all]
+   [kria.test-helpers :as h]
+   [kria.client :as c]
+   [kria.index :as i]))
 
 (deftest put-1-get-1-test
   (testing "put 1, get 1"

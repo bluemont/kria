@@ -1,16 +1,16 @@
 (ns kria.search-test
   (:require
-    [clojure.test :refer :all]
-    [kria.bucket :as b]
-    [kria.conversions :refer [byte-string?
-                              byte-string<-utf8-string
-                              utf8-string<-byte-string]]
-    [kria.index :as i]
-    [kria.object :as o]
-    [kria.polling :as p]
-    [kria.schema :as schema]
-    [kria.search :as s]
-    [kria.test-helpers :as h]))
+   [clojure.test :refer :all]
+   [kria.bucket :as b]
+   [kria.conversions :refer [byte-string?
+                             byte-string<-utf8-string
+                             utf8-string<-byte-string]]
+   [kria.index :as i]
+   [kria.object :as o]
+   [kria.polling :as p]
+   [kria.schema :as schema]
+   [kria.search :as s]
+   [kria.test-helpers :as h]))
 
 (defn json
   [jk jv]

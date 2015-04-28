@@ -1,15 +1,15 @@
 (ns kria.pb.search.doc
   (:require
-    [kria.pb.pair :refer [Pair->pb pb->Pair]])
+   [kria.pb.pair :refer [Pair->pb pb->Pair]])
   (:import
-    [com.basho.riak.protobuf
-     RiakSearchPB$RpbSearchDoc]))
+   [com.basho.riak.protobuf
+    RiakSearchPB$RpbSearchDoc]))
 
 (set! *warn-on-reflection* true)
 
 (defrecord SearchDoc
-  [fields ; repeated RpbPair
-   ])
+           [fields ; repeated RpbPair
+            ])
 
 (defn ^RiakSearchPB$RpbSearchDoc SearchDoc->pb
   [m]
@@ -21,4 +21,4 @@
 (defn pb->SearchDoc
   [^RiakSearchPB$RpbSearchDoc pb]
   (->SearchDoc
-    (mapv pb->Pair (.getFieldsList pb))))
+   (mapv pb->Pair (.getFieldsList pb))))

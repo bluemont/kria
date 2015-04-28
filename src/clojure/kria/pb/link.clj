@@ -1,20 +1,20 @@
 (ns kria.pb.link
   (:import
-    [com.basho.riak.protobuf
-     RiakKvPB$RpbLink]))
+   [com.basho.riak.protobuf
+    RiakKvPB$RpbLink]))
 
 (defrecord Link
-  [bucket ; optional bytes
-   key    ; optional bytes
-   tag    ; optional bytes
-   ])
+           [bucket ; optional bytes
+            key    ; optional bytes
+            tag    ; optional bytes
+            ])
 
 (defn pb->Link
   [^RiakKvPB$RpbLink pb]
   (->Link
-    (.getBucket pb)
-    (.getKey pb)
-    (.getTag pb)))
+   (.getBucket pb)
+   (.getKey pb)
+   (.getTag pb)))
 
 (defn ^RiakKvPB$RpbLink Link->pb
   [m]

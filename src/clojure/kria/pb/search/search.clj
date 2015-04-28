@@ -1,25 +1,25 @@
 (ns kria.pb.search.search
   (:require
-    [kria.conversions :refer [utf8-string<-byte-string
-                              byte-string<-utf8-string]]
-    [kria.pb.search.doc :refer [pb->SearchDoc]])
+   [kria.conversions :refer [utf8-string<-byte-string
+                             byte-string<-utf8-string]]
+   [kria.pb.search.doc :refer [pb->SearchDoc]])
   (:import
-    [com.basho.riak.protobuf
-     RiakSearchPB$RpbSearchQueryReq
-     RiakSearchPB$RpbSearchQueryResp]))
+   [com.basho.riak.protobuf
+    RiakSearchPB$RpbSearchQueryReq
+    RiakSearchPB$RpbSearchQueryResp]))
 
 (defrecord SearchReq
-  [q       ; required bytes
-   index   ; required bytes
-   rows    ; optional uint32
-   start   ; optional uint32
-   sort    ; optional bytes
-   filter  ; optional bytes
-   df      ; optional bytes
-   op      ; optional bytes
-   fl      ; repeated bytes
-   presort ; optional bytes
-   ])
+           [q       ; required bytes
+            index   ; required bytes
+            rows    ; optional uint32
+            start   ; optional uint32
+            sort    ; optional bytes
+            filter  ; optional bytes
+            df      ; optional bytes
+            op      ; optional bytes
+            fl      ; repeated bytes
+            presort ; optional bytes
+            ])
 
 (defn ^RiakSearchPB$RpbSearchQueryReq SearchReq->pb
   [m]
@@ -51,19 +51,19 @@
   (.toByteArray (SearchReq->pb m)))
 
 (defrecord SearchResp
-  [docs      ; repeated RpbSearchDoc
-   max-score ; optional float
-   num-found ; optional uint32
-   ])
+           [docs      ; repeated RpbSearchDoc
+            max-score ; optional float
+            num-found ; optional uint32
+            ])
 
 (defn pb->SearchResp
   [^RiakSearchPB$RpbSearchQueryResp pb]
   (->SearchResp
-    (mapv pb->SearchDoc (.getDocsList pb))
-    (.getMaxScore pb)
-    (.getNumFound pb)))
+   (mapv pb->SearchDoc (.getDocsList pb))
+   (.getMaxScore pb)
+   (.getNumFound pb)))
 
 (defn bytes->SearchResp
   [^bytes x]
   (pb->SearchResp
-    (RiakSearchPB$RpbSearchQueryResp/parseFrom x)))
+   (RiakSearchPB$RpbSearchQueryResp/parseFrom x)))

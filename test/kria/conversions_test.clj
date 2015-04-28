@@ -2,26 +2,26 @@
   (:require [clojure.test :refer :all]
             [kria.conversions :refer :all])
   (:import
-    [java.nio ByteBuffer]
-    [com.google.protobuf ByteString]))
+   [java.nio ByteBuffer]
+   [com.google.protobuf ByteString]))
 
 (deftest byte-array?-test
   (testing "byte-array?"
     (are [v e] (= (byte-array? v) e)
-         (byte-array 10) true
-         [0 1 2 3 4] false)))
+      (byte-array 10) true
+      [0 1 2 3 4] false)))
 
 (deftest byte-buffer?-test
   (testing "byte-buffer?"
     (are [v e] (= (byte-buffer? v) e)
-         (ByteBuffer/allocate 10) true
-         (byte-array 10) false)))
+      (ByteBuffer/allocate 10) true
+      (byte-array 10) false)))
 
 (deftest byte-string?-test
   (testing "byte-string?"
     (are [v e] (= (byte-string? v) e)
-         (ByteString/copyFrom (byte-array 10)) true
-         (ByteBuffer/allocate 10) false)))
+      (ByteString/copyFrom (byte-array 10)) true
+      (ByteBuffer/allocate 10) false)))
 
 (deftest byte-array<-byte-buffer-test
   (testing "byte-array<-byte-buffer"

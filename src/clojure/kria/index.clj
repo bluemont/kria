@@ -1,11 +1,11 @@
 (ns kria.index
   (:refer-clojure :exclude [get])
   (:require
-    [kria.conversions :refer [byte-string?]]
-    [kria.core :refer [call]]
-    [kria.pb.index.delete :refer [IndexDeleteReq->bytes]]
-    [kria.pb.index.get :refer [IndexGetReq->bytes bytes->IndexGetResp]]
-    [kria.pb.index.put :refer [IndexPutReq->bytes]]))
+   [kria.conversions :refer [byte-string?]]
+   [kria.core :refer [call]]
+   [kria.pb.index.delete :refer [IndexDeleteReq->bytes]]
+   [kria.pb.index.get :refer [IndexGetReq->bytes bytes->IndexGetResp]]
+   [kria.pb.index.put :refer [IndexPutReq->bytes]]))
 
 (set! *warn-on-reflection* true)
 

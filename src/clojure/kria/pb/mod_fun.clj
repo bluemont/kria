@@ -1,23 +1,23 @@
 (ns kria.pb.mod-fun
   (:require
-    [kria.conversions :refer [utf8-string<-byte-string
-                              byte-string<-utf8-string]])
+   [kria.conversions :refer [utf8-string<-byte-string
+                             byte-string<-utf8-string]])
   (:import
-    [com.basho.riak.protobuf
-     RiakPB$RpbModFun]))
+   [com.basho.riak.protobuf
+    RiakPB$RpbModFun]))
 
 (set! *warn-on-reflection* true)
 
 (defrecord ModFun
-  [module   ; required bytes
-   function ; required bytes
-   ])
+           [module   ; required bytes
+            function ; required bytes
+            ])
 
 (defn pb->ModFun
   [^RiakPB$RpbModFun pb]
   (->ModFun
-    (some-> (.getModule pb) utf8-string<-byte-string)
-    (some-> (.getFunction pb) utf8-string<-byte-string)))
+   (some-> (.getModule pb) utf8-string<-byte-string)
+   (some-> (.getFunction pb) utf8-string<-byte-string)))
 
 (defn ^RiakPB$RpbModFun ModFun->pb
   [m]

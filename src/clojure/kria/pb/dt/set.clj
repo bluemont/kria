@@ -7,9 +7,9 @@
 (set! *warn-on-reflection* true)
 
 (defrecord SetOp
-    [adds    ; repeated bytes
-     removes ; repeated bytes
-     ])
+           [adds    ; repeated bytes
+            removes ; repeated bytes
+            ])
 
 (defn ^RiakDtPB$SetOp SetOp->pb
   [m]

@@ -9,10 +9,10 @@
 (set! *warn-on-reflection* true)
 
 (defrecord DtOp
-    [counter-op ; optional CounterOp
-     set-op     ; optional SetOp
-     map-op     ; optional MapOp
-     ])
+           [counter-op ; optional CounterOp
+            set-op     ; optional SetOp
+            map-op     ; optional MapOp
+            ])
 
 (defn ^RiakDtPB$DtOp DtOp->pb
   [m]

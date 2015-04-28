@@ -1,11 +1,11 @@
 (ns kria.test-helpers
   (:require
-    [kria.bucket :as bucket]
-    [kria.client :as client]
-    [kria.conversions :refer [byte-string<-utf8-string]]
-    [kria.index :as index]
-    [kria.polling :as p]
-    [kria.schema :as schema]))
+   [kria.bucket :as bucket]
+   [kria.client :as client]
+   [kria.conversions :refer [byte-string<-utf8-string]]
+   [kria.index :as index]
+   [kria.polling :as p]
+   [kria.schema :as schema]))
 
 (defn rand-bucket
   []

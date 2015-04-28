@@ -7,7 +7,7 @@
 (set! *warn-on-reflection* true)
 
 (defrecord CounterOp
-    [increment]) ; optional sint64
+           [increment]) ; optional sint64
 
 (defn ^RiakDtPB$CounterOp CounterOp->pb
   [m]

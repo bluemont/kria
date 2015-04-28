@@ -1,16 +1,16 @@
 (ns kria.pb.index.delete
   (:require
-    [kria.conversions :refer [utf8-string<-byte-string
-                              byte-string<-utf8-string]])
+   [kria.conversions :refer [utf8-string<-byte-string
+                             byte-string<-utf8-string]])
   (:import
-    [com.basho.riak.protobuf
-     RiakYokozunaPB$RpbYokozunaIndexDeleteReq]))
+   [com.basho.riak.protobuf
+    RiakYokozunaPB$RpbYokozunaIndexDeleteReq]))
 
 (set! *warn-on-reflection* true)
 
 (defrecord IndexDeleteReq
-  [name ; required bytes
-   ])
+           [name ; required bytes
+            ])
 
 (defn ^RiakYokozunaPB$RpbYokozunaIndexDeleteReq IndexDeleteReq->pb
   [m]

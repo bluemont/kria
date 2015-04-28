@@ -1,18 +1,18 @@
 (ns kria.pb.pair
   (:require
-    [kria.conversions
-     :refer [byte-string<-utf8-string
-             utf8-string<-byte-string]])
+   [kria.conversions
+    :refer [byte-string<-utf8-string
+            utf8-string<-byte-string]])
   (:import
-    [com.basho.riak.protobuf
-     RiakPB$RpbPair]))
+   [com.basho.riak.protobuf
+    RiakPB$RpbPair]))
 
 (set! *warn-on-reflection* true)
 
 (defrecord Pair
-  [key   ; required bytes
-   value ; optional bytes
-   ])
+           [key   ; required bytes
+            value ; optional bytes
+            ])
 
 (defn ^RiakPB$RpbPair Pair->pb
   [r]
@@ -26,5 +26,5 @@
 (defn pb->Pair
   [^RiakPB$RpbPair pb]
   (->Pair
-    (some-> (.getKey pb) utf8-string<-byte-string)
-    (some-> (.getValue pb) utf8-string<-byte-string)))
+   (some-> (.getKey pb) utf8-string<-byte-string)
+   (some-> (.getValue pb) utf8-string<-byte-string)))

@@ -1,10 +1,10 @@
 (ns kria.client
   (:import
-    [java.net InetSocketAddress]
-    [java.nio.channels
-     AsynchronousSocketChannel
-     AsynchronousChannelGroup
-     CompletionHandler]))
+   [java.net InetSocketAddress]
+   [java.nio.channels
+    AsynchronousSocketChannel
+    AsynchronousChannelGroup
+    CompletionHandler]))
 
 (set! *warn-on-reflection* true)
 

@@ -1,24 +1,24 @@
 (ns kria.pb.object.delete
   (:require
-    [kria.conversions :refer [byte-string<-utf8-string]])
+   [kria.conversions :refer [byte-string<-utf8-string]])
   (:import
-    [com.basho.riak.protobuf RiakKvPB$RpbDelReq]))
+   [com.basho.riak.protobuf RiakKvPB$RpbDelReq]))
 
 (defrecord DeleteReq
-  [bucket        ; required bytes
-   key           ; required bytes
-   rw            ; optional uint32
-   vclock        ; optional bytes
-   r             ; optional uint32
-   w             ; optional uint32
-   pr            ; optional uint32
-   pw            ; optional uint32
-   dw            ; optional uint32
-   timeout       ; optional uint32
-   sloppy-quorum ; optional bool
-   n-val         ; optional uint32
-   type          ; optional bytes
-   ])
+           [bucket        ; required bytes
+            key           ; required bytes
+            rw            ; optional uint32
+            vclock        ; optional bytes
+            r             ; optional uint32
+            w             ; optional uint32
+            pr            ; optional uint32
+            pw            ; optional uint32
+            dw            ; optional uint32
+            timeout       ; optional uint32
+            sloppy-quorum ; optional bool
+            n-val         ; optional uint32
+            type          ; optional bytes
+            ])
 
 (defn ^RiakKvPB$RpbDelReq DeleteReq->pb
   [m]

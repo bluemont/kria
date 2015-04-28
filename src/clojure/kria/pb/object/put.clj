@@ -1,30 +1,30 @@
 (ns kria.pb.object.put
   (:require
-    [kria.conversions :refer [byte-string<-utf8-string]]
-    [kria.pb.content :refer [pb->Content Content->pb]])
+   [kria.conversions :refer [byte-string<-utf8-string]]
+   [kria.pb.content :refer [pb->Content Content->pb]])
   (:import
-    [com.basho.riak.protobuf
-     RiakKvPB$RpbPutReq
-     RiakKvPB$RpbPutResp]))
+   [com.basho.riak.protobuf
+    RiakKvPB$RpbPutReq
+    RiakKvPB$RpbPutResp]))
 
 (defrecord PutReq
-  [bucket          ; required bytes
-   key             ; optional bytes
-   vclock          ; optional bytes
-   content         ; required RpbContent
-   w               ; optional uint32
-   dw              ; optional uint32
-   return-body     ; optional bool
-   pw              ; optional uint32
-   if-not-modified ; optional bool
-   if-none-match   ; optional bool
-   return-head     ; optional bool
-   timeout         ; optional uint32
-   as-is           ; optional bool
-   sloppy-quorum   ; optional bool
-   n-val           ; optional uint32
-   type            ; optional bytes
-   ])
+           [bucket          ; required bytes
+            key             ; optional bytes
+            vclock          ; optional bytes
+            content         ; required RpbContent
+            w               ; optional uint32
+            dw              ; optional uint32
+            return-body     ; optional bool
+            pw              ; optional uint32
+            if-not-modified ; optional bool
+            if-none-match   ; optional bool
+            return-head     ; optional bool
+            timeout         ; optional uint32
+            as-is           ; optional bool
+            sloppy-quorum   ; optional bool
+            n-val           ; optional uint32
+            type            ; optional bytes
+            ])
 
 (defn ^RiakKvPB$RpbPutReq PutReq->pb
   [m]
@@ -68,17 +68,17 @@
   (.toByteArray (PutReq->pb m)))
 
 (defrecord PutResp
-  [contents ; repeated RpbContent
-   vclock   ; optional bytes
-   key      ; optional bytes
-   ])
+           [contents ; repeated RpbContent
+            vclock   ; optional bytes
+            key      ; optional bytes
+            ])
 
 (defn pb->PutResp
   [^RiakKvPB$RpbPutResp pb]
   (->PutResp
-    (mapv pb->Content (.getContentList pb))
-    (.getVclock pb)
-    (.getKey pb)))
+   (mapv pb->Content (.getContentList pb))
+   (.getVclock pb)
+   (.getKey pb)))
 
 (defn bytes->PutResp
   [^bytes x]

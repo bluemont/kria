@@ -1,18 +1,18 @@
 (ns kria.pb.schema.get
   (:require
-    [kria.conversions :refer [utf8-string<-byte-string
-                              byte-string<-utf8-string]]
-    [kria.pb.schema.schema :refer [pb->Schema]])
+   [kria.conversions :refer [utf8-string<-byte-string
+                             byte-string<-utf8-string]]
+   [kria.pb.schema.schema :refer [pb->Schema]])
   (:import
-    [com.basho.riak.protobuf
-     RiakYokozunaPB$RpbYokozunaSchemaGetReq
-     RiakYokozunaPB$RpbYokozunaSchemaGetResp]))
+   [com.basho.riak.protobuf
+    RiakYokozunaPB$RpbYokozunaSchemaGetReq
+    RiakYokozunaPB$RpbYokozunaSchemaGetResp]))
 
 (set! *warn-on-reflection* true)
 
 (defrecord SchemaGetReq
-  [name ; required bytes
-   ])
+           [name ; required bytes
+            ])
 
 (defn ^RiakYokozunaPB$RpbYokozunaSchemaGetReq SchemaGetReq->pb
   [m]
@@ -26,15 +26,15 @@
   (.toByteArray (SchemaGetReq->pb m)))
 
 (defrecord SchemaGetResp
-  [schema ; required RpbYokozunaSchema
-   ])
+           [schema ; required RpbYokozunaSchema
+            ])
 
 (defn pb->SchemaGetResp
   [^RiakYokozunaPB$RpbYokozunaSchemaGetResp pb]
   (->SchemaGetResp
-    (pb->Schema (.getSchema pb))))
+   (pb->Schema (.getSchema pb))))
 
 (defn bytes->SchemaGetResp
   [^bytes x]
   (pb->SchemaGetResp
-    (RiakYokozunaPB$RpbYokozunaSchemaGetResp/parseFrom x)))
+   (RiakYokozunaPB$RpbYokozunaSchemaGetResp/parseFrom x)))

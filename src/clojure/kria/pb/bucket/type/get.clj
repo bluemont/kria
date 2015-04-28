@@ -1,17 +1,17 @@
 (ns kria.pb.bucket.type.get
   (:require
-    [kria.conversions :refer [byte-string<-utf8-string]]
-    [kria.pb.bucket.props :refer [pb->BucketProps]]
-    [kria.pb.bucket.get :refer [bytes->GetBucketResp]])
+   [kria.conversions :refer [byte-string<-utf8-string]]
+   [kria.pb.bucket.props :refer [pb->BucketProps]]
+   [kria.pb.bucket.get :refer [bytes->GetBucketResp]])
   (:import
-    [com.basho.riak.protobuf
-     RiakPB$RpbGetBucketTypeReq
-     RiakPB$RpbGetBucketResp]))
+   [com.basho.riak.protobuf
+    RiakPB$RpbGetBucketTypeReq
+    RiakPB$RpbGetBucketResp]))
 
 (set! *warn-on-reflection* true)
 
 (defrecord GetBucketReq
-  [type]) ; required bytes
+           [type]) ; required bytes
 
 (defn ^RiakPB$RpbGetBucketTypeReq GetBucketTypeReq->pb
   [m]

@@ -1,43 +1,42 @@
 (ns kria.pb.bucket.props
   (:require
-    [kria.conversions :refer [utf8-string<-byte-string
-                              byte-string<-utf8-string]]
-    [kria.pb.commit-hook :refer [CommitHook->pb pb->CommitHook]]
-    [kria.pb.mod-fun :refer [ModFun->pb pb->ModFun]])
+   [kria.conversions :refer [utf8-string<-byte-string
+                             byte-string<-utf8-string]]
+   [kria.pb.commit-hook :refer [CommitHook->pb pb->CommitHook]]
+   [kria.pb.mod-fun :refer [ModFun->pb pb->ModFun]])
   (:import
-    [com.basho.riak.protobuf RiakPB$RpbBucketProps]))
+   [com.basho.riak.protobuf RiakPB$RpbBucketProps]))
 
 (set! *warn-on-reflection* true)
 
 (defrecord BucketProps
-  [
-   n-val           ; optional uint32
-   allow-mult      ; optional bool
-   last-write-wins ; optional bool
-   precommit       ; repeated RpbCommitHook
-   has-precommit   ; optional bool
-   postcommit      ; repeated RpbCommitHook
-   has-postcommit  ; optional bool
-   chash-keyfun    ; optional RpbModFun
-   linkfun         ; optional RpbModFun
-   old-vclock      ; optional uint32
-   young-vclock    ; optional uint32
-   big-vclock      ; optional uint32
-   small-vclock    ; optional uint32
-   pr              ; optional uint32
-   r               ; optional uint32
-   w               ; optional uint32
-   pw              ; optional uint32
-   dw              ; optional uint32
-   rw              ; optional uint32
-   basic-quorum    ; optional bool
-   not-found-ok    ; optional bool
-   backend         ; optional bytes
-   search          ; optional bool
-   repl            ; optional RpbReplMode
-   search-index    ; optional bytes
-   datatype        ; optional bytes
-   ])
+           [n-val           ; optional uint32
+            allow-mult      ; optional bool
+            last-write-wins ; optional bool
+            precommit       ; repeated RpbCommitHook
+            has-precommit   ; optional bool
+            postcommit      ; repeated RpbCommitHook
+            has-postcommit  ; optional bool
+            chash-keyfun    ; optional RpbModFun
+            linkfun         ; optional RpbModFun
+            old-vclock      ; optional uint32
+            young-vclock    ; optional uint32
+            big-vclock      ; optional uint32
+            small-vclock    ; optional uint32
+            pr              ; optional uint32
+            r               ; optional uint32
+            w               ; optional uint32
+            pw              ; optional uint32
+            dw              ; optional uint32
+            rw              ; optional uint32
+            basic-quorum    ; optional bool
+            not-found-ok    ; optional bool
+            backend         ; optional bytes
+            search          ; optional bool
+            repl            ; optional RpbReplMode
+            search-index    ; optional bytes
+            datatype        ; optional bytes
+            ])
 
 (defn ^RiakPB$RpbBucketProps BucketProps->pb
   [m]
@@ -99,29 +98,29 @@
 (defn pb->BucketProps
   [^RiakPB$RpbBucketProps pb]
   (->BucketProps
-    (.getNVal pb)
-    (.getAllowMult pb)
-    (.getLastWriteWins pb)
-    (mapv pb->CommitHook (.getPrecommitList pb))
-    (.getHasPrecommit pb)
-    (mapv pb->CommitHook (.getPostcommitList pb))
-    (.getHasPostcommit pb)
-    (pb->ModFun (.getChashKeyfun pb))
-    (pb->ModFun (.getLinkfun pb))
-    (.getOldVclock pb)
-    (.getYoungVclock pb)
-    (.getBigVclock pb)
-    (.getSmallVclock pb)
-    (.getPr pb)
-    (.getR pb)
-    (.getW pb)
-    (.getPw pb)
-    (.getDw pb)
-    (.getRw pb)
-    (.getBasicQuorum pb)
-    (.getNotfoundOk pb)
-    (some-> (.getBackend pb) utf8-string<-byte-string)
-    (.getSearch pb)
-    (.getRepl pb)
-    (some-> (.getSearchIndex pb) utf8-string<-byte-string)
-    (some-> (.getDatatype pb) utf8-string<-byte-string)))
+   (.getNVal pb)
+   (.getAllowMult pb)
+   (.getLastWriteWins pb)
+   (mapv pb->CommitHook (.getPrecommitList pb))
+   (.getHasPrecommit pb)
+   (mapv pb->CommitHook (.getPostcommitList pb))
+   (.getHasPostcommit pb)
+   (pb->ModFun (.getChashKeyfun pb))
+   (pb->ModFun (.getLinkfun pb))
+   (.getOldVclock pb)
+   (.getYoungVclock pb)
+   (.getBigVclock pb)
+   (.getSmallVclock pb)
+   (.getPr pb)
+   (.getR pb)
+   (.getW pb)
+   (.getPw pb)
+   (.getDw pb)
+   (.getRw pb)
+   (.getBasicQuorum pb)
+   (.getNotfoundOk pb)
+   (some-> (.getBackend pb) utf8-string<-byte-string)
+   (.getSearch pb)
+   (.getRepl pb)
+   (some-> (.getSearchIndex pb) utf8-string<-byte-string)
+   (some-> (.getDatatype pb) utf8-string<-byte-string)))

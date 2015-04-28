@@ -11,9 +11,9 @@
 (set! *warn-on-reflection* true)
 
 (defrecord RbpMapRedReq
-    [request      ; required bytes
-     content-type ; required bytes
-     ])
+           [request      ; required bytes
+            content-type ; required bytes
+            ])
 
 (defn ^RiakKvPB$RpbMapRedReq RbpMapRedReq->pb
   [m]
@@ -29,10 +29,10 @@
   (.toByteArray (RbpMapRedReq->pb m)))
 
 (defrecord RbpMapRedResp
-    [phase    ; optional uint32
-     response ; optional bytes
-     done     ; optional bool
-     ])
+           [phase    ; optional uint32
+            response ; optional bytes
+            done     ; optional bool
+            ])
 
 (defn ^RiakKvPB$RpbMapRedResp pb->RbpMapRedResp
   [^RiakKvPB$RpbMapRedResp pb]

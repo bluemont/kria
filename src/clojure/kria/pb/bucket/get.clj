@@ -1,17 +1,17 @@
 (ns kria.pb.bucket.get
   (:require
-    [kria.conversions :refer [byte-string<-utf8-string]]
-    [kria.pb.bucket.props :refer [pb->BucketProps]])
+   [kria.conversions :refer [byte-string<-utf8-string]]
+   [kria.pb.bucket.props :refer [pb->BucketProps]])
   (:import
-    [com.basho.riak.protobuf
-     RiakPB$RpbGetBucketReq
-     RiakPB$RpbGetBucketResp]))
+   [com.basho.riak.protobuf
+    RiakPB$RpbGetBucketReq
+    RiakPB$RpbGetBucketResp]))
 
 (set! *warn-on-reflection* true)
 
 (defrecord GetBucketReq
-  [bucket ; required bytes
-   type]) ; optional bytes
+           [bucket ; required bytes
+            type]) ; optional bytes
 
 (defn ^RiakPB$RpbGetBucketReq GetBucketReq->pb
   [m]
@@ -27,14 +27,14 @@
   (.toByteArray (GetBucketReq->pb m)))
 
 (defrecord GetBucketResp
-  [props]) ; required RpbBucketProps
+           [props]) ; required RpbBucketProps
 
 (defn pb->GetBucketResp
   [^RiakPB$RpbGetBucketResp pb]
   (->GetBucketResp
-    (pb->BucketProps (.getProps pb))))
+   (pb->BucketProps (.getProps pb))))
 
 (defn bytes->GetBucketResp
   [^bytes x]
   (pb->GetBucketResp
-    (RiakPB$RpbGetBucketResp/parseFrom x)))
+   (RiakPB$RpbGetBucketResp/parseFrom x)))

@@ -1,11 +1,11 @@
 (ns kria.core
   (:require
-    [kria.pb.error :refer [bytes->ErrorResp]])
+   [kria.pb.error :refer [bytes->ErrorResp]])
   (:import
-    [java.nio ByteBuffer]
-    [java.nio.channels AsynchronousSocketChannel CompletionHandler]
-    [com.basho.riak.protobuf RiakPB$RpbErrorResp]
-    [com.google.protobuf InvalidProtocolBufferException]))
+   [java.nio ByteBuffer]
+   [java.nio.channels AsynchronousSocketChannel CompletionHandler]
+   [com.basho.riak.protobuf RiakPB$RpbErrorResp]
+   [com.google.protobuf InvalidProtocolBufferException]))
 
 (set! *warn-on-reflection* true)
 
@@ -173,7 +173,7 @@
       (if (done-fn p)
         (stream-cb nil)
         (let [hcb (header-cb-fn
-                    exp-key true parser cb chunk-fn done-fn stream-cb)]
+                   exp-key true parser cb chunk-fn done-fn stream-cb)]
           (read-header asc hcb))))))
 
 (defn header-cb-fn

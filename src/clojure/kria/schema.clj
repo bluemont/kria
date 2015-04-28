@@ -1,10 +1,10 @@
 (ns kria.schema
   (:refer-clojure :exclude [get])
   (:require
-    [kria.conversions :refer [byte-string?]]
-    [kria.core :refer [call]]
-    [kria.pb.schema.get :refer [SchemaGetReq->bytes bytes->SchemaGetResp]]
-    [kria.pb.schema.put :refer [SchemaPutReq->bytes]]))
+   [kria.conversions :refer [byte-string?]]
+   [kria.core :refer [call]]
+   [kria.pb.schema.get :refer [SchemaGetReq->bytes bytes->SchemaGetResp]]
+   [kria.pb.schema.put :refer [SchemaPutReq->bytes]]))
 
 (set! *warn-on-reflection* true)
 

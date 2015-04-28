@@ -1,8 +1,8 @@
 (ns kria.conversions
   (:import
-    [java.nio ByteBuffer]
-    [java.nio.charset Charset]
-    [com.google.protobuf ByteString]))
+   [java.nio ByteBuffer]
+   [java.nio.charset Charset]
+   [com.google.protobuf ByteString]))
 
 (def ^:private ^:const byte-array-class
   (class (byte-array 0)))

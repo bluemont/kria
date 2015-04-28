@@ -1,11 +1,11 @@
 (ns kria.object
   (:refer-clojure :exclude [get])
   (:require
-    [kria.conversions :refer [byte-string?]]
-    [kria.core :refer [call]]
-    [kria.pb.object.delete :refer [DeleteReq->bytes]]
-    [kria.pb.object.get :refer [GetReq->bytes bytes->GetResp]]
-    [kria.pb.object.put :refer [PutReq->bytes bytes->PutResp]]))
+   [kria.conversions :refer [byte-string?]]
+   [kria.core :refer [call]]
+   [kria.pb.object.delete :refer [DeleteReq->bytes]]
+   [kria.pb.object.get :refer [GetReq->bytes bytes->GetResp]]
+   [kria.pb.object.put :refer [PutReq->bytes bytes->PutResp]]))
 
 (set! *warn-on-reflection* true)
 

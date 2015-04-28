@@ -1,27 +1,27 @@
 (ns kria.pb.object.get
   (:require
-    [kria.conversions :refer [byte-string<-utf8-string]]
-    [kria.pb.content :refer [pb->Content Content->pb]])
+   [kria.conversions :refer [byte-string<-utf8-string]]
+   [kria.pb.content :refer [pb->Content Content->pb]])
   (:import
-    [com.basho.riak.protobuf
-     RiakKvPB$RpbGetReq
-     RiakKvPB$RpbGetResp]))
+   [com.basho.riak.protobuf
+    RiakKvPB$RpbGetReq
+    RiakKvPB$RpbGetResp]))
 
 (defrecord GetReq
-  [bucket         ; required bytes
-   key            ; required bytes
-   r              ; optional uint32
-   pr             ; optional uint32
-   basic-quorum   ; optional bool
-   not-found-ok   ; optional bool
-   if-modified    ; optional bytes
-   head           ; optional bool
-   deleted-vclock ; optional bool
-   timeout        ; optional uint32
-   sloppy-quorum  ; optional bool
-   n-val          ; optional uint32
-   type           ; optional bytes
-   ])
+           [bucket         ; required bytes
+            key            ; required bytes
+            r              ; optional uint32
+            pr             ; optional uint32
+            basic-quorum   ; optional bool
+            not-found-ok   ; optional bool
+            if-modified    ; optional bytes
+            head           ; optional bool
+            deleted-vclock ; optional bool
+            timeout        ; optional uint32
+            sloppy-quorum  ; optional bool
+            n-val          ; optional uint32
+            type           ; optional bytes
+            ])
 
 (defn ^RiakKvPB$RpbGetReq GetReq->pb
   [m]
@@ -59,19 +59,19 @@
   (.toByteArray (GetReq->pb m)))
 
 (defrecord GetResp
-  [content   ; repeated RpbContent
-   vclock    ; optional bytes
-   unchanged ; optional bool
-   ])
+           [content   ; repeated RpbContent
+            vclock    ; optional bytes
+            unchanged ; optional bool
+            ])
 
 (defn pb->GetResp
   [^RiakKvPB$RpbGetResp pb]
   (->GetResp
-    (mapv pb->Content (.getContentList pb))
-    (.getVclock pb)
-    (.getUnchanged pb)))
+   (mapv pb->Content (.getContentList pb))
+   (.getVclock pb)
+   (.getUnchanged pb)))
 
 (defn bytes->GetResp
   [^bytes x]
   (pb->GetResp
-    (RiakKvPB$RpbGetResp/parseFrom x)))
+   (RiakKvPB$RpbGetResp/parseFrom x)))

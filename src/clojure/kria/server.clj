@@ -1,7 +1,7 @@
 (ns kria.server
   (:require
-    [kria.core :refer [call]]
-    [kria.pb.server.info :refer [bytes->InfoResp]]))
+   [kria.core :refer [call]]
+   [kria.pb.server.info :refer [bytes->InfoResp]]))
 
 (defn ping
   "Pings the server."
