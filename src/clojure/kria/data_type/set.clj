@@ -1,5 +1,5 @@
 (ns kria.data-type.set
-  (:refer-clojure :exclude [get])
+  (:refer-clojure :exclude [get update])
   (:require
    [kria.pb.dt.op :refer [DtOp->pb]]
    [kria.pb.dt.set :refer [SetOp->pb]]
