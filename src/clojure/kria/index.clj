@@ -3,9 +3,9 @@
   (:require
    [kria.conversions :refer [byte-string?]]
    [kria.core :refer [call]]
-   [kria.pb.index.delete :refer [IndexDeleteReq->bytes]]
-   [kria.pb.index.get :refer [IndexGetReq->bytes bytes->IndexGetResp]]
-   [kria.pb.index.put :refer [IndexPutReq->bytes]]))
+   [kria.pb.index.yz.delete :refer [IndexDeleteReq->bytes]]
+   [kria.pb.index.yz.get :refer [IndexGetReq->bytes bytes->IndexGetResp]]
+   [kria.pb.index.yz.put :refer [IndexPutReq->bytes]]))
 
 (set! *warn-on-reflection* true)
 
