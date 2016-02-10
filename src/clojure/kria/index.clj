@@ -5,7 +5,8 @@
    [kria.core :refer [call]]
    [kria.pb.index.yz.delete :refer [IndexDeleteReq->bytes]]
    [kria.pb.index.yz.get :refer [IndexGetReq->bytes bytes->IndexGetResp]]
-   [kria.pb.index.yz.put :refer [IndexPutReq->bytes]]))
+   [kria.pb.index.yz.put :refer [IndexPutReq->bytes]]
+   [kria.pb.index.secondary.get :refer [IndexReq->bytes bytes->IndexResp]]))
 
 (set! *warn-on-reflection* true)
 
@@ -32,3 +33,26 @@
   (call asc cb :yz-index-put-req :yz-index-put-resp
         IndexPutReq->bytes (fn [_] true)
         (assoc-in opts [:index :name] name)))
+
+
+;; Experimental 2i
+
+(defn get-2i
+  "Gets a secondary index"
+  ([asc b k v cb]
+   {:pre [(byte-string? b) (byte-string? k) (byte-string? v)]}
+   (call asc cb :index-req :index-resp
+         IndexReq->bytes bytes->IndexResp
+         {:bucket b
+          :index k
+          :key v
+          :qtype :eq}))
+  ([asc b k v1 v2 cb]
+   {:pre [(byte-string? b) (byte-string? k) (byte-string? v1) (byte-string? v2)]}
+   (call asc cb :index-req :index-resp
+         IndexReq->bytes bytes->IndexResp
+         {:bucket b
+          :index k
+          :range-min v1
+          :range-max v2
+          :qtype :range})))
