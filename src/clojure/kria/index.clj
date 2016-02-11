@@ -35,10 +35,8 @@
         (assoc-in opts [:index :name] name)))
 
 
-;; Experimental 2i
-
 (defn get-2i
-  "Gets a secondary index"
+  "Gets a secondary index by equality (first arity) or range (second arity)"
   ([asc b k v opts cb]
    {:pre [(byte-string? b) (byte-string? k) (byte-string? v) (map? opts)]}
    (call asc cb :index-req :index-resp
