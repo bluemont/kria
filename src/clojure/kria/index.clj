@@ -39,20 +39,22 @@
 
 (defn get-2i
   "Gets a secondary index"
-  ([asc b k v cb]
-   {:pre [(byte-string? b) (byte-string? k) (byte-string? v)]}
+  ([asc b k v opts cb]
+   {:pre [(byte-string? b) (byte-string? k) (byte-string? v) (map? opts)]}
    (call asc cb :index-req :index-resp
          IndexReq->bytes bytes->IndexResp
-         {:bucket b
-          :index k
-          :key v
-          :qtype :eq}))
-  ([asc b k v1 v2 cb]
-   {:pre [(byte-string? b) (byte-string? k) (byte-string? v1) (byte-string? v2)]}
+         (merge opts
+                {:bucket b
+                 :index k
+                 :key v
+                 :qtype :eq})))
+  ([asc b k v1 v2 opts cb]
+   {:pre [(byte-string? b) (byte-string? k) (byte-string? v1) (byte-string? v2) (map? opts)]}
    (call asc cb :index-req :index-resp
          IndexReq->bytes bytes->IndexResp
-         {:bucket b
-          :index k
-          :range-min v1
-          :range-max v2
-          :qtype :range})))
+         (merge opts
+                {:bucket b
+                 :index k
+                 :range-min v1
+                 :range-max v2
+                 :qtype :range}))))
