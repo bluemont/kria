@@ -2,7 +2,7 @@
   (:require
    [kria.conversions :refer [utf8-string<-byte-string
                              byte-string<-utf8-string]]
-   [kria.pb.pair :refer [pb->Pair]])
+   [kria.pb.pair :refer [pb->Pair Pair->pb]])
   (:import
    [com.basho.riak.protobuf
     RiakKvPB$RpbIndexReq
@@ -90,8 +90,8 @@
 (defn pb->IndexResp
   [^RiakKvPB$RpbIndexResp pb]
   (->IndexResp
-   (mapv utf8-string<-byte-string (.getKeys pb))
-   (mapv pb->Pair (.getResults pb))
+   (mapv utf8-string<-byte-string (.getKeysList pb))
+   (mapv pb->Pair (.getResultsList pb))
    (.getContinuation pb)
    (.getDone pb)))
 
