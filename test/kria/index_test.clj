@@ -38,23 +38,19 @@
         (o/put conn b k o-val {} (h/cb-fn put-p))
         @put-p)
 
-      (testing "get a value with an index"
-        (i/get-2i
-         conn
-         b
-         (conv/byte-string<-utf8-string "test_bin")
-         (conv/byte-string<-utf8-string "test-idx-val")
-         {}
-         (h/cb-fn get-p))
-        (let [[asc e a] @get-p
-              {:keys [keys]} a]
-          (if (get (System/getenv) "KRIA_TEST_2I")
-            (testing "index search returns the object (2i enabled)"
+      (when (get (System/getenv) "KRIA_TEST_2I")
+          (testing "get a value with an index"
+            (i/get-2i
+             conn
+             b
+             (conv/byte-string<-utf8-string "test_bin")
+             (conv/byte-string<-utf8-string "test-idx-val")
+             {}
+             (h/cb-fn get-p))
+            (let [[asc e a] @get-p
+                  {:keys [keys]} a]
               (is (= (count keys)
                      1))
-              (is (= (first keys) (conv/utf8-string<-byte-string k))))
-            (testing "index search returns nothing (2i disabled)"
-              (is (= (count keys)
-                     0))))))
+              (is (= (first keys) (conv/utf8-string<-byte-string k))))))
 
       (c/disconnect conn))))
