@@ -48,8 +48,13 @@
          (h/cb-fn get-p))
         (let [[asc e a] @get-p
               {:keys [keys]} a]
-          (is (= (count keys)
-                 1))
-          (is (= (first keys) (conv/utf8-string<-byte-string k)))))
+          (if (get (System/getenv) "KRIA_TEST_2I")
+            (testing "index search returns the object (2i enabled)"
+              (is (= (count keys)
+                     1))
+              (is (= (first keys) (conv/utf8-string<-byte-string k))))
+            (testing "index search returns nothing (2i disabled)"
+              (is (= (count keys)
+                     0))))))
 
       (c/disconnect conn))))
