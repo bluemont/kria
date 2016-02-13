@@ -1,6 +1,6 @@
-(ns kria.pb.index.put
+(ns kria.pb.index.yz.put
   (:require
-   [kria.pb.index.index :refer [Index->pb]])
+   [kria.pb.index.yz.index :refer [Index->pb]])
   (:import
    [com.basho.riak.protobuf
     RiakYokozunaPB$RpbYokozunaIndexPutReq]))
