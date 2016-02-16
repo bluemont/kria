@@ -1,8 +1,8 @@
-(ns kria.pb.index.get
+(ns kria.pb.index.yz.get
   (:require
    [kria.conversions :refer [utf8-string<-byte-string
                              byte-string<-utf8-string]]
-   [kria.pb.index.index :refer [pb->Index]])
+   [kria.pb.index.yz.index :refer [pb->Index]])
   (:import
    [com.basho.riak.protobuf
     RiakYokozunaPB$RpbYokozunaIndexGetReq

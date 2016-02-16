@@ -1,4 +1,4 @@
-(ns kria.pb.index.index
+(ns kria.pb.index.yz.index
   (:require
    [kria.conversions :refer [utf8-string<-byte-string
                              byte-string<-utf8-string]])

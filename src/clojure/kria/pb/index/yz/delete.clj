@@ -1,4 +1,4 @@
-(ns kria.pb.index.delete
+(ns kria.pb.index.yz.delete
   (:require
    [kria.conversions :refer [utf8-string<-byte-string
                              byte-string<-utf8-string]])

@@ -156,7 +156,10 @@ This section is intended for developers who want to run the included tests
 with `lein test`.
 
 1. Since the tests use Riak Search, please ensure that search
-   is enabled. Check that your `riak.conf` file has `search = on`.
+   is enabled. Check that your `riak.conf` file has `search = on`. If you
+   would like to test secondary indexes (2i), ensure that `storage_backend`
+   is set to `leveldb` or `memory`, ex. `storage_backend = leveldb`. Run tests
+   with `KRIA_TEST_2I=true` to test 2i.
 
 2. Also, run `test/riak-setup.sh` as root *once*, to create and activate the
    necessary bucket types.

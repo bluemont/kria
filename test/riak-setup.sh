@@ -14,6 +14,7 @@ setup_riak_bucket_type_counter () {
 setup () {
   setup_riak_bucket_type_counter
   setup_riak_bucket_type_set
+  echo 'If your storage backend supports secondary indexes, set KRIA_TEST_2I to true before testing.'
 }
 
 setup
