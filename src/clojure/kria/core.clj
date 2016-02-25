@@ -1,6 +1,7 @@
 (ns kria.core
   (:require
-   [kria.pb.error :refer [bytes->ErrorResp]])
+   [kria.pb.error :refer [bytes->ErrorResp]]
+   [kria.conversions :refer [utf8-string<-byte-string]])
   (:import
    [java.nio ByteBuffer]
    [java.nio.channels AsynchronousSocketChannel CompletionHandler]
@@ -157,7 +158,7 @@
   (fn [asc e a]
     (try
       (let [resp (bytes->ErrorResp a)
-            error {:message (:message resp) :code (:code resp)}]
+            error {:message (-> resp :errmsg utf8-string<-byte-string) :code (:errcode resp)}]
         (cb asc error nil))
       (catch InvalidProtocolBufferException e
         (cb asc e nil)))))
