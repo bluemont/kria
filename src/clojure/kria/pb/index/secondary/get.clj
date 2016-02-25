@@ -4,8 +4,7 @@
   (:import
    [com.basho.riak.protobuf
     RiakKvPB$RpbIndexReq
-    RiakKvPB$RpbIndexResp]
-   [flatland.protobuf PersistentProtocolBufferMap]))
+    RiakKvPB$RpbIndexResp]))
 
 (def IndexReq (pb/protodef RiakKvPB$RpbIndexReq))
 

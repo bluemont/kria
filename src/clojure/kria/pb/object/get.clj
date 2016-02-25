@@ -6,8 +6,7 @@
   (:import
    [com.basho.riak.protobuf
     RiakKvPB$RpbGetReq
-    RiakKvPB$RpbGetResp]
-   [flatland.protobuf PersistentProtocolBufferMap]))
+    RiakKvPB$RpbGetResp]))
 
 (def GetReq (pb/protodef RiakKvPB$RpbGetReq))
 
