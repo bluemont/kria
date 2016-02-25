@@ -36,7 +36,8 @@
 (defn rand-index
   []
   (->> (rand-int 100000000)
-       (format "I-%08d")))
+       (format "I-%08d")
+       byte-string<-utf8-string))
 
 (defn rand-schema
   []
@@ -65,7 +66,7 @@
 (defn get-index
   [conn idx]
   (let [p (promise)]
-    (index/get conn (byte-string<-utf8-string idx) (cb-fn p))
+    (index/get conn idx (cb-fn p))
     (let [[asc e a] @p]
       a)))
 
@@ -92,7 +93,7 @@
   [conn idx schema-name]
   (let [p (promise)]
     (index/put conn
-               (byte-string<-utf8-string idx)
+               idx
                {:index {:schema schema-name}}
                (cb-fn p))
     (let [[asc e a] @p]
@@ -102,7 +103,7 @@
   [conn b idx]
   (let [p (promise)
         opts {:props {:search true
-                      :search-index (byte-string<-utf8-string idx)}}]
+                      :search-index idx}}]
     (bucket/set conn b opts (cb-fn p))
     @p))
 
@@ -124,7 +125,7 @@
 
 (defn index-ready?
   [conn idx]
-  (p/poll #{(byte-string<-utf8-string idx)}
+  (p/poll #{idx}
           #(->> (get-index conn idx)
                 :index
                 (map :name)
@@ -136,6 +137,5 @@
   (p/poll idx
           #(->> (get-bucket conn b)
                 :props
-                :search-index
-                utf8-string<-byte-string)
+                :search-index)
           max-i i-delay))

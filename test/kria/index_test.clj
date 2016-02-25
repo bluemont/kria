@@ -15,11 +15,11 @@
           idx (h/rand-index)
           p1 (promise)
           p2 (promise)]
-      (i/put conn (conv/byte-string<-utf8-string idx) {} (h/cb-fn p1))
+      (i/put conn idx {} (h/cb-fn p1))
       (let [[asc e a] @p1]
         (is (nil? e))
         (is (true? a)))
-      (i/get conn (conv/byte-string<-utf8-string idx) (h/cb-fn p2))
+      (i/get conn idx (h/cb-fn p2))
       @p2
       (is (h/index-ready? conn idx))
       (c/disconnect conn))))

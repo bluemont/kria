@@ -36,7 +36,7 @@
     :max-score 1.0,
     :num-found 3}]"
   [asc idx q opts cb]
-  {:pre [(string? idx) (byte-string? q)]}
+  {:pre [(byte-string? idx) (byte-string? q)]}
   (call asc cb :search-query-req :search-query-resp
         SearchReq->bytes bytes->SearchResp
         (merge opts {:q q :index idx})))

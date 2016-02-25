@@ -13,7 +13,7 @@
 (defn delete
   "Stores or updates an index."
   [asc name cb]
-  {:pre [(string? name)]}
+  {:pre [(byte-string? name)]}
   (call asc cb :yz-index-delete-req :yz-index-delete-resp
         IndexDeleteReq->bytes (fn [_] true)
         {:name name}))
