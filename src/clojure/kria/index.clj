@@ -29,7 +29,7 @@
 (defn put
   "Stores or updates an index."
   [asc name opts cb]
-  {:pre [(string? name)]}
+  {:pre [(byte-string? name)]}
   (call asc cb :yz-index-put-req :yz-index-put-resp
         IndexPutReq->bytes (fn [_] true)
         (assoc-in opts [:index :name] name)))

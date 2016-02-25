@@ -39,7 +39,7 @@
           b (h/rand-bucket)
           idx (h/rand-index)]
       (let [p (promise)
-            _ (i/put conn idx {} (h/cb-fn p))
+            _ (i/put conn (byte-string<-utf8-string idx) {} (h/cb-fn p))
             [asc e a] @p]
         (is (nil? e))
         (is (true? a)))

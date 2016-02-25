@@ -89,7 +89,10 @@
 (defn setup-index
   [conn idx schema-name]
   (let [p (promise)]
-    (index/put conn idx {:index {:schema schema-name}} (cb-fn p))
+    (index/put conn
+               (byte-string<-utf8-string idx)
+               {:index {:schema (byte-string<-utf8-string schema-name)}}
+               (cb-fn p))
     (let [[asc e a] @p]
       a)))
 

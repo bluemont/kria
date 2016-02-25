@@ -15,7 +15,7 @@
           idx (h/rand-index)
           p1 (promise)
           p2 (promise)]
-      (i/put conn idx {} (h/cb-fn p1))
+      (i/put conn (conv/byte-string<-utf8-string idx) {} (h/cb-fn p1))
       (let [[asc e a] @p1]
         (is (nil? e))
         (is (true? a)))
