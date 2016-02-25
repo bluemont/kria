@@ -1,7 +1,6 @@
 (ns kria.pb.bucket.list-keys
   (:require
-   [kria.conversions :refer [utf8-string<-byte-string
-                             byte-string<-utf8-string]])
+   [flatland.protobuf.core :as pb])
   (:import
    [com.basho.riak.protobuf
     RiakKvPB$RpbListKeysReq
@@ -9,37 +8,18 @@
 
 (set! *warn-on-reflection* true)
 
-(defrecord ListKeysReq
-           [bucket  ; required bytes
-            timeout ; optional uint32
-            type])  ; optional bytes
-
-(defn ^RiakKvPB$RpbListKeysReq ListKeysReq->pb
-  [m]
-  (let [b (RiakKvPB$RpbListKeysReq/newBuilder)]
-    (let [x (:bucket m)]
-      (.setBucket b x))
-    (if-let [x (:timeout m)]
-      (.setTimeout b x))
-    (if-let [x (:type m)]
-      (.setType b (byte-string<-utf8-string x)))
-    (.build b)))
+(def ListKeysReq
+  (pb/protodef RiakKvPB$RpbListKeysReq))
 
 (defn ListKeysReq->bytes
   [m]
-  (.toByteArray (ListKeysReq->pb m)))
+  (pb/protobuf-dump
+   (pb/protobuf ListKeysReq
+                m)))
 
-(defrecord ListKeysResp
-           [keys   ; repeated bytes
-            done]) ; optional bool
-
-(defn pb->ListKeysResp
-  [^RiakKvPB$RpbListKeysResp pb]
-  (->ListKeysResp
-   (vec (.getKeysList pb))
-   (.getDone pb)))
+(def ListKeysResp
+  (pb/protodef RiakKvPB$RpbListKeysResp))
 
 (defn bytes->ListKeysResp
   [^bytes x]
-  (pb->ListKeysResp
-   (RiakKvPB$RpbListKeysResp/parseFrom x)))
+  (pb/protobuf-load ListKeysResp x))
