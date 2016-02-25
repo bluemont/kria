@@ -41,7 +41,8 @@
 (defn rand-schema
   []
   (->> (rand-int 100000000)
-       (format "S-%08d")))
+       (format "S-%08d")
+       byte-string<-utf8-string))
 
 (defn cb-fn
   [p]
@@ -77,7 +78,8 @@
 
 (defn slurp-schema
   []
-  (slurp "test/resources/schema_basic.xml"))
+  (byte-string<-utf8-string
+   (slurp "test/resources/schema_basic.xml")))
 
 (defn setup-schema
   [conn schema-name]
@@ -91,7 +93,7 @@
   (let [p (promise)]
     (index/put conn
                (byte-string<-utf8-string idx)
-               {:index {:schema (byte-string<-utf8-string schema-name)}}
+               {:index {:schema schema-name}}
                (cb-fn p))
     (let [[asc e a] @p]
       a)))
