@@ -1,8 +1,6 @@
 (ns kria.pb.map-reduce
   (:require
-   [kria.conversions
-    :refer [byte-string<-utf8-string
-            utf8-string<-byte-string]])
+   [flatland.protobuf.core :as pb])
   (:import
    [com.basho.riak.protobuf
     RiakKvPB$RpbMapRedReq
@@ -10,37 +8,20 @@
 
 (set! *warn-on-reflection* true)
 
-(defrecord RbpMapRedReq
-           [request      ; required bytes
-            content-type ; required bytes
-            ])
 
-(defn ^RiakKvPB$RpbMapRedReq RbpMapRedReq->pb
+
+(def MapRedReq
+  (pb/protodef RiakKvPB$RpbMapRedReq))
+
+(defn MapRedReq->bytes
   [m]
-  (let [b (RiakKvPB$RpbMapRedReq/newBuilder)]
-    (let [x (:request m)]
-      (.setRequest b x))
-    (let [x (:content-type m)]
-      (.setContentType b x))
-    (.build b)))
+  (pb/protobuf-dump
+   (pb/protobuf MapRedReq
+                m)))
 
-(defn RbpMapRedReq->bytes
-  [m]
-  (.toByteArray (RbpMapRedReq->pb m)))
+(def MapRedResp
+  (pb/protodef RiakKvPB$RpbMapRedResp))
 
-(defrecord RbpMapRedResp
-           [phase    ; optional uint32
-            response ; optional bytes
-            done     ; optional bool
-            ])
-
-(defn ^RiakKvPB$RpbMapRedResp pb->RbpMapRedResp
-  [^RiakKvPB$RpbMapRedResp pb]
-  (->RbpMapRedResp
-   (.getPhase pb)
-   (.getResponse pb)
-   (.getDone pb)))
-
-(defn bytes->RbpMapRedResp
+(defn bytes->MapRedResp
   [^bytes x]
-  (pb->RbpMapRedResp (RiakKvPB$RpbMapRedResp/parseFrom x)))
+  (pb/protobuf-load MapRedResp x))
