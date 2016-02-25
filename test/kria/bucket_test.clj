@@ -1,7 +1,8 @@
 (ns kria.bucket-test
   (:require [clojure.test :refer :all]
             [kria.test-helpers :as h]
-            [kria.conversions :refer [utf8-string<-byte-string]]
+            [kria.conversions :refer [utf8-string<-byte-string
+                                      byte-string<-utf8-string]]
             [kria.client :as c]
             [kria.object :as o]
             [kria.polling :as p]
@@ -44,7 +45,7 @@
         (is (true? a)))
       (h/index-ready? conn idx)
       (let [p (promise)
-            _ (b/set conn b {:props {:search-index idx}} (h/cb-fn p))
+            _ (b/set conn b {:props {:search-index (byte-string<-utf8-string idx)}} (h/cb-fn p))
             [asc e a] @p]
         (is (nil? e))
         (is (true? a)))

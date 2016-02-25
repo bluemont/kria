@@ -97,7 +97,7 @@
   [conn b idx]
   (let [p (promise)
         opts {:props {:search true
-                      :search-index idx}}]
+                      :search-index (byte-string<-utf8-string idx)}}]
     (bucket/set conn b opts (cb-fn p))
     @p))
 
