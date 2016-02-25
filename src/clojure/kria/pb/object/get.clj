@@ -1,8 +1,6 @@
 (ns kria.pb.object.get
   (:require
-   [flatland.protobuf.core :as pb]
-   [kria.conversions :refer [byte-string<-utf8-string]]
-   [kria.pb.content :refer [pb->Content Content->pb]])
+   [flatland.protobuf.core :as pb])
   (:import
    [com.basho.riak.protobuf
     RiakKvPB$RpbGetReq
