@@ -21,7 +21,7 @@
   {:pre [(byte-string? b) (string? jk) (string? jv)]}
   (let [k (h/rand-key)
         v {:value (byte-string<-utf8-string (json jk jv))
-           :content-type "application/json"}
+           :content-type (byte-string<-utf8-string "application/json")}
         p (promise)]
     (o/put conn b k v {} (h/cb-fn p))
     @p
