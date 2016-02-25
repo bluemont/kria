@@ -64,7 +64,7 @@
 (defn get-index
   [conn idx]
   (let [p (promise)]
-    (index/get conn idx (cb-fn p))
+    (index/get conn (byte-string<-utf8-string idx) (cb-fn p))
     (let [[asc e a] @p]
       a)))
 
@@ -119,7 +119,7 @@
 
 (defn index-ready?
   [conn idx]
-  (p/poll #{idx}
+  (p/poll #{(byte-string<-utf8-string idx)}
           #(->> (get-index conn idx)
                 :index
                 (map :name)

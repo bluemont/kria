@@ -21,7 +21,7 @@
 (defn get
   "Gets an index."
   [asc name cb]
-  {:pre [(string? name)]}
+  {:pre [(byte-string? name)]}
   (call asc cb :yz-index-get-req :yz-index-get-resp
         IndexGetReq->bytes bytes->IndexGetResp
         {:name name}))

@@ -1,8 +1,6 @@
 (ns kria.pb.index.yz.get
   (:require
-   [kria.conversions :refer [utf8-string<-byte-string
-                             byte-string<-utf8-string]]
-   [kria.pb.index.yz.index :refer [pb->Index]])
+   [flatland.protobuf.core :as pb])
   (:import
    [com.basho.riak.protobuf
     RiakYokozunaPB$RpbYokozunaIndexGetReq
@@ -10,31 +8,18 @@
 
 (set! *warn-on-reflection* true)
 
-(defrecord IndexGetReq
-           [name ; optional bytes
-            ])
-
-(defn ^RiakYokozunaPB$RpbYokozunaIndexGetReq IndexGetReq->pb
-  [m]
-  (let [b (RiakYokozunaPB$RpbYokozunaIndexGetReq/newBuilder)]
-    (if-let [x (:name m)]
-      (.setName b (byte-string<-utf8-string x)))
-    (.build b)))
+(def IndexGetReq
+  (pb/protodef RiakYokozunaPB$RpbYokozunaIndexGetReq))
 
 (defn IndexGetReq->bytes
   [m]
-  (.toByteArray (IndexGetReq->pb m)))
+  (pb/protobuf-dump
+   (pb/protobuf IndexGetReq
+                m)))
 
-(defrecord IndexGetResp
-           [index ; repeated RpbYokozunaIndex
-            ])
-
-(defn pb->IndexGetResp
-  [^RiakYokozunaPB$RpbYokozunaIndexGetResp pb]
-  (->IndexGetResp
-   (mapv pb->Index (.getIndexList pb))))
+(def IndexGetResp
+  (pb/protodef RiakYokozunaPB$RpbYokozunaIndexGetResp))
 
 (defn bytes->IndexGetResp
   [^bytes x]
-  (pb->IndexGetResp
-   (RiakYokozunaPB$RpbYokozunaIndexGetResp/parseFrom x)))
+  (pb/protobuf-load IndexGetResp x))

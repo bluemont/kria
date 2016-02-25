@@ -19,7 +19,7 @@
       (let [[asc e a] @p1]
         (is (nil? e))
         (is (true? a)))
-      (i/get conn idx (h/cb-fn p2))
+      (i/get conn (conv/byte-string<-utf8-string idx) (h/cb-fn p2))
       @p2
       (is (h/index-ready? conn idx))
       (c/disconnect conn))))
