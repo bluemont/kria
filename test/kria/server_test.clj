@@ -2,7 +2,8 @@
   (:require [clojure.test :refer :all]
             [kria.test-helpers :as h]
             [kria.client :as c]
-            [kria.server :as s]))
+            [kria.server :as s]
+            [kria.conversions :as conv]))
 
 (defn connect
   []
@@ -26,6 +27,10 @@
       (s/info conn (h/cb-fn p))
       (let [[asc e a] @p]
         (is (nil? e))
-        (is (= "riak@127.0.0.1" (:node a)))
-        (is (.startsWith ^String (:server-version a) "2.1")))
+        (is (= "riak@127.0.0.1" (-> a
+                                    :node
+                                    conv/utf8-string<-byte-string)))
+        (is (.startsWith ^String (-> a
+                                     :server-version
+                                     conv/utf8-string<-byte-string) "2.1")))
       (c/disconnect conn))))
