@@ -1,28 +1,22 @@
 (ns kria.pb.bucket.type.get
   (:require
-   [kria.conversions :refer [byte-string<-utf8-string]]
-   [kria.pb.bucket.props :refer [pb->BucketProps]]
+   [flatland.protobuf.core :as pb]
    [kria.pb.bucket.get :refer [bytes->GetBucketResp]])
   (:import
    [com.basho.riak.protobuf
-    RiakPB$RpbGetBucketTypeReq
-    RiakPB$RpbGetBucketResp]))
+    RiakPB$RpbGetBucketTypeReq]))
 
 (set! *warn-on-reflection* true)
 
-(defrecord GetBucketReq
-           [type]) ; required bytes
-
-(defn ^RiakPB$RpbGetBucketTypeReq GetBucketTypeReq->pb
-  [m]
-  (let [bt (RiakPB$RpbGetBucketTypeReq/newBuilder)]
-    (let [x (:type m)]
-      (.setType bt x))
-    (.build bt)))
+(def GetBucketTypeReq
+  (pb/protodef RiakPB$RpbGetBucketTypeReq))
 
 (defn GetBucketTypeReq->bytes
   [m]
-  (.toByteArray (GetBucketTypeReq->pb m)))
+  (pb/protobuf-dump
+   (pb/protobuf
+    GetBucketTypeReq
+    m)))
 
 (def bytes->GetBucketTypeResp
   bytes->GetBucketResp)
