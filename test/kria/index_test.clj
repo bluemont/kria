@@ -51,6 +51,6 @@
                   {:keys [keys]} a]
               (is (= (count keys)
                      1))
-              (is (= (first keys) (conv/utf8-string<-byte-string k))))))
+              (is (= (first keys) k)))))
 
       (c/disconnect conn))))
