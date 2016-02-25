@@ -1,5 +1,6 @@
 (ns kria.pb.object.put
   (:require
+   [flatland.protobuf.core :as pb]
    [kria.conversions :refer [byte-string<-utf8-string]]
    [kria.pb.content :refer [pb->Content Content->pb]])
   (:import
@@ -7,7 +8,9 @@
     RiakKvPB$RpbPutReq
     RiakKvPB$RpbPutResp]))
 
-(defrecord PutReq
+(def PutReq (pb/protodef RiakKvPB$RpbPutReq))
+
+#_(defrecord PutReq
            [bucket          ; required bytes
             key             ; optional bytes
             vclock          ; optional bytes
@@ -26,7 +29,13 @@
             type            ; optional bytes
             ])
 
-(defn ^RiakKvPB$RpbPutReq PutReq->pb
+(defn PutReq->bytes
+  [m]
+  (pb/protobuf-dump
+   (pb/protobuf PutReq
+                m)))
+
+#_(defn ^RiakKvPB$RpbPutReq PutReq->pb
   [m]
   (let [b (RiakKvPB$RpbPutReq/newBuilder)]
     (let [x (:bucket m)]
@@ -63,9 +72,21 @@
       (.setType b (byte-string<-utf8-string x)))
     (.build b)))
 
-(defn PutReq->bytes
+#_(defn PutReq->bytes
   [m]
   (.toByteArray (PutReq->pb m)))
+
+(comment
+(def PutResp
+  (pb/protodef
+   RiakKvPB$RpbPutResp))
+
+(defn bytes->PutResp
+  [^bytes x]
+  (pb/protobuf-load PutResp x))
+)
+
+;;
 
 (defrecord PutResp
            [contents ; repeated RpbContent
