@@ -9,16 +9,10 @@
 
 (def IndexReq (pb/protodef RiakKvPB$RpbIndexReq))
 
-
-
-(defn ^PersistentProtocolBufferMap IndexReq->pb
-  [m]
-  (pb/protobuf IndexReq
-               m))
-
 (defn IndexReq->bytes
   [m]
-  (pb/protobuf-dump (IndexReq->pb m)))
+  (pb/protobuf-dump (pb/protobuf IndexReq
+                                 m)))
 
 (def IndexResp
   (pb/protodef
