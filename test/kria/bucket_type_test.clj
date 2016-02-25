@@ -13,7 +13,7 @@
       (bt/get conn b (h/cb-fn p))
       (let [[asc e a] @p
             props (:props a)]
-        (is (= (:datatype props) ""))))))
+        (is (= (:datatype props) nil))))))
 
 (deftest get-invalid-type-test
   (testing "getting an invalid bucket type"

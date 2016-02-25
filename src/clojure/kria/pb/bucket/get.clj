@@ -1,7 +1,6 @@
 (ns kria.pb.bucket.get
   (:require
-   [kria.conversions :refer [byte-string<-utf8-string]]
-   [kria.pb.bucket.props :refer [pb->BucketProps]])
+   [flatland.protobuf.core :as pb])
   (:import
    [com.basho.riak.protobuf
     RiakPB$RpbGetBucketReq
@@ -9,32 +8,19 @@
 
 (set! *warn-on-reflection* true)
 
-(defrecord GetBucketReq
-           [bucket ; required bytes
-            type]) ; optional bytes
-
-(defn ^RiakPB$RpbGetBucketReq GetBucketReq->pb
-  [m]
-  (let [b (RiakPB$RpbGetBucketReq/newBuilder)]
-    (let [x (:bucket m)]
-      (.setBucket b x))
-    (if-let [x (:type m)]
-      (.setType b (byte-string<-utf8-string x)))
-    (.build b)))
+(def GetBucketReq
+  (pb/protodef RiakPB$RpbGetBucketReq))
 
 (defn GetBucketReq->bytes
   [m]
-  (.toByteArray (GetBucketReq->pb m)))
+  (pb/protobuf-dump
+   (pb/protobuf
+    GetBucketReq
+    m)))
 
-(defrecord GetBucketResp
-           [props]) ; required RpbBucketProps
-
-(defn pb->GetBucketResp
-  [^RiakPB$RpbGetBucketResp pb]
-  (->GetBucketResp
-   (pb->BucketProps (.getProps pb))))
+(def GetBucketResp
+  (pb/protodef RiakPB$RpbGetBucketResp))
 
 (defn bytes->GetBucketResp
   [^bytes x]
-  (pb->GetBucketResp
-   (RiakPB$RpbGetBucketResp/parseFrom x)))
+  (pb/protobuf-load GetBucketResp x))

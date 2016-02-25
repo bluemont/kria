@@ -2,7 +2,8 @@
   (:require
    [kria.bucket :as bucket]
    [kria.client :as client]
-   [kria.conversions :refer [byte-string<-utf8-string]]
+   [kria.conversions :refer [byte-string<-utf8-string
+                             utf8-string<-byte-string]]
    [kria.index :as index]
    [kria.polling :as p]
    [kria.schema :as schema]))
@@ -130,5 +131,6 @@
   (p/poll idx
           #(->> (get-bucket conn b)
                 :props
-                :search-index)
+                :search-index
+                utf8-string<-byte-string)
           max-i i-delay))

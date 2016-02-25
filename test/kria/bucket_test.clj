@@ -26,8 +26,8 @@
         (is (= (:dw props) -3))
         (is (= (:rw props) -3))
         (is (= (:basic-quorum props) false))
-        (is (= (:not-found-ok props) true))
-        (is (= (:search props) false))))))
+        (is (= (:notfound-ok props) true))
+        (is (= (:search props) nil)))))) ;; changes to nil with clj pb
 
 ; Note: As of 2014-07-22, I think this is the best style test I have written.
 ; It uses a let block for each promise, which improves clarity and keeps
@@ -52,7 +52,7 @@
             _ (b/get conn b (h/cb-fn p))
             [asc e a] @p]
         (is (nil? e))
-        (is (= idx (-> a :props :search-index))))
+        (is (= idx (-> a :props :search-index utf8-string<-byte-string))))
       (c/disconnect conn))))
 
 (defn put-object
