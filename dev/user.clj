@@ -37,3 +37,21 @@
   (if coll
     (swap! streaming concat coll)
     (deliver stream-result @streaming)))
+
+(comment
+  (let [conn-cb (defn conn-cb [asc e a] (println (if e e "connected")))
+      result-cb (fn [p]
+                  (fn [asc e a]
+                    (deliver p (or e a))))]
+  (time
+   (with-open [conn (client/connect "127.0.0.1" 8087 conn-cb)]
+     (let [result-p (promise)]
+       (object/put
+        conn
+        (conv/byte-string<-utf8-string "test-bucket")
+        (conv/byte-string<-utf8-string "key")
+        {:value (conv/byte-string<-utf8-string "val")}
+        {}
+        (result-cb result-p))
+       @result-p))))
+  )
