@@ -1,6 +1,6 @@
 (ns kria.core
   (:require
-   [kria.pb.error :refer [bytes->ErrorResp]]
+   [kria.pb.messages :refer [get-message-reader get-message-writer]]
    [kria.conversions :refer [utf8-string<-byte-string]])
   (:import
    [java.nio ByteBuffer]
@@ -9,6 +9,9 @@
    [com.google.protobuf InvalidProtocolBufferException]))
 
 (set! *warn-on-reflection* true)
+
+(def bytes->ErrorResp
+  (get-message-reader :error-resp))
 
 (def ^:const message-codes
   {:error-resp 0
@@ -226,6 +229,7 @@
       [e a]
       (cb asc e nil))))
 
+
 (defn call
   "A template function to call API via the protobuf interface.
 
@@ -242,12 +246,15 @@
   * done-fn : a predicate function that tests completion
   * stream-cb : a streaming callback function"
   [^AsynchronousSocketChannel asc cb req-key resp-key
-   req-map->bytes bytes->resp-map req-map
+   _ _ ;; req-map->bytes bytes->resp-map
+   req-map
    & [multi-resp? chunk-fn done-fn stream-cb]]
   {:pre [(fn? cb) (keyword? req-key) (keyword? resp-key)
-         (fn? req-map->bytes) (fn? bytes->resp-map)
+         ;; (fn? req-map->bytes) (fn? bytes->resp-map)
          (map? req-map)]}
-  (let [payload (req-map->bytes req-map)
+  (let [req-map->bytes (get-message-writer req-key)
+        bytes->resp-map (get-message-reader resp-key)
+        payload (req-map->bytes req-map)
         message (payload-message req-key payload)
         parser (parse-fn bytes->resp-map cb)
         header-cb (header-cb-fn resp-key multi-resp? parser cb
