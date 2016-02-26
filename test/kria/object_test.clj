@@ -16,9 +16,7 @@
       (o/put conn b k v {} (h/cb-fn p))
       (let [[asc e a] @p]
         (is (nil? e))
-        (is (zero? (count (:content a))))
-        (is (zero? (.size ^ByteString (:vclock a))))
-        (is (zero? (.size ^ByteString (:key a)))))
+        (is (= {} a)))
       (let [p (promise)]
         (o/get conn b k {} (h/cb-fn p))
         (let [[asc e a] @p]
@@ -37,9 +35,7 @@
       (o/put conn b k v {} (h/cb-fn p))
       (let [[asc e a] @p]
         (is (nil? e))
-        (is (zero? (count (:content a))))
-        (is (zero? (.size ^ByteString (:vclock a))))
-        (is (zero? (.size ^ByteString (:key a)))))
+        (is (= {} a)))
       (let [p (promise)]
         (o/get conn b k {} (h/cb-fn p))
         (let [[asc e a] @p]
@@ -110,9 +106,7 @@
       (o/put conn b k v {} (h/cb-fn p1))
       (let [[asc e a] @p1]
         (is (nil? e))
-        (is (zero? (count (:content a))))
-        (is (zero? (.size ^ByteString (:vclock a))))
-        (is (zero? (.size ^ByteString (:key a)))))
+        (is (= {} a)))
       (o/delete conn b k {} (h/cb-fn p2))
       (let [[asc e a] @p2]
         (is (nil? e))
