@@ -246,11 +246,9 @@
   * done-fn : a predicate function that tests completion
   * stream-cb : a streaming callback function"
   [^AsynchronousSocketChannel asc cb req-key resp-key
-   _ _ ;; req-map->bytes bytes->resp-map
    req-map
    & [multi-resp? chunk-fn done-fn stream-cb]]
   {:pre [(fn? cb) (keyword? req-key) (keyword? resp-key)
-         ;; (fn? req-map->bytes) (fn? bytes->resp-map)
          (map? req-map)]}
   (let [req-map->bytes (get-message-writer req-key)
         bytes->resp-map (get-message-reader resp-key)

@@ -2,9 +2,7 @@
   (:refer-clojure :exclude [get])
   (:require
    [kria.conversions :refer [byte-string?]]
-   [kria.core :refer [call]]
-   [kria.pb.schema.get :refer [SchemaGetReq->bytes bytes->SchemaGetResp]]
-   [kria.pb.schema.put :refer [SchemaPutReq->bytes]]))
+   [kria.core :refer [call]]))
 
 (set! *warn-on-reflection* true)
 
@@ -13,7 +11,6 @@
   [asc name cb]
   {:pre [(byte-string? name)]}
   (call asc cb :yz-schema-get-req :yz-schema-get-resp
-        SchemaGetReq->bytes bytes->SchemaGetResp
         {:name name}))
 
 (defn put
@@ -21,5 +18,4 @@
   [asc name content cb]
   {:pre [(byte-string? name) (byte-string? content)]}
   (call asc cb :yz-schema-put-req :yz-schema-put-resp
-        SchemaPutReq->bytes (fn [_] true)
         {:schema {:name name :content content}}))

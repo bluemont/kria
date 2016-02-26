@@ -2,11 +2,7 @@
   (:refer-clojure :exclude [get])
   (:require
    [kria.conversions :refer [byte-string?]]
-   [kria.core :refer [call]]
-   [kria.pb.index.yz.delete :refer [IndexDeleteReq->bytes]]
-   [kria.pb.index.yz.get :refer [IndexGetReq->bytes bytes->IndexGetResp]]
-   [kria.pb.index.yz.put :refer [IndexPutReq->bytes]]
-   [kria.pb.index.secondary.get :refer [IndexReq->bytes bytes->IndexResp]]))
+   [kria.core :refer [call]]))
 
 (set! *warn-on-reflection* true)
 
@@ -15,7 +11,6 @@
   [asc name cb]
   {:pre [(byte-string? name)]}
   (call asc cb :yz-index-delete-req :yz-index-delete-resp
-        IndexDeleteReq->bytes (fn [_] true)
         {:name name}))
 
 (defn get
@@ -23,7 +18,6 @@
   [asc name cb]
   {:pre [(byte-string? name)]}
   (call asc cb :yz-index-get-req :yz-index-get-resp
-        IndexGetReq->bytes bytes->IndexGetResp
         {:name name}))
 
 (defn put
@@ -31,7 +25,6 @@
   [asc name opts cb]
   {:pre [(byte-string? name)]}
   (call asc cb :yz-index-put-req :yz-index-put-resp
-        IndexPutReq->bytes (fn [_] true)
         (assoc-in opts [:index :name] name)))
 
 
@@ -40,7 +33,6 @@
   ([asc b k v opts cb]
    {:pre [(byte-string? b) (byte-string? k) (byte-string? v) (map? opts)]}
    (call asc cb :index-req :index-resp
-         IndexReq->bytes bytes->IndexResp
          (merge opts
                 {:bucket b
                  :index k
@@ -49,7 +41,6 @@
   ([asc b k v1 v2 opts cb]
    {:pre [(byte-string? b) (byte-string? k) (byte-string? v1) (byte-string? v2) (map? opts)]}
    (call asc cb :index-req :index-resp
-         IndexReq->bytes bytes->IndexResp
          (merge opts
                 {:bucket b
                  :index k
