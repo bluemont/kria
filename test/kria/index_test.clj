@@ -5,7 +5,6 @@
    [kria.client :as c]
    [kria.index :as i]
    [kria.object :as o]
-   [kria.pb.pair :refer [Pair->pb]]
    [kria.conversions :as conv]
    ))
 
