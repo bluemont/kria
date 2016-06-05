@@ -29,7 +29,7 @@ thousands.
 
 Add this to your `project.clj`:
 
-    [kria "0.1.15"]
+    [kria "0.1.17"]
 
 For the following examples, I recommend using these namespace aliases:
 
