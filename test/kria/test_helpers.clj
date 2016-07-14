@@ -2,7 +2,8 @@
   (:require
    [kria.bucket :as bucket]
    [kria.client :as client]
-   [kria.conversions :refer [byte-string<-utf8-string]]
+   [kria.conversions :refer [byte-string<-utf8-string
+                             utf8-string<-byte-string]]
    [kria.index :as index]
    [kria.polling :as p]
    [kria.schema :as schema]))
@@ -35,12 +36,14 @@
 (defn rand-index
   []
   (->> (rand-int 100000000)
-       (format "I-%08d")))
+       (format "I-%08d")
+       byte-string<-utf8-string))
 
 (defn rand-schema
   []
   (->> (rand-int 100000000)
-       (format "S-%08d")))
+       (format "S-%08d")
+       byte-string<-utf8-string))
 
 (defn cb-fn
   [p]
@@ -76,7 +79,8 @@
 
 (defn slurp-schema
   []
-  (slurp "test/resources/schema_basic.xml"))
+  (byte-string<-utf8-string
+   (slurp "test/resources/schema_basic.xml")))
 
 (defn setup-schema
   [conn schema-name]
@@ -88,7 +92,10 @@
 (defn setup-index
   [conn idx schema-name]
   (let [p (promise)]
-    (index/put conn idx {:index {:schema schema-name}} (cb-fn p))
+    (index/put conn
+               idx
+               {:index {:schema schema-name}}
+               (cb-fn p))
     (let [[asc e a] @p]
       a)))
 

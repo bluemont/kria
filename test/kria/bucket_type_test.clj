@@ -13,7 +13,7 @@
       (bt/get conn b (h/cb-fn p))
       (let [[asc e a] @p
             props (:props a)]
-        (is (= (:datatype props) ""))))))
+        (is (= (:datatype props) nil))))))
 
 (deftest get-invalid-type-test
   (testing "getting an invalid bucket type"
@@ -30,7 +30,7 @@
     (let [conn (h/connect)
           b (byte-string<-utf8-string "inactive_bucket_type")
           p (promise)]
-      (bt/set conn b {:props {:datatype "set"}}
+      (bt/set conn b {:props {:datatype (byte-string<-utf8-string "set")}}
               (h/cb-fn p))
       (let [[asc e a] @p]
         (is (= (:message e)

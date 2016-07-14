@@ -5,7 +5,6 @@
    [kria.client :as c]
    [kria.index :as i]
    [kria.object :as o]
-   [kria.pb.pair :refer [Pair->pb]]
    [kria.conversions :as conv]
    ))
 
@@ -30,7 +29,13 @@
           b (h/rand-bucket)
 
           k (h/rand-key)
-          o-val (assoc (h/rand-value) :indexes [{:key "test_bin" :value "test-idx-val"}])
+
+          i-key (conv/byte-string<-utf8-string "test_bin")
+
+          i-val (conv/byte-string<-utf8-string "test-idx-val")
+
+          o-val (assoc (h/rand-value) :indexes [{:key i-key
+                                                 :value i-val}])
 
           put-p (promise)
           get-p (promise)]
@@ -43,14 +48,14 @@
             (i/get-2i
              conn
              b
-             (conv/byte-string<-utf8-string "test_bin")
-             (conv/byte-string<-utf8-string "test-idx-val")
+             i-key
+             i-val
              {}
              (h/cb-fn get-p))
             (let [[asc e a] @get-p
                   {:keys [keys]} a]
               (is (= (count keys)
                      1))
-              (is (= (first keys) (conv/utf8-string<-byte-string k))))))
+              (is (= (first keys) k)))))
 
       (c/disconnect conn))))

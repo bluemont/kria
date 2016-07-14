@@ -1,7 +1,8 @@
 (ns kria.bucket-test
   (:require [clojure.test :refer :all]
             [kria.test-helpers :as h]
-            [kria.conversions :refer [utf8-string<-byte-string]]
+            [kria.conversions :refer [utf8-string<-byte-string
+                                      byte-string<-utf8-string]]
             [kria.client :as c]
             [kria.object :as o]
             [kria.polling :as p]
@@ -26,8 +27,8 @@
         (is (= (:dw props) -3))
         (is (= (:rw props) -3))
         (is (= (:basic-quorum props) false))
-        (is (= (:not-found-ok props) true))
-        (is (= (:search props) false))))))
+        (is (= (:notfound-ok props) true))
+        (is (= (:search props) nil)))))) ;; changes to nil with clj pb
 
 ; Note: As of 2014-07-22, I think this is the best style test I have written.
 ; It uses a let block for each promise, which improves clarity and keeps

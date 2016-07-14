@@ -2,10 +2,7 @@
   (:refer-clojure :exclude [get])
   (:require
    [kria.conversions :refer [byte-string?]]
-   [kria.core :refer [call]]
-   [kria.pb.object.delete :refer [DeleteReq->bytes]]
-   [kria.pb.object.get :refer [GetReq->bytes bytes->GetResp]]
-   [kria.pb.object.put :refer [PutReq->bytes bytes->PutResp]]))
+   [kria.core :refer [call]]))
 
 (set! *warn-on-reflection* true)
 
@@ -14,7 +11,6 @@
   [asc b k opts cb]
   {:pre [(byte-string? b) (byte-string? k)]}
   (call asc cb :del-req :del-resp
-        DeleteReq->bytes (fn [_] true)
         (merge opts {:bucket b :key k})))
 
 (defn get
@@ -22,7 +18,6 @@
   [asc b k opts cb]
   {:pre [(byte-string? b) (byte-string? k)]}
   (call asc cb :get-req :get-resp
-        GetReq->bytes bytes->GetResp
         (merge opts {:bucket b :key k})))
 
 (defn put
@@ -30,5 +25,4 @@
   [asc b k v opts cb]
   {:pre [(byte-string? b) (byte-string? k) (map? v)]}
   (call asc cb :put-req :put-resp
-        PutReq->bytes bytes->PutResp
         (merge opts {:bucket b :key k :content v})))

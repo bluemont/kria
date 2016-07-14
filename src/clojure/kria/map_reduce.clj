@@ -1,8 +1,7 @@
 (ns kria.map-reduce
   (:require
    [kria.conversions :refer [byte-string? byte-string<-utf8-string]]
-   [kria.core :refer [call]]
-   [kria.pb.map-reduce :refer [RbpMapRedReq->bytes bytes->RbpMapRedResp]]))
+   [kria.core :refer [call]]))
 
 (set! *warn-on-reflection* true)
 
@@ -11,7 +10,6 @@
   [asc request cb stream-cb]
   {:pre [(byte-string? request)]}
   (call asc cb :map-red-req :map-red-resp
-        RbpMapRedReq->bytes bytes->RbpMapRedResp
         {:request request
          :content-type (byte-string<-utf8-string "application/json")}
         true :response :done stream-cb))

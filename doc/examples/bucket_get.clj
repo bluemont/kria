@@ -4,7 +4,8 @@
 (bucket/get conn b result-cb)
 (pprint @result)
 
-(-> @result
+(some-> @result
     :props
     :search-index
-    conv/utf8-string<-byte-string)
+    conv/utf8-string<-byte-string
+    )

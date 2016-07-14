@@ -21,7 +21,7 @@
   {:pre [(byte-string? b) (string? jk) (string? jv)]}
   (let [k (h/rand-key)
         v {:value (byte-string<-utf8-string (json jk jv))
-           :content-type "application/json"}
+           :content-type (byte-string<-utf8-string "application/json")}
         p (promise)]
     (o/put conn b k v {} (h/cb-fn p))
     @p
@@ -64,7 +64,12 @@
           (let [docs (:docs (search))
                 ms (for [fields (map :fields docs)]
                      (->> fields
-                          (map (fn [x] {(:key x) (:value x)}))
+                          (map (fn [x] {(-> x
+                                           :key
+                                           utf8-string<-byte-string)
+                                       (-> x
+                                           :value
+                                           utf8-string<-byte-string)}))
                           (apply merge)))
                 yz_rb (set (map #(get % "_yz_rb") ms))
                 yz_rk (set (map #(get % "_yz_rk") ms))]
@@ -80,7 +85,12 @@
           (let [docs (:docs a)
                 ms (for [fields (map :fields docs)]
                      (->> fields
-                          (map (fn [x] {(:key x) (:value x)}))
+                          (map (fn [x] {(-> x
+                                           :key
+                                           utf8-string<-byte-string)
+                                       (-> x
+                                           :value
+                                           utf8-string<-byte-string)}))
                           (apply merge)))
                 yz_rb (set (map #(get % "_yz_rb") ms))
                 yz_rk (set (map #(get % "_yz_rk") ms))]

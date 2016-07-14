@@ -3,6 +3,6 @@
 (def b (conv/byte-string<-utf8-string "b1"))
 (def opts {:props
            {:search true
-            :search-index "I123"}})
+            :search-index (conv/byte-string<-utf8-string "I123")}})
 (bucket/set conn b opts result-cb)
 (pprint @result)
